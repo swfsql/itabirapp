@@ -4,11 +4,12 @@
     <title>[[.HeadTitle]]</title>
     <meta charset='UTF-8'>
 
-    <link rel="stylesheet" href="/static/css/bootstrap.min">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/template.css">
-    <link rel="stylesheet" href="/static/css/bootstrap-theme.min">
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
 
-    <script type="text/javascript" src="/static/js/bootstrap.min"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
     <script src='/static/js/jquery.min.js'></script>
 
     [[range .HeadStyles]]
@@ -29,8 +30,9 @@
 
     [[.LayoutContent]]
 
- 	<footer>
+    <footer class="footer">
+        
       [[ template "footer.html" . ]]
-    </footer> 
+    </footer>
 </body>
 </html>

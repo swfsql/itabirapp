@@ -1,0 +1,18 @@
+input {
+  font-family: "FontAwesome", "Roboto", Arial; }
+
+html {
+  position: relative;
+  min-height: 100%; }
+
+body {
+  font-family: "Roboto", Arial;
+  margin-bottom: 160px; }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 160px; }
+
+/*# sourceMappingURL=template.css.map */

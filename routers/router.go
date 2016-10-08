@@ -26,6 +26,6 @@ func init() {
 	//beego.Router("/documento/adicionar", &controllers.DocumentController{}, "get:Login;post:Post")
 	//beego.Router("/documento/:id/remover", &controllers.DocumentController{}, "get:Login;post:Post")
 
-	//beego.Router("/login", &controllers.LoginController{}, "get:Login;post:Post")
-	//beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
+	beego.Router("/login", &controllers.LoginController{}, "get:Login;post:LoginPost")
+	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 }

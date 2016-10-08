@@ -5,14 +5,14 @@ import (
 	"fmt"
 
 	//"github.com/astaxie/beego/orm"
-	"github.com/swfsql/estagio/models"
+	"github.com/swfsql/itabirapp/models"
 )
 
 // ERRS
 var (
 	st_ok                   string = "ok"
 	st_err_usuario_inexiste string = "err_usuario_inexiste"
-	st_err_senha_invalida   string = "err_senha_invalida"
+	st_err_password_invalida   string = "err_password_invalida"
 )
 
 type LoginController struct {
@@ -30,7 +30,7 @@ func (this *LoginController) Login() {
 func (this *LoginController) LoginPost() {
 	dado := struct {
 		Email string
-		Senha string
+		Password string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -43,15 +43,15 @@ func (this *LoginController) LoginPost() {
 
 	fmt.Println(dado)
 
-	//md5senha := md5.New()
-	//io.WriteString(md5senha, dado.Senha)
+	//md5.Password := md5.New()
+	//io.WriteString(md5Password, dado.Password)
 	//buffer := bytes.NewBuffer(nil)
-	//fmt.Fprintf(buffer, "%x", md5senha.Sum(nil))
-	//dado.Senha = buffer.String()
+	//fmt.Fprintf(buffer, "%x", md5Password.Sum(nil))
+	//dado.Password = buffer.String()
 
 	status := struct{ Status string }{""}
 
-	user, err_user := models.GetContaByEmail(dado.Email)
+	user, err_user := models.GetUserByEmail(dado.Email)
 	//o := orm.NewOrm()
 	//o.QueryTable("conta").Filter("Usuario", dado.Email).RelatedSel().One(&conta)
 
@@ -64,9 +64,9 @@ func (this *LoginController) LoginPost() {
 
 	fmt.Println(user)
 
-	if dado.Senha != user.Senha {
-		fmt.Printf("%s nao bate com %s!\n", dado.Senha, user.Senha)
-		status.Status = st_err_senha_invalida
+	if dado.Password != user.Password {
+		fmt.Printf("%s nao bate com %s!\n", dado.Password, user.Password)
+		status.Status = st_err_password_invalida
 		this.Data["json"] = status
 		this.ServeJSON()
 		return
