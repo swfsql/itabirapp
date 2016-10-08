@@ -9,10 +9,10 @@ import (
 
 
 type Document struct {
-	Id uint16 // 
+	Id int // 
 	User *User `orm:"rel(fk)"`
 	Name string //
-	File []byte // (pdf, img, etc)
+	File []byte `orm:"-"`// (pdf, img, etc)
 }
 
 

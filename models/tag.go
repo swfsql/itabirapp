@@ -9,7 +9,7 @@ import (
 
 
 type Tag struct {
-	Id uint16 // 
+	Id int // 
 	Post *Post `orm:"rel(fk)"`
 	Name string  //
 }

@@ -9,7 +9,7 @@ import (
 
 
 type User struct {
-	Id uint16 // 
+	Id int // 
 	User_Type string // [poster, moderator]
 	User_Privilege uint8 `orm:"-"` // [low, high]
 	Name string  //

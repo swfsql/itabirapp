@@ -9,12 +9,12 @@ import (
 
 
 type Post struct {
-	Id uint16 // 
+	Id int // 
 	User *User `orm:"rel(fk)"`
 	Title string  //
 	Subtitle string  //
 	Text string  //
-	Thumbnail []byte `orm:"null"` // (imagem)
+	Thumbnail []byte `orm:"-"` // (imagem)
 }
 
 
