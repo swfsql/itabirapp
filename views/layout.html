@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>[[.HeadTitle]]</title>
+    <meta charset='UTF-8'>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min">
+    <link rel="stylesheet" href="/static/css/template.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-theme.min">
+
+    <script type="text/javascript" src="/static/js/bootstrap.min"></script>
+    <script src='/static/js/jquery.min.js'></script>
+
+    [[range .HeadStyles]]
+        <link rel="stylesheet" href="/static/css/[[.]]">
+    [[end]]
+
+    [[range .HeadScripts]]
+        <script src="/static/js/[[.]]"></script>
+    [[end]]
+
+</head>
+
+
+<body>
+ 	<header>
+      [[ template "header.html" . ]]
+    </header>
+
+    [[.LayoutContent]]
+
+ 	<footer>
+      [[ template "footer.html" . ]]
+    </footer> 
+</body>
+</html>

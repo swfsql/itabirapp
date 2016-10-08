@@ -1,0 +1,21 @@
+<div class='login container' ng-controller='LoginCtrl'>
+  <div class='login-triangle'>
+  </div>
+  <h2 class='login-header'>Log in</h2>
+  <form class='login-container' ng-submit='Entrar()'>
+    <p><input type='text' placeholder='Email' ng-model='emailText'></p>
+    <p><input type='password' placeholder='Senha' ng-model='senhaText'></p>
+    <p><input type='submit' id='submit' value='Entrar' ng-disabled='working'></p>
+  </form>
+</div>
+
+<div class='login container' ng-controller='LoginCtrl'>
+<form class="form-inline" action="#" method="post">
+        <div class="input-group">
+          <input class="form-control" type="email" placeholder="&#xf003; Email"/>
+        </div>
+        <div class="input-group">
+          <input class="form-control" type="password" placeholder="&#xf084; Senha" />
+        </div>
+        <button type="submit" class="btn btn-default">Entrar na conta</button>
+    </form>

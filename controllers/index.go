@@ -2,7 +2,6 @@ package controllers
 
 import (
 	_ "fmt"
-	_ "github.com/swfsql/itabirapp/models"
 	_ "strconv"
 	"github.com/astaxie/beego"
 )

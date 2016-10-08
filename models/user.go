@@ -4,7 +4,7 @@ import (
 	_ "errors"
 	_ "fmt"
 	//"reflect"
-	_ "github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 )
 
 
@@ -29,3 +29,12 @@ type User struct {
 }
 
 
+func GetUserByEmail(email string) (user User, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+	err = qs.Filter("Email", email).RelatedSel().One(&user)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
