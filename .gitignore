@@ -3,6 +3,7 @@
 *.a
 *.so
 itabirapp.exe*
+*.exe
 
 # Folders
 _obj
