@@ -28,6 +28,7 @@ func (this *LoginController) Login() {
 }
 
 func (this *LoginController) LoginPost() {
+	fmt.Println("print 1")
 	dado := struct {
 		Email string
 		Password string
@@ -40,8 +41,7 @@ func (this *LoginController) LoginPost() {
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
 	}
-
-	fmt.Println(dado)
+	//fmt.Println(dado)
 
 	//md5.Password := md5.New()
 	//io.WriteString(md5Password, dado.Password)
@@ -50,19 +50,20 @@ func (this *LoginController) LoginPost() {
 	//dado.Password = buffer.String()
 
 	status := struct{ Status string }{""}
-
 	user, err_user := models.GetUserByEmail(dado.Email)
 	//o := orm.NewOrm()
 	//o.QueryTable("conta").Filter("Usuario", dado.Email).RelatedSel().One(&conta)
-
+	fmt.Println("print 3.5")
 	if err_user == models.ErrNoRows {
+
 		status.Status = st_err_usuario_inexiste
 		this.Data["json"] = status
+		fmt.Println("print 3.thicusao")
 		this.ServeJSON()
 		return
 	}
 
-	fmt.Println(user)
+	//fmt.Println(user)
 
 	if dado.Password != user.Password {
 		fmt.Printf("%s nao bate com %s!\n", dado.Password, user.Password)
@@ -71,7 +72,7 @@ func (this *LoginController) LoginPost() {
 		this.ServeJSON()
 		return
 	}
-
+	fmt.Println("print 4")
 	sess := this.StartSession()
 	sess.Set("user", user)
 	fmt.Printf("sessao iniciada")

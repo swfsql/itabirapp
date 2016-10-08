@@ -3,13 +3,18 @@ package controllers
 import (
 	_ "fmt"
 	_ "strconv"
-	"github.com/astaxie/beego"
 )
 
+
+
 type IndexController struct {
-	beego.Controller
+	BaseController
 }
 
 func (this *IndexController) Get() {
-
+	this.TplName = "index.html"
+	this.Data["HeadTitle"] = "itabirApp"
+	this.Data["HeadStyles"] = []string{}
+    this.Data["HeadScripts"] = []string{}
+	this.Render()
 }

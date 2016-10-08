@@ -15,7 +15,7 @@ type User struct {
 	Name string  //
 	NameTag string // (normalized name)
 	NameIdTag string `orm:"unique"` // (normalized name_id)
-	Email string // 
+	Email string `orm:"unique"`// 
 	Password string // 
 	//
 	Institution_Tag string `orm:"null"` // [republica, professor, ...]
@@ -33,6 +33,16 @@ func GetUserByEmail(email string) (user User, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("user")
 	err = qs.Filter("Email", email).RelatedSel().One(&user)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
+
+func CountNameTag(nametag string) (quantity int64, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+	quantity, err = qs.Filter("NameTag", nametag).Count()
 	if err == orm.ErrNoRows {
 		err = ErrNoRows
 	}

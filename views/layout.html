@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html >
 <head>
     <title>[[.HeadTitle]]</title>
     <meta charset='UTF-8'>
@@ -12,6 +12,7 @@
 
     <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/angular.min.js"></script>
 
     [[range .HeadStyles]]
         <link rel="stylesheet" href="/static/css/[[.]]">
@@ -19,6 +20,11 @@
 
     [[range .HeadScripts]]
         <script src="/static/js/[[.]]"></script>
+    [[end]]
+
+    [[if .IsLoggedIn]]
+    [[else]]
+        <script type="text/javascript" src="/static/js/login.js"></script>
     [[end]]
 
 </head>
