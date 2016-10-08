@@ -1,10 +1,10 @@
 package models
 
 import (
-	"errors"
-	"fmt"
+	_ "errors"
+	_ "fmt"
 	//"reflect"
-	"github.com/astaxie/beego/orm"
+	_ "github.com/astaxie/beego/orm"
 )
 
 

@@ -1,10 +1,10 @@
 package models
 
 import (
-	"errors"
-	"fmt"
+	_ "errors"
+	_ "fmt"
 	//"reflect"
-	"github.com/astaxie/beego/orm"
+	_ "github.com/astaxie/beego/orm"
 )
 
 
@@ -20,7 +20,7 @@ type User struct {
 	//
 	Institution_Tag string `orm:"null"` // [republica, professor, ...]
 	Institution_Description string `orm:"null"` // (somos a UP e tals)
-	Institution_Thumbnail []byte `orm:"null"` // (imagem)
+	Institution_Thumbnail []byte `orm:"-"` // (imagem)
 	Addr_Street string `orm:"null"` // Girassol
 	Addr_Number string `orm:"null"` // 123
 	Addr_Complement string `orm:"null"` // 103

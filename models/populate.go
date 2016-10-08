@@ -1,15 +1,15 @@
 package models
 
 import (
-	"fmt"
-	"strconv"
+	_ "fmt"
+	_ "strconv"
 
-	"github.com/astaxie/beego/orm"
+	_ "github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func createData() {
-	o := orm.NewOrm()
+	//o := orm.NewOrm()
 
 
 }
