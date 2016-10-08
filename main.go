@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "github.com\swfsql\itabirapp/routers"
+	_ "github.com/swfsql/itabirapp/routers"
 	"github.com/astaxie/beego"
 )
 
