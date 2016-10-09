@@ -53,12 +53,10 @@ func (this *LoginController) LoginPost() {
 	user, err_user := models.GetUserByEmail(dado.Email)
 	//o := orm.NewOrm()
 	//o.QueryTable("conta").Filter("Usuario", dado.Email).RelatedSel().One(&conta)
-	fmt.Println("print 3.5")
 	if err_user == models.ErrNoRows {
 
 		status.Status = st_err_usuario_inexiste
 		this.Data["json"] = status
-		fmt.Println("print 3.thicusao")
 		this.ServeJSON()
 		return
 	}
@@ -72,10 +70,9 @@ func (this *LoginController) LoginPost() {
 		this.ServeJSON()
 		return
 	}
-	fmt.Println("print 4")
 	sess := this.StartSession()
 	sess.Set("user", user)
-	fmt.Printf("sessao iniciada")
+	fmt.Println("logado com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status

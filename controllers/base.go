@@ -16,6 +16,9 @@ func (this *BaseController) Prepare() {
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
 
-	_, loggedIn := sess.Get("user").(models.User)
-	this.Data["IsLoggedIn"] = loggedIn
+	if user, loggedIn := sess.Get("user").(models.User); loggedIn == true {
+		this.Data["IsLoggedIn"] = loggedIn
+		user.Password = ""
+		this.Data["User"] = user
+	}
 }

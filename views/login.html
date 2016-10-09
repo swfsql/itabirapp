@@ -1,5 +1,12 @@
 [[if .IsLoggedIn]]
-    vc esta logado
+	<li>
+		[[.User.Name]]
+	</li>
+	<li role="separator" class="divider"></li>
+	<li><a href="/user/[[.User.Id]]/editar" class="btn btn-default"><i class="fa fa-cog"></i> Configurações</a></li>
+	</li>
+	<li role="separator" class="divider"></li>
+	<li><a href="/logout" class="btn btn-default"><i class="fa fa-sign-out"></i> Sair</a></li>
 [[else]]
 	<li ng-controller="LoginCtrl as lgn">
 	    <form class="form-inline" ng-submit='lgn.sendLogin(login)'>
@@ -11,8 +18,7 @@
 	        </div>
 	        <button type="submit" class="btn btn-default">Entrar na conta</button>
 	    </form>
-	    {{lgn.login.Email}}
 	</li>
 	<li role="separator" class="divider"></li>
-	<li><button href="index.php?link=10" class="btn btn-default">Cadastrar nova conta</a></li>
+	<li><a href="index.php?link=10" class="btn btn-default">Cadastrar nova conta</a></li>
 [[end]]
