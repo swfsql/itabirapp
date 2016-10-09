@@ -25,6 +25,7 @@ func (this *UserController) GetEdit() {
 
 	user, loggedIn := sess.Get("user").(models.User)
 	if !loggedIn {
+		defer this.DestroySession()
 		this.Redirect("/", 302)
 	}
 
@@ -48,7 +49,7 @@ func (this *UserController) GetEdit() {
 	this.TplName = "user/edit.html"
 	this.Data["HeadTitle"] = "Configurações da conta"
 	this.Data["HeadStyles"] = []string{}
-    this.Data["HeadScripts"] = []string{}
+    this.Data["HeadScripts"] = []string{"user/edit.js"}
 	this.Render()
 }
 

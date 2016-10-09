@@ -20,5 +20,5 @@ func (this *BaseController) Prepare() {
 		this.Data["IsLoggedIn"] = loggedIn
 		user.Password = ""
 		this.Data["User"] = user
-	}
+	} 
 }

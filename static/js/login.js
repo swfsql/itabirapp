@@ -1,5 +1,5 @@
 (function(){
-  var app = angular.module('login', [ ]);  
+  var app = angular.module('itabirapp', [ ]);  
 
   app.controller('LoginCtrl', function($scope, $http, $window) {
     $scope.login = {algo:"test"};
