@@ -18,8 +18,9 @@ type User struct {
 	Email string `orm:"unique"`// 
 	Password string // 
 	//	
-	IsAuthorized bool // pode postar ou nao
-	Institution_Tag string `orm:"null"` // [republica, professor, ...]
+	IsAuthorized bool `orm:"null"` // pode postar ou nao
+	InstitutionType *InstitutionType `orm:"rel(fk);null"` // [1=republica, 2=professor, ...]
+	Institution_Tag string `orm:"null"` // [republica, professor, ...] (informação duplicada)
 	Institution_Description string `orm:"null"` // (somos a UP e tals)
 	Institution_Thumbnail []byte `orm:"-"` // (imagem)
 	Addr_Street string `orm:"null"` // Girassol

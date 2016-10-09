@@ -19,53 +19,156 @@
 	Addr_Neighborhood string `orm:"null"` // santo antonio
 	Addr_City string `orm:"null"` // itabira
 	-->
+<div class="container">
 
-	<fieldset disabled>
-		<div class="row">
-			//dados Target
-			[[.Target.Name]]
-			[[.Target.Email]]
-			Password
-		</div>
-		[[if .IsOwner]]
-			aparece botao de edit
-		[[end]]
-	</fieldset>
+	<div class="panel panel-default">
+	    <div class="panel-heading">Informações do usuário</div>
+	    <div class="panel-body">
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i> Nome</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Name]]" disabled>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o"></i> Email</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Email]]" disabled>
+					</div>
+				</div>
+				[[if .IsOwner]]
+					<div class="col-xs-4">
+						Password //form<br>
+						<button type="button" class="btn btn-default">
+							edit
+						</button>
+						<button type="button" class="btn btn-success">
+							enviar
+						</button>
+						<button type="button" class="btn btn-default">
+							cancelar
+						</button>
+					</div>
+				[[end]]
+			</div>
+	    </div>
+	</div>
 
 	[[if eq .Target.User_Type "poster"]]
+	<div class="panel panel-default">
+		<div class="panel-heading">Informações da instituição</div>
+		<div class="panel-body">
 
-		<fieldset disabled>
-			[[.Target.IsAuthorized]] // MODERADOR SÓ MUDA ISSO 
-		</fieldset>
-		<fieldset disabled>
+			
 			<div class="row">
-				Informações da instituição
-				[[.Target.Institution_Tag]] // [republica, professor, ...]
-				[[.Target.Institution_Description]] // (somos a UP e tals)
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label for="comment">Descrição:</label>
+			            <textarea type="text" class="form-control" placeholder="[[.Target.Institution_Description]]" rows="5" ></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-bullhorn"></i> Tipo de anunciante</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Institution_Tag]]" disabled>
+					</div>
+				</div>
+				<div class="col-xs-4">
+				 	<input type="checkbox" 
+					 	[[if eq .Target.IsAuthorized true]] checked [[end]] 
+						[[if eq .IsAuthorized false]] disabled [[end]] 
+				 	> Autorizado
+				</div>
 				[[if .IsOwner]]
-					aparece botao de edit
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-default">
+							edit
+						</button>
+						<button type="button" class="btn btn-success">
+							enviar
+						</button>
+						<button type="button" class="btn btn-default">
+							cancelar
+						</button>
+					</div>
 				[[end]]
 			</div>
 
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Informações de endereço</div>
+		<div class="panel-body">
 			<div class="row">
-				Informações de endereço
-				[[.Target.Addr_Street]]
-				[[.Target.Addr_Number]]
-				[[.Target.Addr_Complement]]
-				[[.Target.Addr_Neighborhood]]
-				[[.Target.Addr_City]]
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-road"></i> Rua</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Street]]" disabled>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="fa-stack fa-stack-lh-1 text-center">
+							  <i class="fa fa-square-o fa-stack-1-5x"></i>
+							  <small><strong class="fa-number ">01</strong></small>
+							  </span> Número
+							</span>
+						</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Number]]" disabled>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="fa-stack fa-stack-lh-1 text-center">
+							  <i class="fa fa-square-o fa-stack-1-5x"></i>
+							  <small><strong class="fa-number ">01</strong></small>
+							  </span> <abbr title="Complemento">Compl.</abbr>
+							</span>
+						</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Complement]]" disabled>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-home"></i> Bairro</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Neighborhood]]" disabled>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-signs"></i> Cidade</span>
+			            <input type="text" class="form-control" placeholder="[[.Target.Addr_City]]" disabled>
+					</div>
+				</div>
 				[[if .IsOwner]]
-					aparece botao de edit
+					<div class="col-xs-4">
+						<button type="button" class="btn btn-default">
+							edit
+						</button>
+						<button type="button" class="btn btn-success">
+							enviar
+						</button>
+						<button type="button" class="btn btn-default">
+							cancelar
+						</button>
+					</div>
 				[[end]]
 			</div>
-		</fieldset>
-		[[if eq .User.User_Type "moderator"]]
-			<a href="/user/[[.Target.Id]]/remove">Remover Conta</a>
+			[[if eq .User.User_Type "moderator"]]
+				<a href="/user/[[.Target.Id]]/remove">Remover Conta</a><br>
+			[[end]]
 		[[end]]
+		[[if .isOwner]]
+			<a href="/user/[[.Target.Id]]/remove">Remover Conta</a><br>
 	[[end]]
-	[[if .isOwner]]
-		<a href="/user/[[.Target.Id]]/remove">Remover Conta</a>
-	[[end]]
+		</div>
+	</div>
 
 
-	2 layout 1-moderador 1-user
+</div>

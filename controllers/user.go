@@ -33,11 +33,14 @@ func (this *UserController) GetEdit() {
 		this.Redirect("/", 302)
 	}
 
+	this.Data["IsAuthorized"] = false
 	if user.Id == targetId {
 		this.Data["IsOwner"] = true
 	} else if (user.User_Type != "moderator" || target.User_Type == "moderator") {
 		this.Redirect("/", 302)
-	} 
+	} else {
+		this.Data["IsAuthorized"] = true
+	}
 
 	target.Password = ""
 	this.Data["Target"] = target
