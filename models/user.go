@@ -17,7 +17,8 @@ type User struct {
 	NameIdTag string `orm:"unique"` // (normalized name_id)
 	Email string `orm:"unique"`// 
 	Password string // 
-	//
+	//	
+	IsAuthorized bool // pode postar ou nao
 	Institution_Tag string `orm:"null"` // [republica, professor, ...]
 	Institution_Description string `orm:"null"` // (somos a UP e tals)
 	Institution_Thumbnail []byte `orm:"-"` // (imagem)
@@ -33,6 +34,16 @@ func GetUserByEmail(email string) (user User, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("user")
 	err = qs.Filter("Email", email).RelatedSel().One(&user)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
+
+func GetUserById(id int) (user User, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+	err = qs.Filter("Id", id).RelatedSel().One(&user)
 	if err == orm.ErrNoRows {
 		err = ErrNoRows
 	}

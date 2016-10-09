@@ -1,0 +1,71 @@
+	
+<!--
+	Id int // 
+	User_Type string // [poster, moderator]
+	User_Privilege uint8 `orm:"-"` // [low, high]
+	Name string  //
+	NameTag string // (normalized name)
+	NameIdTag string `orm:"unique"` // (normalized name_id)
+	Email string `orm:"unique"`// 
+	Password string // 
+	//
+	IsAuthorized bool
+	Institution_Tag string `orm:"null"` // [republica, professor, ...]
+	Institution_Description string `orm:"null"` // (somos a UP e tals)
+	Institution_Thumbnail []byte `orm:"-"` // (imagem)
+	Addr_Street string `orm:"null"` // Girassol
+	Addr_Number string `orm:"null"` // 123
+	Addr_Complement string `orm:"null"` // 103
+	Addr_Neighborhood string `orm:"null"` // santo antonio
+	Addr_City string `orm:"null"` // itabira
+	-->
+
+	<fieldset disabled>
+		<div class="row">
+			//dados Target
+			[[.Target.Name]]
+			[[.Target.Email]]
+			Password
+		</div>
+		[[if .IsOwner]]
+			aparece botao de edit
+		[[end]]
+	</fieldset>
+
+	[[if eq .Target.User_Type "poster"]]
+
+		<fieldset disabled>
+			[[.Target.IsAuthorized]] // MODERADOR SÓ MUDA ISSO 
+		</fieldset>
+		<fieldset disabled>
+			<div class="row">
+				Informações da instituição
+				[[.Target.Institution_Tag]] // [republica, professor, ...]
+				[[.Target.Institution_Description]] // (somos a UP e tals)
+				[[if .IsOwner]]
+					aparece botao de edit
+				[[end]]
+			</div>
+
+			<div class="row">
+				Informações de endereço
+				[[.Target.Addr_Street]]
+				[[.Target.Addr_Number]]
+				[[.Target.Addr_Complement]]
+				[[.Target.Addr_Neighborhood]]
+				[[.Target.Addr_City]]
+				[[if .IsOwner]]
+					aparece botao de edit
+				[[end]]
+			</div>
+		</fieldset>
+		[[if eq .User.User_Type "moderator"]]
+			<a href="/user/[[.Target.Id]]/remove">Remover Conta</a>
+		[[end]]
+	[[end]]
+	[[if .isOwner]]
+		<a href="/user/[[.Target.Id]]/remove">Remover Conta</a>
+	[[end]]
+
+
+	2 layout 1-moderador 1-user

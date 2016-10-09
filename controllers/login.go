@@ -28,7 +28,6 @@ func (this *LoginController) Login() {
 }
 
 func (this *LoginController) LoginPost() {
-	fmt.Println("print 1")
 	dado := struct {
 		Email string
 		Password string
@@ -60,8 +59,6 @@ func (this *LoginController) LoginPost() {
 		this.ServeJSON()
 		return
 	}
-
-	//fmt.Println(user)
 
 	if dado.Password != user.Password {
 		fmt.Printf("%s nao bate com %s!\n", dado.Password, user.Password)
