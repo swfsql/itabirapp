@@ -2,7 +2,6 @@
   var app = angular.module('itabirapp', [ ]);  
 
   app.controller('LoginCtrl', function($scope, $http, $window) {
-    $scope.login = {algo:"test"};
 
     this.sendLogin = function (){
       var d = this.login
