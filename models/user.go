@@ -51,7 +51,7 @@ func GetUserById(id int) (user User, err error) {
 	return
 }
 
-func (this User) UpdateAddress() (num int64, err error) {
+func (this User) Update() (num int64, err error) {
 	o := orm.NewOrm()
 
 	num, err = o.Update(&this)

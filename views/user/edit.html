@@ -33,14 +33,14 @@
 						</div>
 					</div>
 					<div class="col-xs-3 col-xs-offset-9">
-						<button type="button" class="btn btn-default">
+						<button type="button" class="btn btn-default" ng-hide="!usr.user.disabled" ng-click="usr.user.disabled = false">
 							edit
 						</button>
-						<button type="button" class="btn btn-success">
-							enviar
-						</button>
-						<button type="button" class="btn btn-default">
+						<button type="button" class="btn btn-default" ng-hide="usr.user.disabled" ng-click="usr.user.disabled = true">
 							cancelar
+						</button>
+						<button type="button" class="btn btn-success" ng-hide="usr.user.disabled" ng-click='usr.send("user")'>
+							enviar
 						</button>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 				<div class="col-xs-12">
 					<div class="form-group">
 						<label for="comment">Descrição:</label>
-			            <textarea type="text" class="form-control" placeholder="[[.Target.Institution_Description]]" rows="5" ></textarea>
+			            <textarea type="text" class="form-control" placeholder="[[.Target.Institution_Description]]" rows="5"  ng-model="usr.institution.Description" ng-disabled="usr.institution.disabled"></textarea>
 					</div>
 				</div>
 			</div>
@@ -71,20 +71,27 @@
 				</div>
 				<div class="col-xs-2">
 				 	<input type="checkbox" 
-					 	[[if eq .Target.IsAuthorized true]] checked [[end]] 
-						[[if eq .IsAuthorized false]] disabled [[end]] 
+						ng-model="usr.institution.IsAuthorized" 
+					 	[[if eq .Target.IsAuthorized true]] 
+					 		checked 
+					 	[[end]] 
+						[[if eq .IsAuthorized false]] 
+							disabled 
+						[[else]] 
+							ng-click="toggle()"
+						[[end]]
 				 	> Autorizado
 				</div>
 				[[if .IsOwner]]
 					<div class="col-xs-3">
-						<button type="button" class="btn btn-default">
+						<button type="button" class="btn btn-default" ng-hide="!usr.institution.disabled" ng-click="usr.institution.disabled = false">
 							edit
 						</button>
-						<button type="button" class="btn btn-success">
-							enviar
-						</button>
-						<button type="button" class="btn btn-default">
+						<button type="button" class="btn btn-default" ng-hide="usr.institution.disabled" ng-click="usr.institution.disabled = true">
 							cancelar
+						</button>
+						<button type="button" class="btn btn-success" ng-hide="usr.institution.disabled" ng-click='usr.send("institution")'>
+							enviar
 						</button>
 					</div>
 				[[end]]
@@ -93,6 +100,7 @@
 		</div>
 	</div>
 
+
 	<div class="panel panel-default">
 		<div class="panel-heading">Informações de endereço</div>
 		<div class="panel-body">
@@ -100,7 +108,7 @@
 				<div class="col-xs-4">
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-road"></i> Rua</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Street]]"  ng-model="usr.address.Street" ng-disabled="usr.address.disabled">
+			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Street]]" ng-model="usr.address.Street" ng-disabled="usr.address.disabled">
 					</div>
 				</div>
 				<div class="col-xs-3">
@@ -140,15 +148,15 @@
 					</div>
 				</div>
 				[[if .IsOwner]]
-					<div class="col-xs-4">
+					<div class="col-xs-3">
 						<button type="button" class="btn btn-default" ng-hide="!usr.address.disabled" ng-click="usr.address.disabled = false">
 							edit
 						</button>
-						<button type="button" class="btn btn-success" ng-hide="usr.address.disabled" ng-click='usr.send("address")'>
-							enviar
-						</button>
 						<button type="button" class="btn btn-default" ng-hide="usr.address.disabled" ng-click="usr.address.disabled = true">
 							cancelar
+						</button>
+						<button type="button" class="btn btn-success" ng-hide="usr.address.disabled" ng-click='usr.send("address")'>
+							enviar
 						</button>
 					</div>
 				[[end]]

@@ -21,6 +21,7 @@ func init() {
 	beego.Router("/usuario/:id/editar", &controllers.UserController{}, "get:GetEdit")
 	beego.Router("/usuario/:id/editar/usuario", &controllers.UserController{}, "post:PostUser")
 	beego.Router("/usuario/:id/editar/instituicao", &controllers.UserController{}, "post:PostInstitution")
+	beego.Router("/usuario/:id/editar/instituicao/autorizacao", &controllers.UserController{}, "get:ToggleAuthorization")
 	beego.Router("/usuario/:id/editar/endereco", &controllers.UserController{}, "post:PostAddress")
 	//beego.Router("/user/:id/remover", &controllers.UserController{}, "get:Login;post:Post")
 

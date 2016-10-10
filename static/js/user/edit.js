@@ -5,6 +5,27 @@
     this.user = {disabled: true};
     this.institution = {disabled: true};
     this.address = {disabled: true};
+
+    this.toggle = function (){
+      $http.get("/usuario/[[.Target.Id]]/editar/instituticao/autorizacao")
+        .success(function(st) {
+        alert("success")
+        var res = st.Status;
+        $scope.working = false;
+        switch (res) {
+          case "ok":
+            alert('ok')
+          break;
+          case "err_usuario_inexiste":
+            alert("err_usuario_inexiste");
+
+          break;
+          case "err_senha_invalida":
+            alert("err_senha_invalida");
+          break;
+        }
+      });
+    }
     
     this.send = function (form){
       var obj, d, url;
@@ -37,7 +58,6 @@
         switch (res) {
           case "ok":
             alert('ok')
-            $window.location.href = '/';
           break;
           case "err_usuario_inexiste":
             alert("err_usuario_inexiste");
@@ -48,6 +68,7 @@
           break;
         }
       });
+
       }
       /*
       $http.post('/login', {Email: d.Email, Password: d.Password}).

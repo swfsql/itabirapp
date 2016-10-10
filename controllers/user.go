@@ -62,6 +62,7 @@ func (this *UserController) GetEdit() {
 		return
 	}
 
+
 	this.TplName = "user/edit.html"
 	this.Data["HeadTitle"] = "Configurações da conta"
 	this.Data["HeadStyles"] = []string{}
@@ -69,6 +70,28 @@ func (this *UserController) GetEdit() {
 	this.Render()
 }
 
+func (this *UserController) ToggleAuthorization() {
+	if target, allow := allowed(this); !allow {
+		return
+	}
+
+	user := this.Data["User"]
+	if user.User_Type != "moderator" || target.User_Type != "poster" {
+		this.Redirect("/", 302)
+		return
+	}
+
+	target.IsAuthorized = !target.IsAuthorized
+	target.Update()
+
+	status := struct{ Status string }{""}
+
+	fmt.Println("editado com sucesso")
+
+	status.Status = st_ok
+	this.Data["json"] = status
+	this.ServeJSON()
+}
 
 func (this *UserController) PostAddress() {
 
@@ -107,7 +130,7 @@ func (this *UserController) PostAddress() {
 	target.Addr_Neighborhood = dado.Neighborhood
 	target.Addr_City = dado.City
 
-	target.UpdateAddress()
+	target.Update()
 
 	fmt.Println("editado com sucesso")
 
@@ -122,3 +145,5 @@ func (this *UserController) PostInstitution() {
 }
 func (this *UserController) PostUser() {
 }
+
+
