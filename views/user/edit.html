@@ -9,14 +9,14 @@
 						<label>Nome:</label>
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
-				            <input type="text" class="form-control" value="[[.Target.Name]]" disabled>
+				            <input type="text" class="form-control" ng-init="usr.target.Name='[[.Target.Name]]'" ng-model="usr.target.Name" ng-disabled="usr.target.disabled">
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 						<label>Email:</label>
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o fa-fw"></i></span>
-				            <input type="text" class="form-control" value="[[.Target.Email]]" disabled>
+				            <input type="text" class="form-control" ng-init="usr.target.Email='[[.Target.Email]]'" ng-model="usr.target.Email" ng-disabled="usr.target.disabled">
 						</div>
 					</div>
 					[[if .IsOwner]]
@@ -24,27 +24,27 @@
 							<label>Senha:</label>
 							<div class="input-group">
 								<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
-					            <input type="text" class="form-control" placeholder="Nova senha" disabled>
+					            <input type="text" class="form-control" ng-model="usr.target.Password" ng-disabled="usr.target.disabled" placeholder="Nova senha" disabled>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 							<label>Confirmar senha:</label>
 							<div class="input-group">
 								<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
-					            <input type="text" class="form-control" placeholder="Repetir senha" disabled>
+					            <input type="text" class="form-control" ng-model="usr.target.Password2" ng-disabled="usr.target.disabled"  placeholder="Repetir senha" disabled>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
 					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
 						<label>Alterações:</label><br>
-						<button type="button" class="btn btn-default" ng-hide="!usr.user.disabled" ng-click="usr.user.disabled = false">
+						<button type="button" class="btn btn-default" ng-hide="!usr.target.disabled" ng-click="usr.target.disabled = false">
 							Editar
 						</button>
-						<button type="button" class="btn btn-default" ng-hide="usr.user.disabled" ng-click="usr.user.disabled = true">
+						<button type="button" class="btn btn-default" ng-hide="usr.target.disabled" ng-click="usr.target.disabled = true">
 							Cancelar
 						</button>
-						<button type="button" class="btn btn-success" ng-hide="usr.user.disabled" ng-click='usr.send("user")'>
+						<button type="button" class="btn btn-success" ng-hide="usr.target.disabled" ng-click='usr.send("target")'>
 							Enviar
 						</button>
 					</div>

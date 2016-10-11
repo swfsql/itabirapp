@@ -2,7 +2,7 @@
   var app = angular.module('itabirapp', [ ]);  
 
   app.controller('UserCtrl', function($scope, $http, $window) {
-    this.user = {disabled: true};
+    this.target = {disabled: true};
     this.institution = {disabled: true};
     this.address = {disabled: true};
 
@@ -32,7 +32,7 @@
       var reg = /\/usuario\/([0-9]+)\/editar/i;
       var userId = reg.exec($window.location.toString())[1];
       switch (form) {
-        case "user":
+        case "target":
           d = this.user;
           this.user.disabled = true;
           url = "/usuario/" + userId + "/editar/usuario";
