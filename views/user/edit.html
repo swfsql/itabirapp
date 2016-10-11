@@ -112,64 +112,65 @@
 		<div class="panel-heading">Informações de endereço</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-					<label>Rua:</label>
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-road fa-fw"></i></span>
-			            <input type="text" class="form-control" ng-model="usr.address.Street" ng-init="usr.address.Street='[[.Target.Addr_Street]]'" ng-disabled="usr.address.disabled">
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<label>Rua:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-road fa-fw"></i></span>
+				            <input type="text" class="form-control" ng-model="usr.address.Street" ng-init="usr.address.Street='[[.Target.Addr_Street]]'" ng-disabled="usr.address.disabled">
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-					<label>Número:</label>
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">
-							<span class="fa-stack fa-stack-lh-1 text-center fa-fw">
-							  <i class="fa fa-square-o fa-stack-1-5x"></i>
-							  <small><strong class="fa-number ">01</strong></small>
-							  </span>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<label>Número:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">
+								<span class="fa-stack fa-stack-lh-1 text-center fa-fw-1-5">
+								  <i class="fa fa-square-o fa-stack-1-5x"></i>
+								  <small><strong class="fa-number">01</strong></small>
+								</span>
 							</span>
-						</span>
-			            <input type="text" class="form-control" ng-init="usr.address.Number='[[.Target.Addr_Number]]'" ng-model="usr.address.Number" ng-disabled="usr.address.disabled">
+				            <input type="text" class="form-control" ng-init="usr.address.Number='[[.Target.Addr_Number]]'" ng-model="usr.address.Number" ng-disabled="usr.address.disabled">
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
-					<label>Complemento:</label>
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1">
-							<span class="fa-stack fa-stack-lh-1 text-center fa-fw">
-							  <i class="fa fa-square-o fa-stack-1-5x"></i>
-							  <small><strong class="fa-number ">01</strong></small>
-							  </span>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<label>Complemento:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">
+								<span class="fa-stack fa-stack-lh-1 text-center fa-fw-1-5">
+								  <i class="fa fa-square-o fa-stack-1-5x"></i>
+								  <small><strong class="fa-number ">01</strong></small>
+								</span>
 							</span>
-						</span>
-			            <input type="text" class="form-control" ng-init="usr.address.Complement='[[.Target.Addr_Complement]]'" ng-model="usr.address.Complement" ng-disabled="usr.address.disabled">
+				            <input type="text" class="form-control" ng-init="usr.address.Complement='[[.Target.Addr_Complement]]'" ng-model="usr.address.Complement" ng-disabled="usr.address.disabled">
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-					<label>Bairro:</label>
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-home fa-fw"></i></span>
-			            <input type="text" class="form-control" ng-init="usr.address.Neighborhood='[[.Target.Addr_Neighborhood]]'" ng-model="usr.address.Neighborhood" ng-disabled="usr.address.disabled">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label>Bairro:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-home fa-fw"></i></span>
+				            <input type="text" class="form-control" ng-init="usr.address.Neighborhood='[[.Target.Addr_Neighborhood]]'" ng-model="usr.address.Neighborhood" ng-disabled="usr.address.disabled">
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-					<label>Cidade:</label>
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-signs fa-fw"></i></span>
-			            <input type="text" class="form-control" ng-init="usr.address.City='[[.Target.Addr_City]]'" ng-model="usr.address.City" ng-disabled="usr.address.disabled">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label>Cidade:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-signs fa-fw"></i></span>
+				            <input type="text" class="form-control" ng-init="usr.address.City='[[.Target.Addr_City]]'" ng-model="usr.address.City" ng-disabled="usr.address.disabled">
+						</div>
 					</div>
 				</div>
 				[[if .IsOwner]]
-					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-						<label>Alterações:</label><br>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
+						<label>alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.address.disabled" ng-click="usr.address.disabled = false">
-							Editar
+							editar
 						</button>
 						<button type="button" class="btn btn-default" ng-hide="usr.address.disabled" ng-click="usr.address.disabled = true">
-							Cancelar
+							cancelar
 						</button>
 						<button type="button" class="btn btn-success" ng-hide="usr.address.disabled" ng-click='usr.send("address")'>
-							Enviar
+							enviar
 						</button>
 					</div>
 				[[end]]

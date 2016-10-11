@@ -18,8 +18,10 @@ input {
   vertical-align: top !important;
   width: 1em !important; }
   .fa-stack-lh-1 i {
-    margin-top: -2px;
-    margin-left: -1px; }
+    margin-top: -2px; }
+
+.fa-fw-1-5 {
+  width: 1.28571em !important; }
 
 .fa-stack small {
   margin-bottom: 15px !important;

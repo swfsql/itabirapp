@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": ";AAAA,qBAAqB;EACpB,WAAW,EAAE,IAAI;EACjB,YAAY,EAAE,IAAI;EAClB,UAAU,EAAE,GAAG;EACf,aAAa,EAAE,GAAG;;;AAEnB,qDAAqD;EACpD,aAAa,EAAE,GAAG",
+"mappings": "AAAA,qBAAqB;EACpB,WAAW,EAAE,IAAI;EACjB,YAAY,EAAE,IAAI;EAClB,UAAU,EAAE,GAAG;EACf,aAAa,EAAE,GAAG;;AAEnB,qDAAqD;EACpD,aAAa,EAAE,GAAG",
 "sources": ["../sass/header.sass"],
 "names": [],
 "file": "header.css"
