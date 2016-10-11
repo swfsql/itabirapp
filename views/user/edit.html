@@ -1,50 +1,55 @@
 	
 <div class="container" ng-controller="UserCtrl as usr">
-
 	<div class="panel panel-default">
 	    <div class="panel-heading">Informações do usuário</div>
 	    <div class="panel-body">
 			<div class="row">
-				<div class="col-xs-6">
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i> Nome</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Name]]" disabled>
-					</div>
-				</div>
-				<div class="col-xs-6">
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o"></i> Email</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Email]]" disabled>
-					</div>
-				</div>
-			</div>
-				[[if .IsOwner]]
-				<div class="row">
-					<div class="col-xs-6">
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+						<label>Nome:</label>
 						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key"></i> Senha</span>
-				            <input type="text" class="form-control" placeholder="Nova senha" disabled>
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
+				            <input type="text" class="form-control" value="[[.Target.Name]]" disabled>
 						</div>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+						<label>Email:</label>
 						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key"></i> Senha</span>
-				            <input type="text" class="form-control" placeholder="Confirmar senha" disabled>
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o fa-fw"></i></span>
+				            <input type="text" class="form-control" value="[[.Target.Email]]" disabled>
 						</div>
 					</div>
-					<div class="col-xs-3 col-xs-offset-9">
+					[[if .IsOwner]]
+						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+							<label>Senha:</label>
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
+					            <input type="text" class="form-control" placeholder="Nova senha" disabled>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+							<label>Confirmar senha:</label>
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
+					            <input type="text" class="form-control" placeholder="Repetir senha" disabled>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
+						<label>Alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.user.disabled" ng-click="usr.user.disabled = false">
-							edit
+							Editar
 						</button>
 						<button type="button" class="btn btn-default" ng-hide="usr.user.disabled" ng-click="usr.user.disabled = true">
-							cancelar
+							Cancelar
 						</button>
 						<button type="button" class="btn btn-success" ng-hide="usr.user.disabled" ng-click='usr.send("user")'>
-							enviar
+							Enviar
 						</button>
 					</div>
-				</div>
 				[[end]]
+			</div>
 	    </div>
 	</div>
 
@@ -52,46 +57,48 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">Informações da instituição</div>
 		<div class="panel-body">
-
-			
 			<div class="row">
-				<div class="col-xs-12">
-					<div class="form-group">
-						<label for="comment">Descrição:</label>
-			            <textarea type="text" class="form-control" placeholder="[[.Target.Institution_Description]]" rows="5"  ng-model="usr.institution.Description" ng-disabled="usr.institution.disabled"></textarea>
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<label for="comment">Descrição:</label>
+				            <textarea type="text" class="form-control" rows="5"  ng-model="usr.institution.Description" ng-disabled="usr.institution.disabled" ng-init="usr.institution.Description='[[.Target.Institution_Description]]'"></textarea>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-7">
-					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-bullhorn"></i> Anunciante</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Institution_Tag]]" disabled>
+					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+						<label>Anunciante:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-bullhorn fa-fw"></i></span>
+				            <input type="text" class="form-control" value="[[.Target.Institution_Tag]]" disabled>
+						</div>
 					</div>
-				</div>
-				<div class="col-xs-2">
-				 	<input type="checkbox" 
-						ng-model="usr.institution.IsAuthorized" 
-					 	[[if eq .Target.IsAuthorized true]] 
-					 		checked 
-					 	[[end]] 
-						[[if eq .IsAuthorized false]] 
-							disabled 
-						[[else]] 
-							ng-click="toggle()"
-						[[end]]
-				 	> Autorizado
+					<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+						<label>Status:</label><br>
+					 	<input type="checkbox" 
+							ng-model="usr.institution.IsAuthorized" 
+						 	[[if eq .Target.IsAuthorized true]] 
+						 		checked 
+						 	[[end]] 
+							[[if eq .IsAuthorized false]] 
+								disabled 
+							[[else]] 
+								ng-click="toggle()"
+							[[end]]
+					 	> Autorizado
+					</div>
 				</div>
 				[[if .IsOwner]]
-					<div class="col-xs-3">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
+						<label>Alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.institution.disabled" ng-click="usr.institution.disabled = false">
-							edit
+							Editar
 						</button>
 						<button type="button" class="btn btn-default" ng-hide="usr.institution.disabled" ng-click="usr.institution.disabled = true">
-							cancelar
+							Cancelar
 						</button>
 						<button type="button" class="btn btn-success" ng-hide="usr.institution.disabled" ng-click='usr.send("institution")'>
-							enviar
+							Enviar
 						</button>
 					</div>
 				[[end]]
@@ -105,58 +112,64 @@
 		<div class="panel-heading">Informações de endereço</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-xs-4">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+					<label>Rua:</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-road"></i> Rua</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Street]]" ng-model="usr.address.Street" ng-disabled="usr.address.disabled">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-road fa-fw"></i></span>
+			            <input type="text" class="form-control" ng-model="usr.address.Street" ng-init="usr.address.Street='[[.Target.Addr_Street]]'" ng-disabled="usr.address.disabled">
 					</div>
 				</div>
-				<div class="col-xs-3">
+				<div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+					<label>Número:</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">
-							<span class="fa-stack fa-stack-lh-1 text-center">
+							<span class="fa-stack fa-stack-lh-1 text-center fa-fw">
 							  <i class="fa fa-square-o fa-stack-1-5x"></i>
 							  <small><strong class="fa-number ">01</strong></small>
-							  </span> Número
+							  </span>
 							</span>
 						</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Number]]" ng-model="usr.address.Number" ng-disabled="usr.address.disabled">
+			            <input type="text" class="form-control" ng-init="usr.address.Number='[[.Target.Addr_Number]]'" ng-model="usr.address.Number" ng-disabled="usr.address.disabled">
 					</div>
 				</div>
-				<div class="col-xs-3">
+				<div class="col-lg-2 col-md-3 col-sm-6 col-xs-6">
+					<label>Complemento:</label>
 					<div class="input-group">
 						<span class="input-group-addon" id="basic-addon1">
-							<span class="fa-stack fa-stack-lh-1 text-center">
+							<span class="fa-stack fa-stack-lh-1 text-center fa-fw">
 							  <i class="fa fa-square-o fa-stack-1-5x"></i>
 							  <small><strong class="fa-number ">01</strong></small>
-							  </span> <abbr title="Complemento">Compl.</abbr>
+							  </span>
 							</span>
 						</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Complement]]" ng-model="usr.address.Complement" ng-disabled="usr.address.disabled">
+			            <input type="text" class="form-control" ng-init="usr.address.Complement='[[.Target.Addr_Complement]]'" ng-model="usr.address.Complement" ng-disabled="usr.address.disabled">
 					</div>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+					<label>Bairro:</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-home"></i> Bairro</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Addr_Neighborhood]]" ng-model="usr.address.Neighborhood" ng-disabled="usr.address.disabled">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-home fa-fw"></i></span>
+			            <input type="text" class="form-control" ng-init="usr.address.Neighborhood='[[.Target.Addr_Neighborhood]]'" ng-model="usr.address.Neighborhood" ng-disabled="usr.address.disabled">
 					</div>
 				</div>
-				<div class="col-xs-4">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+					<label>Cidade:</label>
 					<div class="input-group">
-						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-signs"></i> Cidade</span>
-			            <input type="text" class="form-control" placeholder="[[.Target.Addr_City]]" ng-model="usr.address.City" ng-disabled="usr.address.disabled">
+						<span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-signs fa-fw"></i></span>
+			            <input type="text" class="form-control" ng-init="usr.address.City='[[.Target.Addr_City]]'" ng-model="usr.address.City" ng-disabled="usr.address.disabled">
 					</div>
 				</div>
 				[[if .IsOwner]]
-					<div class="col-xs-3">
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+						<label>Alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.address.disabled" ng-click="usr.address.disabled = false">
-							edit
+							Editar
 						</button>
 						<button type="button" class="btn btn-default" ng-hide="usr.address.disabled" ng-click="usr.address.disabled = true">
-							cancelar
+							Cancelar
 						</button>
 						<button type="button" class="btn btn-success" ng-hide="usr.address.disabled" ng-click='usr.send("address")'>
-							enviar
+							Enviar
 						</button>
 					</div>
 				[[end]]

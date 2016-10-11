@@ -71,11 +71,16 @@ func (this *UserController) GetEdit() {
 }
 
 func (this *UserController) ToggleAuthorization() {
-	if target, allow := allowed(this); !allow {
+	var target models.User
+	var allow bool
+	if target, allow = allowed(this); !allow {
 		return
 	}
 
-	user := this.Data["User"]
+	sess := this.StartSession()
+	//defer sess.SessionRelease()
+	user, _ := sess.Get("user").(models.User)
+
 	if user.User_Type != "moderator" || target.User_Type != "poster" {
 		this.Redirect("/", 302)
 		return
