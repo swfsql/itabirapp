@@ -17,7 +17,7 @@ func init() {
     //beego.Router("/buscajs/*", &controllers.SearchController{})
 
 	//beego.Router("/user/criar", &controllers.UserController{}, "get:Login;post:Post")
-	//beego.Router("/user/listar", &controllers.UserController{}, "get:Login;post:Post")
+	beego.Router("/usuario/listar", &controllers.UserController{}, "get:GetList")
 	beego.Router("/usuario/:id/editar", &controllers.UserController{}, "get:GetEdit")
 	beego.Router("/usuario/:id/editar/usuario", &controllers.UserController{}, "post:PostUser")
 	beego.Router("/usuario/:id/editar/instituicao", &controllers.UserController{}, "post:PostInstitution")

@@ -1,0 +1,88 @@
+
+<div class="container">
+		<table class="table"> 
+			<caption>Lista dos usuários não autorizados</caption> 
+			<thead> 
+				<tr> 
+					<th>#</th> 
+					<th>Nome</th> 
+					<th>Email</th> 
+					<th>Instituição</th> 
+					<th>Descrição</th> 
+					<th>Rua</th> 
+					<th><abbr title="Número">Nº</abbr></th> 
+					<th><abbr title="Complemento">Compl.</abbr></th> 
+					<th>Bairro</th> 
+					<th>Cidade</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+			    [[range $i, $u := .Unauthorized]]
+					<tr> 
+						<th scope="row"><a href="/usuario/[[$u.Id]]/editar">[[$u.Id]]</a></th> 
+						<td><a href="/tag/[[$u.NameIdTag]]">[[$u.Name]]</a></td> 
+						<td>[[$u.Email]]</td> 
+						<td>[[$u.Institution_Tag]]</td> 
+						<td>[[$u.Institution_Description]]</td> 
+						<td>[[$u.Addr_Street]]</td> 
+						<td>[[$u.Addr_Number]]</td> 
+						<td>[[$u.Addr_Complement]]</td> 
+						<td>[[$u.Addr_Neighborhood]]</td> 
+						<td>[[$u.Addr_City]]</td> 
+					</tr> 
+			    [[end]]
+			</tbody> 
+		</table>
+		<table class="table"> 
+			<caption>Lista dos usuários autorizados</caption> 
+			<thead> 
+				<tr> 
+					<th>#</th> 
+					<th>Nome</th> 
+					<th>Email</th> 
+					<th>Instituição</th> 
+					<th>Descrição</th> 
+					<th>Rua</th> 
+					<th><abbr title="Número">Nº</abbr></th> 
+					<th><abbr title="Complemento">Compl.</abbr></th> 
+					<th>Bairro</th> 
+					<th>Cidade</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+			    [[range $i, $u := .Authorized]]
+					<tr> 
+						<th scope="row"><a href="/usuario/[[$u.Id]]/editar">[[$u.Id]]</a></th> 
+						<td><a href="/tag/[[$u.NameIdTag]]">[[$u.Name]]</a></td> 
+						<td>[[$u.Email]]</td> 
+						<td>[[$u.Institution_Tag]]</td> 
+						<td>[[$u.Institution_Description]]</td> 
+						<td>[[$u.Addr_Street]]</td> 
+						<td>[[$u.Addr_Number]]</td> 
+						<td>[[$u.Addr_Complement]]</td> 
+						<td>[[$u.Addr_Neighborhood]]</td> 
+						<td>[[$u.Addr_City]]</td> 
+					</tr> 
+			    [[end]]
+			</tbody> 
+		</table>
+		<table class="table"> 
+			<caption>Lista dos moderadores</caption> 
+			<thead> 
+				<tr> 
+					<th>#</th> 
+					<th>Nome</th> 
+					<th>Email</th> 
+				</tr> 
+			</thead> 
+			<tbody> 
+			    [[range $i, $u := .Moderators]]
+					<tr> 
+						<th scope="row"><a href="/usuario/[[$u.Id]]/editar">[[$u.Id]]</a></th> 
+						<td>[[$u.Name]]</td> 
+						<td>[[$u.Email]]</td> 
+					</tr> 
+			    [[end]]
+			</tbody> 
+		</table>
+</div>

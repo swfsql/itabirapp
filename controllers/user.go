@@ -7,6 +7,7 @@ import (
 	//"github.com/astaxie/beego/orm"
 	"github.com/swfsql/itabirapp/models"
 	"strconv"
+	"bytes"
 )
 
 // ERRS
@@ -18,7 +19,7 @@ type UserController struct {
 	BaseController
 }
 
-func allowed(this *UserController) (models.User, bool) {
+func editAllowed(this *UserController) (models.User, bool) {
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
 	targetId64, _ := strconv.ParseUint(this.Ctx.Input.Param(":id"), 10, 32)
@@ -46,7 +47,7 @@ func allowed(this *UserController) (models.User, bool) {
 	if user.Id == targetId {
 		this.Data["IsOwner"] = true
 	} else if (user.User_Type != "moderator" || target.User_Type == "moderator") {
-		// not allowed
+		// not editAllowed
 		this.Redirect("/", 302)
 		return target, false
 	} else {
@@ -59,7 +60,7 @@ func allowed(this *UserController) (models.User, bool) {
 }
 
 func (this *UserController) GetEdit() {
-	if _, allow := allowed(this); !allow {
+	if _, allow := editAllowed(this); !allow {
 		return
 	}
 
@@ -74,7 +75,7 @@ func (this *UserController) GetEdit() {
 func (this *UserController) ToggleAuthorization() {
 	var target models.User
 	var allow bool
-	if target, allow = allowed(this); !allow {
+	if target, allow = editAllowed(this); !allow {
 		return
 	}
 
@@ -100,7 +101,7 @@ func (this *UserController) ToggleAuthorization() {
 }
 
 func (this *UserController) PostAddress() {
-	target, allow := allowed(this) 
+	target, allow := editAllowed(this) 
 	if !allow {
 		return
 	}
@@ -144,7 +145,7 @@ func (this *UserController) PostAddress() {
 	this.ServeJSON()
 }
 func (this *UserController) PostInstitution() {
-	target, allow := allowed(this) 
+	target, allow := editAllowed(this) 
 	if !allow {
 		return
 	}
@@ -181,7 +182,7 @@ func (this *UserController) PostInstitution() {
 	this.ServeJSON()
 }
 func (this *UserController) PostUser() {
-	target, allow := allowed(this) 
+	target, allow := editAllowed(this) 
 	if !allow {
 		return
 	}
@@ -231,3 +232,54 @@ func (this *UserController) PostUser() {
 }
 
 
+func (this *UserController) GetList() {
+	sess := this.StartSession()
+	//defer sess.SessionRelease()
+
+	user, loggedIn := sess.Get("user").(models.User)
+	// not logged in
+	if !loggedIn {
+		defer this.DestroySession()
+		this.Redirect("/", 302)
+		return 
+	} else if user.User_Type != "moderator" {
+		this.Redirect("/", 302)
+		return 
+	}
+
+	users, err_users := models.GetUsers()
+	if err_users == models.ErrNoRows {
+		users = []*models.User{}
+	}
+
+	var moderators []*models.User 
+	var authorized []*models.User 
+	var unauthorized []*models.User 
+	fmt.Println("os usuários pêgos:")
+	for _, u := range users {
+		fmt.Println("~")
+		// limit the description to 15 chars
+		runes := bytes.Runes([]byte(u.Institution_Description))
+		if len(runes) > 15 {
+			u.Institution_Description = string(runes[:15])
+		}
+		// filter the users
+		if u.User_Type == "moderator" {
+			moderators = append(moderators, u)
+		} else if u.IsAuthorized == true {
+			authorized = append(authorized, u)
+		} else {
+			unauthorized = append(unauthorized, u)
+		}
+	} 
+
+	this.Data["Moderators"] = moderators;
+	this.Data["Authorized"] = authorized;
+	this.Data["Unauthorized"] = unauthorized;
+
+	this.TplName = "user/list.html"
+	this.Data["HeadTitle"] = "Listagem das contas"
+	this.Data["HeadStyles"] = []string{}
+    this.Data["HeadScripts"] = []string{}
+	this.Render()
+}

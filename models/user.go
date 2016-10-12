@@ -58,6 +58,16 @@ func GetUserById(id int) (user User, err error) {
 	return
 }
 
+func GetUsers() (users []*User, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+	_, err = qs.All(&users)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
+
 func isMn(r rune) bool {
     return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
 }
