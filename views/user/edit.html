@@ -1,7 +1,8 @@
 	
 <div class="container" ng-controller="UserCtrl as usr">
 	<div class="panel panel-default">
-	    <div class="panel-heading">Informações do usuário</div>
+	    <div class="panel-heading">Informações do usuário
+	    </div>
 	    <div class="panel-body">
 			<div class="row">
 				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
@@ -48,6 +49,8 @@
 							Enviar
 						</button>
 					</div>
+				[[else]]
+					</div>
 				[[end]]
 			</div>
 	    </div>
@@ -77,12 +80,12 @@
 					 	<input type="checkbox" 
 							ng-model="usr.institution.IsAuthorized" 
 						 	[[if eq .Target.IsAuthorized true]] 
-						 		checked 
+								ng-init="usr.institution.IsAuthorized=true"
 						 	[[end]] 
 							[[if eq .IsAuthorized false]] 
 								disabled 
 							[[else]] 
-								ng-click="toggle()"
+								ng-click="usr.toggle()"
 							[[end]]
 					 	> Autorizado
 					</div>

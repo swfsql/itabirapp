@@ -7,7 +7,9 @@
     this.address = {disabled: true};
 
     this.toggle = function (){
-      $http.get("/usuario/[[.Target.Id]]/editar/instituticao/autorizacao")
+      var reg = /\/usuario\/([0-9]+)\/editar/i;
+      var userId = reg.exec($window.location.toString())[1];
+      $http.get("/usuario/" + userId + "/editar/instituicao/autorizacao")
         .success(function(st) {
         alert("success")
         var res = st.Status;
@@ -33,14 +35,17 @@
       var userId = reg.exec($window.location.toString())[1];
       switch (form) {
         case "target":
-          d = this.user;
-          this.user.disabled = true;
+          d = this.target;
+          this.target.disabled = true;
+          obj = {Name: d.Name, Email: d.Email, Password: d.Password,
+            Password2: d.Password2};
           url = "/usuario/" + userId + "/editar/usuario";
         break;
         case "institution":
           d = this.institution;
           alert("inst")
           this.institution.disabled = true;
+          obj = {Description: d.Description};
           url = "/usuario/" + userId + "/editar/instituicao";
         break;
         case "address":
