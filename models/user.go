@@ -1,10 +1,17 @@
 package models
 
+
 import (
-	_ "errors"
-	_ "fmt"
-	//"reflect"
 	"github.com/astaxie/beego/orm"
+	_ "errors"
+	//"reflect"
+    _ "fmt"
+    "strings"
+    "unicode"
+    "golang.org/x/text/transform"
+    "golang.org/x/text/unicode/norm"
+    "regexp"
+	"strconv"
 )
 
 
@@ -51,9 +58,21 @@ func GetUserById(id int) (user User, err error) {
 	return
 }
 
+func isMn(r rune) bool {
+    return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
+}
 func (this User) Update() (num int64, err error) {
-	o := orm.NewOrm()
+	// for nameTag and nameIdTag
+    t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
+	reg, _ := regexp.Compile("[^a-z]+")
+    nameTag, _, _ := transform.String(t, this.Name) // É2 -> E2
+    nameTag2 := strings.ToLower(nameTag) // E2 -> e2
+    this.NameTag = reg.ReplaceAllString(nameTag2, "") // e2 -> e
+    j, _ := CountNameTag(this.NameTag);
+	js := strconv.FormatInt(j,10)
+    this.NameIdTag = this.NameTag + "_" + js
 
+	o := orm.NewOrm()
 	num, err = o.Update(&this)
 	if err == orm.ErrNoRows {
 		err = ErrNoRows

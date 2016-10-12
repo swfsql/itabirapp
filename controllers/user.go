@@ -11,6 +11,7 @@ import (
 
 // ERRS
 var (
+	st_err_password_diferente string = "err_password_diferente"
 )
 
 type UserController struct {
@@ -99,7 +100,6 @@ func (this *UserController) ToggleAuthorization() {
 }
 
 func (this *UserController) PostAddress() {
-
 	target, allow := allowed(this) 
 	if !allow {
 		return
@@ -142,13 +142,92 @@ func (this *UserController) PostAddress() {
 	status.Status = st_ok
 	this.Data["json"] = status
 	this.ServeJSON()
-
-
-
 }
 func (this *UserController) PostInstitution() {
+	target, allow := allowed(this) 
+	if !allow {
+		return
+	}
+
+	if this.Data["isOwner"] == false || target.User_Type != "poster" {
+		this.Redirect("/", 302)
+		return
+	}
+
+	dado := struct {
+        Description string
+	}{}
+
+	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
+	if err != nil {
+		fmt.Println(err)
+		this.Ctx.Output.SetStatus(400)
+		this.Ctx.Output.Body([]byte("JSON invalido"))
+		return
+	}
+	fmt.Println(dado)
+
+	status := struct{ Status string }{""}
+
+
+	target.Institution_Description = dado.Description;
+
+	target.Update()
+
+	fmt.Println("editado com sucesso")
+
+	status.Status = st_ok
+	this.Data["json"] = status
+	this.ServeJSON()
 }
 func (this *UserController) PostUser() {
+	target, allow := allowed(this) 
+	if !allow {
+		return
+	}
+
+	if this.Data["isOwner"] == false {
+		this.Redirect("/", 302)
+		return
+	}
+
+	dado := struct {
+		Name string
+		Email string
+		Password string
+		Password2 string
+	}{}
+
+
+	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
+	if err != nil {
+		fmt.Println(err)
+		this.Ctx.Output.SetStatus(400)
+		this.Ctx.Output.Body([]byte("JSON invalido"))
+		return
+	}
+	fmt.Println(dado)
+
+	status := struct{ Status string }{""}
+
+	if (dado.Password != dado.Password2) {
+		status.Status = st_err_password_diferente
+		this.Data["json"] = status
+		this.ServeJSON()
+		return
+	}
+
+	target.Name = dado.Name
+	target.Email = dado.Email
+	target.Password = dado.Password
+
+	target.Update()
+
+	fmt.Println("editado com sucesso")
+
+	status.Status = st_ok
+	this.Data["json"] = status
+	this.ServeJSON()
 }
 
 
