@@ -1,0 +1,133 @@
+<div class="container" ng-controller="UserCtrl as usr">
+	<div class="panel panel-default">
+	    <div class="panel-heading">Informações do usuário</div>
+	    <div class="panel-body">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+						<label>Nome:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user fa-fw"></i></span>
+				            <input type="text" class="form-control" ng-model="usr.target.Name" >
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+						<label>Email:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-envelope-o fa-fw"></i></span>
+				            <input type="text" class="form-control"  ng-model="usr.target.Email" >
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+						<label>Senha:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
+				            <input type="text" class="form-control" ng-model="usr.target.Password"  placeholder="Nova senha" disabled>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+						<label>Confirmar senha:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
+				            <input type="text" class="form-control" ng-model="usr.target.Password2"   placeholder="Repetir senha" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+	    </div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Informações da instituição</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<label for="comment">Descrição:</label>
+				            <textarea type="text" class="form-control" rows="5"  ng-model="usr.institution.Description"  ></textarea>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
+						<label>Anunciante:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-bullhorn fa-fw"></i></span>
+				            <input type="text" class="form-control" value="[[.Target.Institution_Tag]]" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">Informações de endereço</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+						<label>Rua:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-road fa-fw"></i></span>
+				            <input type="text" class="form-control" ng-model="usr.address.Street"  >
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<label>Número:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">
+								<span class="fa-stack fa-stack-lh-1 text-center fa-fw-1-5">
+								  <i class="fa fa-square-o fa-stack-1-5x"></i>
+								  <small><strong class="fa-number">nº</strong></small>
+								</span>
+							</span>
+				            <input type="text" class="form-control"  ng-model="usr.address.Number" >
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<label>Complemento:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">
+								<span class="fa-stack fa-stack-lh-1 text-center fa-fw-1-5">
+								  <i class="fa fa-square-o fa-stack-1-5x"></i>
+								  <small><strong class="fa-number ">ap</strong></small>
+								</span>
+							</span>
+				            <input type="text" class="form-control"  ng-model="usr.address.Complement" >
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label>Bairro:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-home fa-fw"></i></span>
+				            <input type="text" class="form-control"  ng-model="usr.address.Neighborhood" >
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+						<label>Cidade:</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-map-signs fa-fw"></i></span>
+				            <input type="text" class="form-control"  ng-model="usr.address.City" >
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+		col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
+			<label>Novo cadastro:</label><br>
+			<button type="button" class="btn btn-default" >
+				Cancelar
+			</button>
+			<button type="button" class="btn btn-success" >
+				Enviar
+			</button>
+		</div>
+	</div>
+</div>
