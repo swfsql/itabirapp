@@ -100,7 +100,7 @@ func (this *UserController) ToggleAuthorization() {
 	this.ServeJSON()
 }
 
-func (this *UserController) PostAddress() {
+func (this *UserController) PostEditAddress() {
 	target, allow := editAllowed(this) 
 	if !allow {
 		return
@@ -145,7 +145,7 @@ func (this *UserController) PostAddress() {
 	this.ServeJSON()
 }
 
-func (this *UserController) PostInstitution() {
+func (this *UserController) PostEditInstitution() {
 	target, allow := editAllowed(this) 
 	if !allow {
 		return
@@ -183,7 +183,7 @@ func (this *UserController) PostInstitution() {
 	this.ServeJSON()
 }
 
-func (this *UserController) PostUser() {
+func (this *UserController) PostEditUser() {
 	target, allow := editAllowed(this) 
 	if !allow {
 		return
@@ -305,6 +305,85 @@ func (this *UserController) GetDelete() {
 	status := struct{ Status string }{""}
 
 	fmt.Println("removido com sucesso")
+
+	status.Status = st_ok
+	this.Data["json"] = status
+	this.ServeJSON()
+}
+
+
+func (this *UserController) GetNew() {
+	fmt.Println("hueee hue br")
+
+	insts, err_insts := models.GetInstitutions()
+	if err_insts == models.ErrNoRows {
+		insts = []*models.Institution_type{}
+	}
+
+	this.Data["Institutions"] = insts
+
+	this.TplName = "user/new.html"
+	this.Data["HeadTitle"] = "Criar nova conta"
+	this.Data["HeadStyles"] = []string{}
+    this.Data["HeadScripts"] = []string{"user/new.js"}
+	this.Render()
+}
+
+func (this *UserController) PostNew() {
+	dado := struct {
+		Name string 
+		Email string
+		Password string
+		Password2 string // -
+		//	
+		Institution_Description string
+		Institution_Tag string
+		//
+		Addr_Street string
+		Addr_Number  string
+		Addr_Complement  string
+		Addr_Neighborhood  string
+		Addr_City  string
+	}{}
+
+	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
+	if err != nil {
+		fmt.Println(err)
+		this.Ctx.Output.SetStatus(400)
+		this.Ctx.Output.Body([]byte("JSON invalido"))
+		return
+	}
+	fmt.Println(dado)
+
+	if dado.Password != dado.Password2 {
+		return
+	}
+
+	inst, _ := models.GetInstitutionByName(dado.Institution_Tag)
+
+	var user models.User
+	user.User_Type = "poster"
+	user.IsAuthorized = false
+	user.Institution_type = &inst
+	//
+	user.Name = dado.Name 
+	user.Email = dado.Email 
+	user.Password = dado.Password 
+	//	
+	user.Institution_Description = dado.Institution_Description 
+	user.Institution_Tag = dado.Institution_Tag 
+	//
+	user.Addr_Street = dado.Addr_Street 
+	user.Addr_Number = dado.Addr_Number  
+	user.Addr_Complement = dado.Addr_Complement  
+	user.Addr_Neighborhood = dado.Addr_Neighborhood  
+	user.Addr_City = dado.Addr_City  
+
+	user.New()
+
+	status := struct{ Status string }{""}
+
+	fmt.Println("criado com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status

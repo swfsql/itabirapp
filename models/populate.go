@@ -12,7 +12,13 @@ import (
 func createData() {
 	o := orm.NewOrm()
 	N := "n"
-	
+
+	for i := 0; i < 5; i++ {
+		s := strconv.Itoa(i)
+		o.Insert(&Institution_type{Name: "instituição_" + s})
+	}
+
+
 	for i := 0; i < 4; i++ {
 		s := strconv.Itoa(i)
 		j, _ := CountNameTag(N + s);

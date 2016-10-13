@@ -1,4 +1,4 @@
-<div class="container" ng-controller="UserCtrl as usr">
+<div class="container" ng-controller="UserCtrlNew as usr">
 	<div class="panel panel-default">
 	    <div class="panel-heading">Informações do usuário</div>
 	    <div class="panel-body">
@@ -22,14 +22,14 @@
 						<label>Senha:</label>
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
-				            <input type="text" class="form-control" ng-model="usr.target.Password"  placeholder="Nova senha" disabled>
+				            <input type="text" class="form-control" ng-model="usr.target.Password"  placeholder="Nova senha">
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
 						<label>Confirmar senha:</label>
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-key fa-fw"></i></span>
-				            <input type="text" class="form-control" ng-model="usr.target.Password2"   placeholder="Repetir senha" disabled>
+				            <input type="text" class="form-control" ng-model="usr.target.Password2"   placeholder="Repetir senha">
 						</div>
 					</div>
 				</div>
@@ -52,12 +52,18 @@
 						<label>Anunciante:</label>
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1"><i class="fa fa-bullhorn fa-fw"></i></span>
-				            <input type="text" class="form-control" value="[[.Target.Institution_Tag]]" disabled>
+							<select class="form-control" ng-model="usr.institution.Type">
+								<option selected disabled hidden>Escolha um tipo</option>
+							    [[range $i, $inst := .Institutions]]
+							    <option value="[[$inst.Name]]">
+							         [[$inst.Name]]
+							      </option>
+							    [[end]]
+							</select>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 
@@ -119,14 +125,10 @@
 
 
 	<div class="row">
-		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
-		col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
-			<label>Novo cadastro:</label><br>
-			<button type="button" class="btn btn-default" >
-				Cancelar
-			</button>
-			<button type="button" class="btn btn-success" >
-				Enviar
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2
+		col-lg-offset-10 col-md-offset-10 col-sm-offset-9 col-xs-offset-7">
+			<button type="button" class="btn btn-success" ng-click="usr.newUser()">
+				Criar nova conta
 			</button>
 		</div>
 	</div>

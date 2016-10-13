@@ -19,6 +19,7 @@
         switch (res) {
           case "ok":
             alert('ok')
+            $window.location.href = '/';
           break;
           case "err_usuario_inexiste":
             alert("err_usuario_inexiste");
@@ -42,7 +43,6 @@
         switch (res) {
           case "ok":
             alert('ok')
-            $window.location.href = '/';
           break;
           case "err_usuario_inexiste":
             alert("err_usuario_inexiste");
