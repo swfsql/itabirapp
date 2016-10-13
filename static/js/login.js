@@ -1,6 +1,4 @@
-(function(){
-  var app = angular.module('itabirapp', [ ]);  
-
+var app = angular.module('itabirapp'); 
   app.controller('LoginCtrl', function($scope, $http, $window) {
 
     this.sendLogin = function (){
@@ -26,5 +24,3 @@
     };
 
   });
-
-})();

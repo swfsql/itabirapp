@@ -1,7 +1,5 @@
-(function(){
-  var app = angular.module('itabirapp', [ ]);  
-
-  app.controller('UserCtrl', function($scope, $http, $window) {
+var app = angular.module('itabirapp'); 
+  app.controller('UserEditCtrl', function($scope, $http, $window) {
     this.target = {disabled: true};
     this.institution = {disabled: true};
     this.address = {disabled: true};
@@ -105,6 +103,3 @@
       $http.post('/login', {Email: d.Email, Password: d.Password}).
         */
     });
-
-})();
-

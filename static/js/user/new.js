@@ -1,6 +1,4 @@
-(function(){
-  var app = angular.module('itabirapp', [ ]);  
-
+var app = angular.module('itabirapp'); 
     app.controller('UserCtrlNew', function($scope, $http, $window) {
 	    this.target = {disabled: true};
 	    this.institution = {disabled: true};
@@ -36,5 +34,4 @@
     	}
     });
 
-})();
 

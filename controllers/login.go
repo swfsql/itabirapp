@@ -19,14 +19,6 @@ type LoginController struct {
 	BaseController
 }
 
-func (this *LoginController) Login() {
-	this.TplName = "login.html"
-	this.Data["HeadTitle"] = "Login Title"
-	this.Data["HeadStyles"] = []string{}
-    this.Data["HeadScripts"] = []string{"login.js"}
-	this.Render()
-}
-
 func (this *LoginController) LoginPost() {
 	dado := struct {
 		Email string
