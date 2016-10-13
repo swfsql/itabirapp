@@ -5,7 +5,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "errors"
 	//"reflect"
-    _ "fmt"
+    "fmt"
     "strings"
     "unicode"
     "golang.org/x/text/transform"
@@ -71,7 +71,7 @@ func GetUsers() (users []*User, err error) {
 func isMn(r rune) bool {
     return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
 }
-func (this User) genNameTag() {
+func (this *User) genNameTag() {
 	// for nameTag and nameIdTag
     t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
 	reg, _ := regexp.Compile("[^a-z]+")
@@ -79,7 +79,10 @@ func (this User) genNameTag() {
     nameTag2 := strings.ToLower(nameTag) // E2 -> e2
     this.NameTag = reg.ReplaceAllString(nameTag2, "") // e2 -> e
     j, _ := CountNameTag(this.NameTag)
+    fmt.Println("Name tag: {}",this.NameTag)
+    fmt.Println("Contador J: {}",j)
 	js := strconv.FormatInt(j,10)
+    fmt.Println("Contador JS: {}",js)
     this.NameIdTag = this.NameTag + "_" + js
 }
 func (this User) Update() (num int64, err error) {
@@ -115,6 +118,7 @@ func CountNameTag(nametag string) (quantity int64, err error) {
 func (this *User) New() (num int64, err error) {
 	o := orm.NewOrm()
 	this.genNameTag()
+	fmt.Println("tests do nametag",this.NameTag)
 	num, err = o.Insert(this)
 
 	if err == orm.ErrNoRows {

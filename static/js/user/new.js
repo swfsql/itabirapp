@@ -14,7 +14,7 @@ var app = angular.module('itabirapp');
 
 		    obj = {
 		      	Name: d.Name, Email: d.Email, Password: d.Password, Password2: d.Password2,
-		      	Description: d2.Institution_Description, Institution_Tag: d2.Type,
+		      	Institution_Description: d2.Description, Institution_Tag: d2.Type,
 		      	Addr_Street: d3.Street, Addr_Number: d3.Number, Addr_Complement: d3.Complement, 
 		      	Addr_Neighborhood: d3.Neighborhood, Addr_City: d3.City
 		    };

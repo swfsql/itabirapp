@@ -359,8 +359,10 @@ func (this *UserController) PostNew() {
 		return
 	}
 
+	fmt.Println("criado com sucesso")
 	inst, _ := models.GetInstitutionByName(dado.Institution_Tag)
-
+	
+	fmt.Println("criado com sucesso")
 	var user models.User
 	user.User_Type = "poster"
 	user.IsAuthorized = false
@@ -379,8 +381,10 @@ func (this *UserController) PostNew() {
 	user.Addr_Neighborhood = dado.Addr_Neighborhood  
 	user.Addr_City = dado.Addr_City  
 
+	fmt.Println("criado com sucesso")
 	user.New()
 
+	fmt.Println("criado com sucesso")
 	status := struct{ Status string }{""}
 
 	fmt.Println("criado com sucesso")
