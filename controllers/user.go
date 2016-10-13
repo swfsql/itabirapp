@@ -144,6 +144,7 @@ func (this *UserController) PostAddress() {
 	this.Data["json"] = status
 	this.ServeJSON()
 }
+
 func (this *UserController) PostInstitution() {
 	target, allow := editAllowed(this) 
 	if !allow {
@@ -181,6 +182,7 @@ func (this *UserController) PostInstitution() {
 	this.Data["json"] = status
 	this.ServeJSON()
 }
+
 func (this *UserController) PostUser() {
 	target, allow := editAllowed(this) 
 	if !allow {
@@ -282,4 +284,29 @@ func (this *UserController) GetList() {
 	this.Data["HeadStyles"] = []string{}
     this.Data["HeadScripts"] = []string{}
 	this.Render()
+}
+
+
+func (this *UserController) GetDelete() {
+	var target models.User
+	var allow bool
+	if target, allow = editAllowed(this); !allow {
+		return
+	}
+
+	target.Delete()
+	if this.Data["IsOwner"] == true {
+		fmt.Println("SE AUTO-REMOVEU!")
+		this.DestroySession()
+		//this.Redirect("/", 302)
+		//return
+	} 
+
+	status := struct{ Status string }{""}
+
+	fmt.Println("removido com sucesso")
+
+	status.Status = st_ok
+	this.Data["json"] = status
+	this.ServeJSON()
 }

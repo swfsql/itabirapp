@@ -165,15 +165,15 @@
 				[[if .IsOwner]]
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
 					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
-						<label>alterações:</label><br>
+						<label>Alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.address.disabled" ng-click="usr.address.disabled = false">
-							editar
+							Editar
 						</button>
 						<button type="button" class="btn btn-default" ng-hide="usr.address.disabled" ng-click="usr.address.disabled = true">
-							cancelar
+							Cancelar
 						</button>
 						<button type="button" class="btn btn-success" ng-hide="usr.address.disabled" ng-click='usr.send("address")'>
-							enviar
+							Enviar
 						</button>
 					</div>
 				[[end]]
@@ -188,5 +188,32 @@
 		</div>
 	</div>
 
+	[[if (or (.isOwner) (eq .Target.User_Type "poster"))]]
+	<div class="panel panel-default">
+		<div class="panel-heading">Configurações da conta</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+						<label>Cadastro:</label><br>
+						<button type="button" class="btn btn-danger" ng-disabled="usr.config.disabled" ng-click="usr.delete()">
+							Remover
+						</button>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+				col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
+					<label>Alterações:</label><br>
+					<button type="button" class="btn btn-default" ng-hide="!usr.config.disabled" ng-click="usr.config.disabled = false">
+						Editar
+					</button>
+					<button type="button" class="btn btn-default" ng-hide="usr.config.disabled" ng-click="usr.config.disabled = true">
+						Cancelar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	[[end]]
 
 </div>

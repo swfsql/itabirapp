@@ -90,6 +90,16 @@ func (this User) Update() (num int64, err error) {
 	return
 }
 
+
+func (this User) Delete() (num int64, err error) {
+	o := orm.NewOrm()
+	num, err = o.Delete(&this)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
+
 func CountNameTag(nametag string) (quantity int64, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("user")

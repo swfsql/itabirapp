@@ -5,6 +5,31 @@
     this.target = {disabled: true};
     this.institution = {disabled: true};
     this.address = {disabled: true};
+    this.config = {disabled: true};
+
+
+    this.delete = function (){
+      var reg = /\/usuario\/([0-9]+)\/editar/i;
+      var userId = reg.exec($window.location.toString())[1];
+      $http.get("/usuario/" + userId + "/remover")
+        .success(function(st) {
+        alert("success")
+        var res = st.Status;
+        $scope.working = false;
+        switch (res) {
+          case "ok":
+            alert('ok')
+          break;
+          case "err_usuario_inexiste":
+            alert("err_usuario_inexiste");
+
+          break;
+          case "err_senha_invalida":
+            alert("err_senha_invalida");
+          break;
+        }
+      });
+    }
 
     this.toggle = function (){
       var reg = /\/usuario\/([0-9]+)\/editar/i;
@@ -17,6 +42,7 @@
         switch (res) {
           case "ok":
             alert('ok')
+            $window.location.href = '/';
           break;
           case "err_usuario_inexiste":
             alert("err_usuario_inexiste");
