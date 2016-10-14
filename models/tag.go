@@ -10,32 +10,40 @@ import (
 
 type Tag struct {
 	Id int // 
-	Post *Post `orm:"rel(fk)"`
+	Posts []*Post `orm:"reverse(many)"`
 	Name string  //
 }
 
 
-func tagForPost(post *Post, name string)(tag Tag) {
-	tag = Tag{
-		Post: post,
-		Name: name,
+
+func GetTagByName(name string) (tag Tag, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("tag")
+	err = qs.Filter("Name", name).One(&tag)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
 	}
 	return
 }
 
 
+
 func AppendTagsForPost(post *Post, strings []string) (num int64, err error) {
-	var tags []Tag
-	for _, s := range strings {
-		tag := tagForPost(post, s)
-		tags = append(tags, tag)
-	}
-
 	o := orm.NewOrm()
-	num, err = o.InsertMulti(20, tags)
+	m2m := o.QueryM2M(post, "Tags")
+	for _, s := range strings {
 
-	if err == orm.ErrNoRows {
-		err = ErrNoRows
+		tag, err := GetTagByName(s)
+		if err != nil {
+			tag = Tag{Name: s}
+			o.Insert(&tag)
+		}
+
+		_, err2 := m2m.Add(&tag)
+		if err2 != nil {
+			err2 = ErrNoRows
+		}
 	}
+
 	return
 }
