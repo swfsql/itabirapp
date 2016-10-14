@@ -250,3 +250,13 @@ func (this *PostController) GetNew() {
     this.Data["HeadScripts"] = []string{"post/new.js"}
 	this.Render()
 }
+
+func (this *PostController) GetSearch() {
+	fmt.Println("hueee hue br")
+	search := this.Ctx.Input.Param(":search")
+
+	models.GetPostsByTag(search)
+
+	this.Redirect("/", 302)
+	return 
+}

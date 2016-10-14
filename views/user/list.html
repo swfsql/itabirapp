@@ -76,7 +76,7 @@
 			    [[range $i, $u := .Unauthorized]]
 					<tr> 
 						<th scope="row"><a href="/usuario/[[$u.Id]]/editar">[[$u.Id]]</a></th> 
-						<td><a href="/tag/[[$u.NameIdTag]]">[[$u.Name]]</a></td> 
+						<td><a href="/busca/[[$u.NameIdTag]]">[[$u.Name]]</a></td> 
 						<td>[[$u.Email]]</td> 
 						<td><i class="fa fa-square-o"></i> Não</td> 
 						<td>[[$u.Institution_Tag]]</td> 
@@ -91,7 +91,7 @@
 			    [[range $i, $u := .Authorized]]
 					<tr> 
 						<th scope="row"><a href="/usuario/[[$u.Id]]/editar">[[$u.Id]]</a></th> 
-						<td><a href="/tag/[[$u.NameIdTag]]">[[$u.Name]]</a></td> 
+						<td><a href="/busca/[[$u.NameIdTag]]">[[$u.Name]]</a></td> 
 						<td>[[$u.Email]]</td> 
 						<td><i class="fa fa-check-square-o"></i> Sim</td> 
 						<td>[[$u.Institution_Tag]]</td> 

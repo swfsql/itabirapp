@@ -53,8 +53,15 @@ func createData() {
 
 	for i := 0; i < 10; i++ {
 		s := strconv.Itoa(i)
-		o.Insert(&Post{User: posters[(i*2) % 10], Title: "título_" + s,
-			Subtitle: "subtítulo_" + s, Text: "text" + s,})
+		user := posters[(i*2) % 10]
+		post := &Post{User: user, Title: "título_" + s,
+			Subtitle: "subtítulo_" + s, Text: "text" + s,}
+		o.Insert(post)
+
+		var tags []string
+		tags = append(tags, user.NameIdTag)
+		tags = append(tags, user.Institution_Tag)
+		AppendTagsForPost(post, tags)
 	}
 
 

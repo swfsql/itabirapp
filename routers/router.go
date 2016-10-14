@@ -13,7 +13,7 @@ func init() {
     beego.Router("/anuncio/:id/editar", &controllers.PostController{}, "get:GetEdit;post:PostEdit")
     beego.Router("/anuncio/:id/remover", &controllers.PostController{}, "get:GetDelete")
 
-    //beego.Router("/busca/*", &controllers.SearchController{})
+    beego.Router("/busca/:search", &controllers.PostController{}, "get:GetSearch")
     //beego.Router("/buscajs/*", &controllers.SearchController{})
 
 	beego.Router("/usuario/criar", &controllers.UserController{}, "get:GetNew;post:PostNew")

@@ -2,7 +2,7 @@ package models
 
 import (
 	_ "errors"
-	_ "fmt"
+	 "fmt"
 	//"reflect"
 	 "github.com/astaxie/beego/orm"
 )
@@ -54,3 +54,20 @@ func (this *Post) New() (num int64, err error) {
 	}
 	return
 }
+
+func GetPostsByTag(tag string) (num int64, posts []Post, err error) {
+	o := orm.NewOrm()
+	o.QueryTable("post").Filter("Tag__Name", tag).Distinct().RelatedSel().All(&posts)
+		
+
+	for i,p := range posts {
+		fmt.Println(i, ":", p.Title)
+		fmt.Println(i, ":", p.User.Name)
+	}
+
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
+
