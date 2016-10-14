@@ -8,7 +8,7 @@ import (
 func init() {
     beego.Router("/", &controllers.IndexController{})
 
-    //beego.Router("/anuncio/:id", &controllers.PostController{})
+    beego.Router("/anuncio/:id", &controllers.PostController{}, "get:GetPost")
     //beego.Router("/anuncio/criar", &controllers.PostController{}, "get:blabla;post:blabla")
     //beego.Router("/anuncio/:id/editar", &controllers.PostController{})
     //beego.Router("/anuncio/:id/remover", &controllers.PostController{})

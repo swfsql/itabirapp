@@ -1,7 +1,7 @@
 package models
 
 import (
-	 "fmt"
+	_ "fmt"
 	"strconv"
 
 	 "github.com/astaxie/beego/orm"
@@ -46,13 +46,15 @@ func createData() {
 		Addr_Complement: "compl." + s, Addr_Neighborhood: "neigh" + s, Addr_City: "city" + s,})
 	}
 
-	var users []*User
+
+	var posters []* User
 	qs := o.QueryTable("user")
-	qs.All(&users)
+	_, _ = qs.Filter("User_Type", "poster").All(&posters)
 
-	for _, u := range users {
-	fmt.Println(u)
-
+	for i := 0; i < 10; i++ {
+		s := strconv.Itoa(i)
+		o.Insert(&Post{User: posters[(i*2) % 10], Title: "título_" + s,
+			Subtitle: "subtítulo_" + s, Text: "text" + s,})
 	}
 
 

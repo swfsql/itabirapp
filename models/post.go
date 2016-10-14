@@ -4,7 +4,7 @@ import (
 	_ "errors"
 	_ "fmt"
 	//"reflect"
-	_ "github.com/astaxie/beego/orm"
+	 "github.com/astaxie/beego/orm"
 )
 
 
@@ -17,4 +17,12 @@ type Post struct {
 	Thumbnail []byte `orm:"-"` // (imagem)
 }
 
-
+func GetPostById(id int) (post Post, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("post")
+	err = qs.Filter("Id", id).RelatedSel().One(&post)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
