@@ -6,4 +6,8 @@
 	[[.Post.Title]]<br>
 	[[.Post.Subtitle]]<br>
 	[[.Post.Text]]<br>
+
+	[[if .IsOwner]]
+		<a href="/anuncio/[[.Post.Id]]/editar">EDITAR</a><br>
+	[[end]]
 </div>

@@ -18,7 +18,17 @@ func (this *PostController) GetPost() {
 	id64, _ := strconv.ParseUint(this.Ctx.Input.Param(":id"), 10, 32)
 	id := int(id64)
 	post, _ := models.GetPostById(id)
-	this.Data["Post"]= post
+
+	sess := this.StartSession()
+	//defer sess.SessionRelease()
+
+	user, loggedIn := sess.Get("user").(models.User)
+	this.Data["IsOwner"] = false
+	if loggedIn && post.User.Id == user.Id {
+		this.Data["IsOwner"] = true
+	}
+
+	this.Data["Post"] = post
 
 	this.TplName = "post/post.html"
 	this.Data["HeadTitle"] = "Visualizar Anúncio"
@@ -29,11 +39,12 @@ func (this *PostController) GetPost() {
 }
 
 func editPostAllowed(this *PostController) (models.Post, bool) {
+	fmt.Println("")
+	fmt.Println("edit allowed?")
+	fmt.Println("")
 	id64, _ := strconv.ParseUint(this.Ctx.Input.Param(":id"), 10, 32)
 	id := int(id64)
 	post, _ := models.GetPostById(id)
-
-
 
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
@@ -41,19 +52,19 @@ func editPostAllowed(this *PostController) (models.Post, bool) {
 	user, loggedIn := sess.Get("user").(models.User)
 	// not logged in
 	if !loggedIn {
+		fmt.Println("HUAHUAHAHA")
 		defer this.DestroySession()
 		this.Redirect("/", 302)
 		return post, false
 	}
 
 	if post.User.Id != user.Id {
-
+		fmt.Println("macaquice")
 		this.Redirect("/", 302)
 		return post, false
 	}
 
-	return post, false
-
+	return post, true
 }
 
 func (this *PostController) GetEdit() {
@@ -65,6 +76,9 @@ func (this *PostController) GetEdit() {
  
 	this.Data["Post"] = post
 
+	fmt.Println("")
+	fmt.Println("vai seu macaco")
+	fmt.Println("")
 	this.TplName = "post/edit.html"
 	this.Data["HeadTitle"] = "Configurações do post"
 	this.Data["HeadStyles"] = []string{}
