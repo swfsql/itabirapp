@@ -35,3 +35,22 @@ func (this Post) Update() (num int64, err error) {
 	}
 	return
 }
+
+func (this *Post) Delete() (num int64, err error) {
+	o := orm.NewOrm()
+	num, err = o.Delete(this)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
+
+func (this *Post) New() (num int64, err error) {
+	o := orm.NewOrm()
+	num, err = o.Insert(this)
+
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}

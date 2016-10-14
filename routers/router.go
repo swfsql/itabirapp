@@ -9,9 +9,9 @@ func init() {
     beego.Router("/", &controllers.IndexController{})
 
     beego.Router("/anuncio/:id", &controllers.PostController{}, "get:GetPost")
-    //beego.Router("/anuncio/criar", &controllers.PostController{}, "get:blabla;post:blabla")
+    beego.Router("/anuncio/criar", &controllers.PostController{}, "get:GetNew;post:PostNew")
     beego.Router("/anuncio/:id/editar", &controllers.PostController{}, "get:GetEdit;post:PostEdit")
-    //beego.Router("/anuncio/:id/remover", &controllers.PostController{})
+    beego.Router("/anuncio/:id/remover", &controllers.PostController{}, "get:GetDelete")
 
     //beego.Router("/busca/*", &controllers.SearchController{})
     //beego.Router("/buscajs/*", &controllers.SearchController{})

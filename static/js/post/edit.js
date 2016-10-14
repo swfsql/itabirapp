@@ -38,7 +38,8 @@ var app = angular.module('itabirapp');
 	        $scope.working = false;
 	        switch (res) {
 	          case "ok":
-	            alert('ok')
+	            alert('ok aki')
+              $window.location.href = '/anuncio/' + postId;
 	          break;
 	          case "err_usuario_inexiste":
 	            alert("err_usuario_inexiste");
