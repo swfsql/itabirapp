@@ -26,3 +26,12 @@ func GetPostById(id int) (post Post, err error) {
 	}
 	return
 }
+
+func (this Post) Update() (num int64, err error) {
+	o := orm.NewOrm()
+	num, err = o.Update(&this)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
