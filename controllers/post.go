@@ -6,6 +6,10 @@ import (
 
 	"encoding/json"
 	"github.com/swfsql/itabirapp/models"
+
+	"github.com/microcosm-cc/bluemonday"
+    "github.com/russross/blackfriday"
+    "html/template"
 )
 
 
@@ -28,7 +32,19 @@ func (this *PostController) GetPost() {
 		this.Data["IsOwner"] = true
 	}
 
-	this.Data["Post"] = post
+	mrk_title := "# " + post.Title
+	mrk_subtitle := "## " + post.Subtitle
+	mrk_text := post.Text
+	//mrk_author := "" + post.User.Name
+	//mrk_NameIdTag := "" + post.User.NameIdTag
+	//mrk_Institution_Tag := "" + post.User.Institution_Tag
+
+	mrk := mrk_title + "\n" + mrk_subtitle + "\n" + mrk_text
+
+	unsafe := blackfriday.MarkdownCommon([]byte(mrk))
+	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
+
+	this.Data["PostHTML"] = template.HTML(html)
 
 	this.TplName = "post/post.html"
 	this.Data["HeadTitle"] = "Visualizar Anúncio"

@@ -5,7 +5,7 @@
 	    <div class="panel-body">
 			<div class="row">
 				[[if .IsOwner]]
-				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				[[else]]
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				[[end]]
@@ -39,7 +39,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4
 					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
 						<label>Alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.target.disabled" ng-click="usr.target.disabled = false">
@@ -65,7 +65,7 @@
 		<div class="panel-body">
 			<div class="row">
 				[[if .IsOwner]]
-				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				[[else]]
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				[[end]]
@@ -98,7 +98,7 @@
 					</div>
 				</div>
 				[[if .IsOwner]]
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4
 					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
 						<label>Alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.institution.disabled" ng-click="usr.institution.disabled = false">
@@ -123,7 +123,7 @@
 		<div class="panel-body">
 			<div class="row">
 				[[if .IsOwner]]
-				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				[[else]]
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				[[end]]
@@ -174,7 +174,7 @@
 					</div>
 				</div>
 				[[if .IsOwner]]
-					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-4
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-4
 					col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-8">
 						<label>Alterações:</label><br>
 						<button type="button" class="btn btn-default" ng-hide="!usr.address.disabled" ng-click="usr.address.disabled = false">
@@ -189,12 +189,6 @@
 					</div>
 				[[end]]
 			</div>
-			[[if eq .User.User_Type "moderator"]]
-				<a href="/user/[[.Target.Id]]/remove">Remover Conta</a><br>
-			[[end]]
-		[[end]]
-		[[if .isOwner]]
-			<a href="/user/[[.Target.Id]]/remove">Remover Conta</a><br>
 		[[end]]
 		</div>
 	</div>
