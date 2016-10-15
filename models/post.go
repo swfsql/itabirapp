@@ -107,29 +107,44 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 			}
 			to_push = to_push[:len(to_push)-1]
 			to_push += ")"
-			result = false
 				st.Push(to_push)
 			if (s == "*" && count >= 2) || (s == "+" && count >= 1) {
-
-				fmt.Println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
 				post_tags = append(post_tags, to_push)
-				result = true
 			} 
 		}
 		fmt.Println(st)
 	} 
+
+	result = false
+	s_pop := st.Pop()
+	for _, s1 := range post_tags {
+		fmt.Println(">>>>>>>", s1)
+		if s1 == s_pop {
+			result = true
+			break
+		}
+	}
+
 	return
 }
 
 
-func GetPostsByTags() (num int64, posts []Post, err error) {
+func GetPostsByTags(tags2 string) (num int64, posts []Post, err error) {
 
 
-	//tags2 := "rep,professor,*" // 0
-	//tags2 := "masc,feminino,+" // 0 1
-	//tags2 := "rep,feminino,+,masc,*" // 0 1
-	//tags2 := "feminino,masc,+,cetrulo,+" // 0 1 2
-	tags2 := "masc,cetrulo,velha,+,*,professor,nova,feminino,+,*,+" // 0 1
+	//tags2 = "rep,professor,*" // 0
+	//tags2 = "professor" // 0
+	//tags2 = "masc,feminino,+" // 0 1
+	//tags2 = "rep,feminino,+,masc,*" // 0 1
+	//tags2 = "feminino,masc,+,cetrulo,+" // 0 1 2
+	//tags2 = "masc,cetrulo,velha,+,*,professor,nova,feminino,+,*,+" // 0 1
+	//tags2 = "professor,thiago,velha,+,+,thiago,*,feminino,nova,+,velha,*,rep,rep,cetrulo,+,+,*,+"
+	// ^ 1 2
+	tags2 = "professor,thiago,velha,+,+,thiago,*,feminino,nova,+,velha,*,rep,rep,cetrulo,+,+,*,*"
+	// ^ nenhum
+
+
+
 	tags := strings.Split(tags2, ",")
 
 	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!printcabuluso!!!!!!!!!!!!!!!!!!!!!!!!!!")

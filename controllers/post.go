@@ -259,7 +259,7 @@ func (this *PostController) GetSearch() {
 	//busca = []string{"n0_1", "instTag0"}
 	//models.GetPostsByAnyTags(busca)
 
-	_, posts, _ := models.GetPostsByTags()
+	_, posts, _ := models.GetPostsByTags("ASAS")
 	fmt.Println("~~~~~~~~~~~~~~~~~~")
 	for _, p := range posts {
 		fmt.Println(p.Title)
