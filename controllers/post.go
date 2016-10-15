@@ -108,8 +108,8 @@ func (this *PostController) GetEdit() {
 	fmt.Println("")
 	this.TplName = "post/edit.html"
 	this.Data["HeadTitle"] = "Configurações do post"
-	this.Data["HeadStyles"] = []string{}
-    this.Data["HeadScripts"] = []string{"post/edit.js"}
+	this.Data["HeadStyles"] = []string{"simplemde.min.css"}
+    this.Data["HeadScripts"] = []string{"simplemde.min.js", "post/edit.js"}
 	this.Render()
 }
 

@@ -57,6 +57,9 @@ func createData() {
 		user := posters[(i*2) % 10]
 		post := &Post{User: user, Title: "título_" + s,
 			Subtitle: "subtítulo_" + s, Text: "text" + s,}
+		if i == 5 {
+			post.Text = "![errou](https://i.makeagif.com/media/5-23-2014/uCZNYo.gif)"
+		}
 		o.Insert(post)
 
 		var tags []string
