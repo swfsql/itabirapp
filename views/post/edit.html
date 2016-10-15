@@ -31,27 +31,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="form-group">
 							<label for="comment">Texto:</label>
-				            <textarea id="textarea" type="text" class="form-control" rows="5"   >
-				            	
-				            </textarea>
-				            <script type="text/javascript">
-								var simplemde = new SimpleMDE({ 
-									element: $("#textarea")[0],
-									autofocus: true,
-							        initialValue: "[[.Post.Text]]",
-							        renderingConfig: {
-								        singleLineBreaks: true,
-								        codeSyntaxHighlighting: false,
-								    },
-									spellChecker: false,
-									forceSync: true
-									/*autosave: {
-								        enabled: true,
-								        uniqueId: "view/post/edit",
-								        delay: 6000, // each minute
-								    },*/ 
-								});
-				            </script>
+				            <textarea id="textarea" type="text" class="form-control" rows="5"   >[[.Post.Text]]</textarea>
 						</div>
 					</div>
 				</div>

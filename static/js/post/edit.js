@@ -58,3 +58,20 @@ var app = angular.module('itabirapp');
         */
     });
 
+
+var textArea = $("#textarea");
+var simplemde = new SimpleMDE({ 
+  element: textArea[0],
+  autofocus: true,
+      initialValue: textArea.text(),
+      renderingConfig: {
+        singleLineBreaks: true,
+        codeSyntaxHighlighting: false,
+    },
+  spellChecker: false
+  /*autosave: {
+        enabled: true,
+        uniqueId: "view/post/edit",
+        delay: 6000, // each minute
+    },*/ 
+});

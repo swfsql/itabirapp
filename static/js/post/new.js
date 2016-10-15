@@ -8,7 +8,8 @@ var app = angular.module('itabirapp');
 		    d = this.post;
 		    var tags = ["tag_de_teste"];
 
-		    obj = {Title: d.Title, Subtitle: d.Subtitle, Text: d.Text, Tags: tags};
+		    obj = {Title: d.Title, Subtitle: d.Subtitle, Text: $window.simplemde.value(), 
+		    	Tags: tags};
 
 		    $http.post("/anuncio/criar", obj).success(function(st) {
 		        alert("success")
@@ -24,3 +25,20 @@ var app = angular.module('itabirapp');
 
     	}
     });
+    
+var textArea = $("#textarea");
+var simplemde = new SimpleMDE({ 
+  element: textArea[0],
+  autofocus: true,
+      initialValue: textArea.text(),
+      renderingConfig: {
+        singleLineBreaks: true,
+        codeSyntaxHighlighting: false,
+    },
+  spellChecker: false
+  /*autosave: {
+        enabled: true,
+        uniqueId: "view/post/edit",
+        delay: 6000, // each minute
+    },*/ 
+});

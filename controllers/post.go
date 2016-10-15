@@ -246,8 +246,8 @@ func (this *PostController) GetNew() {
 
 	this.TplName = "post/new.html"
 	this.Data["HeadTitle"] = "Criar novo anúncio"
-	this.Data["HeadStyles"] = []string{}
-    this.Data["HeadScripts"] = []string{"post/new.js"}
+	this.Data["HeadStyles"] = []string{"simplemde.min.css"}
+    this.Data["HeadScripts"] = []string{"simplemde.min.js", "post/new.js"}
 	this.Render()
 }
 
