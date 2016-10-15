@@ -3,7 +3,7 @@ package models
 import (
 	_ "fmt"
 	"strconv"
-	"strings"
+	_ "strings"
 
 	 "github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
@@ -62,15 +62,10 @@ func createData() {
 		}
 		o.Insert(post)
 
+		
 		var tags []string
 		tags = append(tags, user.NameIdTag)
 		tags = append(tags, user.Institution_Tag)
-
-		tags2 := "rep,professor,*" // 0
-		//tags := "masc,feminino,+" // 0 1
-		//tags := "rep,feminino,+,masc,*" // 0 1
-		//tags := "feminino,masc,+,cetrulo,+" // 0 1 2
-		//tags := "masc,cetrulo,velha,+,*,professor,nova,feminino,+,*,+" // 0 1
 
 		if i == 0 {
 			tags = append(tags, "rep")
@@ -93,10 +88,9 @@ func createData() {
 			tags = append(tags, "velha")
 
 		}
-
-		split := strings.Split(tags2, ",")
-		AppendTagsForPost(post, split)
+		AppendTagsForPost(post, tags)	
 	}
+
 
 
 }

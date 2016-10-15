@@ -6,6 +6,7 @@ import (
 	//"reflect"
 	 "github.com/astaxie/beego/orm"
 
+	 "strings"
 )
 
 
@@ -80,18 +81,21 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 	fmt.Println(query_tags)
 	for _, s := range query_tags {
 		fmt.Println("!")
+
+	fmt.Println(post_tags)
 		fmt.Println(st)
 		if s != "*" && s != "+" {
 			st.Push(s)
 		} else {
 			var count = 0
-			to_push := ""
+			to_push := "("
 			for j := 0; j < 2; j++ {
 				s_pop := st.Pop()
 				fmt.Println(">", s_pop)
 				to_push += s_pop + s
 				fmt.Println("<", to_push)
 				for _, s1 := range post_tags {
+					fmt.Println(":", s1)
 					if s1 == s_pop {
 						count++
 						break
@@ -99,14 +103,15 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 					
 				}
 				fmt.Println("=", count)
-				if s == "*" && count >= 2 || s == "+" && count >= 1 {
-					break
-				}
+
 			}
 			to_push = to_push[:len(to_push)-1]
+			to_push += ")"
 			result = false
-			if s == "*" && count >= 2 || s == "+" && count >= 1 {
 				st.Push(to_push)
+			if (s == "*" && count >= 2) || (s == "+" && count >= 1) {
+
+				fmt.Println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
 				post_tags = append(post_tags, to_push)
 				result = true
 			} 
@@ -120,7 +125,14 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 func GetPostsByTags() (num int64, posts []Post, err error) {
 
 
-	tags := []string{"n0_1","instTag0","*","n6_0","+"}
+	//tags2 := "rep,professor,*" // 0
+	//tags2 := "masc,feminino,+" // 0 1
+	//tags2 := "rep,feminino,+,masc,*" // 0 1
+	//tags2 := "feminino,masc,+,cetrulo,+" // 0 1 2
+	tags2 := "masc,cetrulo,velha,+,*,professor,nova,feminino,+,*,+" // 0 1
+	tags := strings.Split(tags2, ",")
+
+	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!printcabuluso!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 	var tags3 []string
 	for _, s := range tags{
