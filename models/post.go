@@ -131,20 +131,6 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 
 func GetPostsByTags(tags2 string) (num int64, posts []Post, err error) {
 
-
-	//tags2 = "rep,professor,*" // 0
-	//tags2 = "professor" // 0
-	//tags2 = "masc,feminino,+" // 0 1
-	//tags2 = "rep,feminino,+,masc,*" // 0 1
-	//tags2 = "feminino,masc,+,cetrulo,+" // 0 1 2
-	//tags2 = "masc,cetrulo,velha,+,*,professor,nova,feminino,+,*,+" // 0 1
-	//tags2 = "professor,thiago,velha,+,+,thiago,*,feminino,nova,+,velha,*,rep,rep,cetrulo,+,+,*,+"
-	// ^ 1 2
-	tags2 = "professor,thiago,velha,+,+,thiago,*,feminino,nova,+,velha,*,rep,rep,cetrulo,+,+,*,*"
-	// ^ nenhum
-
-
-
 	tags := strings.Split(tags2, ",")
 
 	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!printcabuluso!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -193,7 +179,7 @@ func GetPostsByAnyTags(tags []string) (num int64, posts []*Post, err error) {
 		params = append(params, t)
 	}
 	var posts_q []Post
-	o.QueryTable("post").Filter("Tags__Tag__Name__in", params...).Distinct().All(&posts_q)
+	o.QueryTable("post").Filter("Tags__Tag__Name__in", params...).RelatedSel().Distinct().All(&posts_q)
 	
 
 	for i,p := range posts_q {

@@ -40,15 +40,15 @@ func (this *PostController) GetPost() {
 		this.Data["IsOwner"] = true
 	}
 	fmt.Println("macacoide")
-	mrk_title := "# " + post.Title
-	mrk_subtitle := "## " + post.Subtitle
-	mrk_text := post.Text
+	mrk_title := "#### " + post.Title + ": "
+	mrk_subtitle := " *" + post.Subtitle + "*"
+	mrk_text := "---\n\n" + post.Text
 	//mrk_author := "" + post.User.Name
 	//mrk_NameIdTag := "" + post.User.NameIdTag
 	//mrk_Institution_Tag := "" + post.User.Institution_Tag
 
 	fmt.Println("macacoide")
-	mrk := mrk_title + "\n" + mrk_subtitle + "\n" + mrk_text
+	mrk := mrk_title + mrk_subtitle + "\n\n" + mrk_text
 
 	unsafe := blackfriday.MarkdownCommon([]byte(mrk))
 	html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
@@ -253,18 +253,20 @@ func (this *PostController) GetNew() {
 
 func (this *PostController) GetSearch() {
 	fmt.Println("hueee hue br")
-	this.Ctx.Input.Param(":search")
+	tags2 := this.Ctx.Input.Param(":search")
 
-	//var busca []string
-	//busca = []string{"n0_1", "instTag0"}
-	//models.GetPostsByAnyTags(busca)
-
-	_, posts, _ := models.GetPostsByTags("ASAS")
+	_, posts, _ := models.GetPostsByTags(tags2)
 	fmt.Println("~~~~~~~~~~~~~~~~~~")
 	for _, p := range posts {
 		fmt.Println(p.Title)
 	}
 
-	this.Redirect("/", 302)
-	return 
+	this.Data["Posts"] = posts
+
+	this.TplName = "post/list.html"
+	this.Data["HeadTitle"] = "Lista de anúncios"
+	this.Data["HeadStyles"] = []string{"post/list.css"}
+    this.Data["HeadScripts"] = []string{"post/list.js"}
+	this.Render()
+
 }

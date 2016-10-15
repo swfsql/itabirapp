@@ -2,8 +2,24 @@
 	<a href="/usuario/5/editar">usuario/5/editar</a> - n0@a; n0<br>
 	<a href="/usuario/listar">usuario/listar</a> - n0@s; n0<br>
 	<a href="/usuario/criar">usuario/criar</a> <br>
+	<hr>
 	<a href="/anuncio/6">post/6</a> <br>
 	<a href="/anuncio/criar">anuncio/criar</a> <br>
-	<a href="/busca/n0_1">busca/n0_1</a> <br>
+	<hr>
+	<a href="/busca/masc,feminino,+">/busca/masc,feminino,+</a> <br>
+	<hr>
 	
 </div>
+
+<!--
+tags2 = "rep,professor,*" // 0
+tags2 = "professor" // 0
+tags2 = "masc,feminino,+" // 0 1
+tags2 = "rep,feminino,+,masc,*" // 0 1
+tags2 = "feminino,masc,+,cetrulo,+" // 0 1 2
+tags2 = "masc,cetrulo,velha,+,*,professor,nova,feminino,+,*,+" // 0 1
+tags2 = "professor,thiago,velha,+,+,thiago,*,feminino,nova,+,velha,*,rep,rep,cetrulo,+,+,*,+"
+^ 1 2
+tags2 = "professor,thiago,velha,+,+,thiago,*,feminino,nova,+,velha,*,rep,rep,cetrulo,+,+,*,*"
+^ nenhum
+-->

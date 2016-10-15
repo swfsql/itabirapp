@@ -1,0 +1,14 @@
+/* line 4, ../../sass/post/list.sass */
+.post-list .description {
+  height: 46px;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+/* line 8, ../../sass/post/list.sass */
+.post-list .user {
+  margin-left: -15px; }
+/* line 10, ../../sass/post/list.sass */
+.post-list .tags {
+  margin-left: 15px;
+  padding-right: 0px; }
+
+/*# sourceMappingURL=list.css.map */
