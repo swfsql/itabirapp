@@ -61,6 +61,10 @@ func createData() {
 		var tags []string
 		tags = append(tags, user.NameIdTag)
 		tags = append(tags, user.Institution_Tag)
+		if i == 0 {
+			tags = append(tags, "hue")
+
+		}
 		AppendTagsForPost(post, tags)
 	}
 

@@ -253,9 +253,17 @@ func (this *PostController) GetNew() {
 
 func (this *PostController) GetSearch() {
 	fmt.Println("hueee hue br")
-	search := this.Ctx.Input.Param(":search")
+	this.Ctx.Input.Param(":search")
 
-	models.GetPostsByTag(search)
+	//var busca []string
+	//busca = []string{"n0_1", "instTag0"}
+	//models.GetPostsByAnyTags(busca)
+
+	_, posts, _ := models.GetPostsByTags()
+	fmt.Println("~~~~~~~~~~~~~~~~~~")
+	for _, p := range posts {
+		fmt.Println(p.Title)
+	}
 
 	this.Redirect("/", 302)
 	return 
