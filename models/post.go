@@ -15,7 +15,7 @@ type Post struct {
 	User *User `orm:"rel(fk)"`
 	Title string  //
 	Subtitle string  //
-	Text string  //
+	Text string `orm:"type(text)"` //
 	Tags []*Tag `orm:"rel(m2m)"`
 
 }

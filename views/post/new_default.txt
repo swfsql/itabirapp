@@ -1,0 +1,109 @@
+## Markdown
+#### Um breve guia
+
+---
+
+<a id="ancora-indice"></a>
+##### Índice 
+ * [O que é markdown](#ancora-cap-1)
+ * [A ferramenta de edição](#ancora-cap-2)
+ * [A tradução do servidor](#ancora-cap-3)
+ * [Marcações que damos suporte](#ancora-cap-4)
+  * [Links](#ancora-cap-4.1)
+  * [Imagens](#ancora-cap-4.2)
+  * [Tabelas](#ancora-cap-4.3)
+  * [Citações](#ancora-cap-4.4)
+  * [Termos e definições](#ancora-cap-4.5)
+
+---
+
+<a id="ancora-cap-1"></a>
+### O que é markdown 
+
+É uma estrutura de texto no qual a _meta-informação_ da apresentação do texto está contida nele mesmo. É esta estrutura de texto, com a _meta-informação_, que guardamos conosco quando você cria o seu anúncio. 
+Posteriormente à redição, quando o seu texto deverá ser _apresentado_, nós convertemos o seu texto em **markdown** para uma estrutura mais apresentável, onde a _meta-informação_ estará oculta, e enviamos ao visitante. 
+
+---
+
+<a id="ancora-cap-2"></a>
+### A ferramenta de edição 
+
+Você está utilizando ela neste momento. Ela modifica como os elementos são _apresentados_ enquanto você redige o texto, para facilitar a sua estruturação.
+
+Você pode pressionar Ctrl-P para pré-visualizar o texto sem a _meta-informação_, ou então pressionar F9 para poder redigir e pré-visualizar ao mesmo tempo. Além disto, pode pressionar F11 para ativar ou desativar a redição em tela-cheia.
+
+---
+
+<a id="ancora-cap-3"></a>
+### A tradução do servidor 
+
+A funcionalidade de pré-visualização é feita pelo seu navegador. Porém não é isso o que acontecerá quando um visite for olhar o seu anúncio. Neste caso, o anúncio será tratado, ter sua _meta-informação_ ocultada, por nós mesmos. Porém este tratamento que nós damos não é o mesmo do que este que seu navegador dá, portanto pode existir algumas incoerências entre a sua pré-visualização e a visualização final do visitante sobre a redição e a visualização do seu anúncio, respectivamente.
+
+A seguir uma lista das incoerências que temos conhecimento:
+
+1. Nós não damos suportes a citações aninhadas.
+ * Nós iniciamos um novo parágrafo somente com uma linha em branco.
+2. Nós damos suporte aos (termos :definição), porém a pré-visualização não.
+
+---
+
+<a id="ancora-cap-4"></a>
+### Marcações que damos suporte 
+
+---
+
+<a id="ancora-cap-4.1"></a>
+#### Links 
+
+[Texto de um link](http://www.google.com)
+
+[Mais um texto de um link](http://www.google.com "Com comentário que aparece ao passar o mouse sobre o link")
+
+---
+
+<a id="ancora-cap-4.2"></a>
+#### Imagens 
+
+![Mostrando uma imagem](https://cdn0.iconfinder.com/data/icons/octicons/1024/markdown-256.png "Comentáiro ao passar o mouse sobre a imagem")
+
+![Texto alternativo][id_do_link_da_imagem_definido_posterirmente]
+
+[id_do_link_da_imagem_definido_posterirmente]: https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/208px-Markdown-mark.svg.png "Texto optativo"
+
+---
+
+<a id="ancora-cap-4.3"></a>
+#### Tabelas 
+
+As tabelas são criadas com o uso de barras verticias (|) para separar cada coluna e uma linha preenchida por traços (---) para indicar o cabeçalho da tabela. Note que não é necessário que as colunas estejam, no **markdown**, visualmente alinhadas.
+
+| Fruta | Cor |
+| --- | --- |
+| Maçã | Azul |
+| Uva | Vermelha |
+| Lápis | Laranja |
+
+---
+
+<a id="ancora-cap-4.4"></a>
+#### Citação 
+
+> Para fazer uma citação, basta começar a linha por > (maior-que).
+> Para iniciar um novo parágrafo, você deve deixar uma linha em branco.
+> 
+> Esta linha de citação inicia um novo parágrafo.
+
+---
+
+<a id="ancora-cap-4.5"></a>
+#### Termos e definições 
+
+Um termo
+: Sua Definição
+
+Outro termo
+: Sua definição.
+
+---
+
+[Retornar ao índice](#ancora-indice)

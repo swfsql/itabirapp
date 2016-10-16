@@ -9,6 +9,10 @@ import (
 	"strconv"
 	"bytes"
 
+	"mime/multipart"
+	"io"
+	"os"
+
 )
 
 // ERRS
@@ -384,14 +388,23 @@ func (this *UserController) PostNew() {
 
 	fmt.Println("criado com sucesso")
 	userId, _ := user.New()
+	fmt.Println(userId)
 
 	fmt.Println("criado com sucesso")
 	status := struct{ Status string }{""}
 
 	fmt.Println("criado com sucesso")
 
-	// salva de acordo com o ID
-
+	// salva imagem de acordo com o ID
+	sess := this.StartSession()
+	file, hasFile := sess.Get("userImage").(multipart.File)
+	if hasFile {
+	    defer file.Close()
+	    defer sess.Delete("userImage")
+	    out, _ := os.Create("static/images/user/" + strconv.Itoa(int(userId)) + ".jpg")
+	    defer out.Close()
+	    io.Copy(out, file)
+	}
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -400,34 +413,12 @@ func (this *UserController) PostNew() {
 
 func (this *UserController) PostUserImage() {
 
-    file, header, errr := this.GetFile("datafile") 
-    header.Open()
-    defer header.Close()
-
-    fmt.Println(errr)
-    fmt.Println(this.Ctx.Input.RequestBody)
-    fmt.Println("entrou na func PostUserImage")
-    // where <<this>> is the controller and <<file>> the id of your form field
+    file, _, _ := this.GetFile("datafile") 
 
     if file != nil {
-
-
-		//sess := this.StartSession()
-		//sess.Set("image", file)
-		//sess.Set("imageHeader", header)
-
-
-
-
-        /*
-        // get the filename
-        fileName := header.Filename
-        fmt.Println("aruivo: ", fileName)
-        // save to server
-        err := this.SaveToFile("datafile", "static/images/user/1.jpg")
-        fmfilet.Println("erro do save ", err)
-        */
+		sess := this.StartSession()
+		sess.Set("userImage", file)
+		//sess.Set("userImageHeader", header)
     }
 
-		this.Redirect("/", 302)
 }

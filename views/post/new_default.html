@@ -1,0 +1,109 @@
+## Markdown
+#### Um breve guia
+
+---
+
+&lt;a id=&quot;ancora-indice&quot;&gt;&lt;/a&gt;
+##### &Iacute;ndice 
+ * [O que &eacute; markdown](#ancora-cap-1)
+ * [A ferramenta de edi&ccedil;&atilde;o](#ancora-cap-2)
+ * [A tradu&ccedil;&atilde;o do servidor](#ancora-cap-3)
+ * [Marca&ccedil;&otilde;es que damos suporte](#ancora-cap-4)
+  * [Links](#ancora-cap-4.1)
+  * [Imagens](#ancora-cap-4.2)
+  * [Tabelas](#ancora-cap-4.3)
+  * [Cita&ccedil;&otilde;es](#ancora-cap-4.4)
+  * [Termos e defini&ccedil;&otilde;es](#ancora-cap-4.5)
+
+---
+
+&lt;a id=&quot;ancora-cap-1&quot;&gt;&lt;/a&gt;
+### O que &eacute; markdown 
+
+&Eacute; uma estrutura de texto no qual a _meta-informa&ccedil;&atilde;o_ da apresenta&ccedil;&atilde;o do texto est&aacute; contida nele mesmo. &Eacute; esta estrutura de texto, com a _meta-informa&ccedil;&atilde;o_, que guardamos conosco quando voc&ecirc; cria o seu an&uacute;ncio. 
+Posteriormente &agrave; redi&ccedil;&atilde;o, quando o seu texto dever&aacute; ser _apresentado_, n&oacute;s convertemos o seu texto em **markdown** para uma estrutura mais apresent&aacute;vel, onde a _meta-informa&ccedil;&atilde;o_ estar&aacute; oculta, e enviamos ao visitante. 
+
+---
+
+&lt;a id=&quot;ancora-cap-2&quot;&gt;&lt;/a&gt;
+### A ferramenta de edi&ccedil;&atilde;o 
+
+Voc&ecirc; est&aacute; utilizando ela neste momento. Ela modifica como os elementos s&atilde;o _apresentados_ enquanto voc&ecirc; redige o texto, para facilitar a sua estrutura&ccedil;&atilde;o.
+
+Voc&ecirc; pode pressionar Ctrl-P para pr&eacute;-visualizar o texto sem a _meta-informa&ccedil;&atilde;o_, ou ent&atilde;o pressionar F9 para poder redigir e pr&eacute;-visualizar ao mesmo tempo. Al&eacute;m disto, pode pressionar F11 para ativar ou desativar a redi&ccedil;&atilde;o em tela-cheia.
+
+---
+
+&lt;a id=&quot;ancora-cap-3&quot;&gt;&lt;/a&gt;
+### A tradu&ccedil;&atilde;o do servidor 
+
+A funcionalidade de pr&eacute;-visualiza&ccedil;&atilde;o &eacute; feita pelo seu navegador. Por&eacute;m n&atilde;o &eacute; isso o que acontecer&aacute; quando um visite for olhar o seu an&uacute;ncio. Neste caso, o an&uacute;ncio ser&aacute; tratado, ter sua _meta-informa&ccedil;&atilde;o_ ocultada, por n&oacute;s mesmos. Por&eacute;m este tratamento que n&oacute;s damos n&atilde;o &eacute; o mesmo do que este que seu navegador d&aacute;, portanto pode existir algumas incoer&ecirc;ncias entre a sua pr&eacute;-visualiza&ccedil;&atilde;o e a visualiza&ccedil;&atilde;o final do visitante sobre a redi&ccedil;&atilde;o e a visualiza&ccedil;&atilde;o do seu an&uacute;ncio, respectivamente.
+
+A seguir uma lista das incoer&ecirc;ncias que temos conhecimento:
+
+1. N&oacute;s n&atilde;o damos suportes a cita&ccedil;&otilde;es aninhadas.
+ * N&oacute;s iniciamos um novo par&aacute;grafo somente com uma linha em branco.
+2. N&oacute;s damos suporte aos (termos :defini&ccedil;&atilde;o), por&eacute;m a pr&eacute;-visualiza&ccedil;&atilde;o n&atilde;o.
+
+---
+
+&lt;a id=&quot;ancora-cap-4&quot;&gt;&lt;/a&gt;
+### Marca&ccedil;&otilde;es que damos suporte 
+
+---
+
+&lt;a id=&quot;ancora-cap-4.1&quot;&gt;&lt;/a&gt;
+#### Links 
+
+[Texto de um link](http://www.google.com)
+
+[Mais um texto de um link](http://www.google.com &quot;Com coment&aacute;rio que aparece ao passar o mouse sobre o link&quot;)
+
+---
+
+&lt;a id=&quot;ancora-cap-4.2&quot;&gt;&lt;/a&gt;
+#### Imagens 
+
+![Mostrando uma imagem](https://cdn0.iconfinder.com/data/icons/octicons/1024/markdown-256.png &quot;Coment&aacute;iro ao passar o mouse sobre a imagem&quot;)
+
+![Texto alternativo][id_do_link_da_imagem_definido_posterirmente]
+
+[id_do_link_da_imagem_definido_posterirmente]: https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/208px-Markdown-mark.svg.png &quot;Texto optativo&quot;
+
+---
+
+&lt;a id=&quot;ancora-cap-4.3&quot;&gt;&lt;/a&gt;
+#### Tabelas 
+
+As tabelas s&atilde;o criadas com o uso de barras verticias (|) para separar cada coluna e uma linha preenchida por tra&ccedil;os (---) para indicar o cabe&ccedil;alho da tabela. Note que n&atilde;o &eacute; necess&aacute;rio que as colunas estejam, no **markdown**, visualmente alinhadas.
+
+| Fruta | Cor |
+| --- | --- |
+| Ma&ccedil;&atilde; | Azul |
+| Uva | Vermelha |
+| L&aacute;pis | Laranja |
+
+---
+
+&lt;a id=&quot;ancora-cap-4.4&quot;&gt;&lt;/a&gt;
+#### Cita&ccedil;&atilde;o 
+
+&gt; Para fazer uma cita&ccedil;&atilde;o, basta come&ccedil;ar a linha por &gt; (maior-que).
+&gt; Para iniciar um novo par&aacute;grafo, voc&ecirc; deve deixar uma linha em branco.
+&gt; 
+&gt; Esta linha de cita&ccedil;&atilde;o inicia um novo par&aacute;grafo.
+
+---
+
+&lt;a id=&quot;ancora-cap-4.5&quot;&gt;&lt;/a&gt;
+#### Termos e defini&ccedil;&otilde;es 
+
+Um termo
+: Sua Defini&ccedil;&atilde;o
+
+Outro termo
+: Sua defini&ccedil;&atilde;o.
+
+---
+
+[Retornar ao &iacute;ndice](#ancora-indice)
