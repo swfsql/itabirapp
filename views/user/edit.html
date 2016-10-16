@@ -101,7 +101,7 @@
 						<label class="btn btn-default btn-file">
 						    Procurar <input id="imageUpload" type="file" name="datafile" size="40" style="display: none;">
 						</label>
-						<label class="btn btn-success btn-file">
+						<label id="imageSend" class="btn btn-success btn-file" disabled>
 						    Enviar <input type="submit" value="Send" onClick=imageUpload() style="display: none;">	
 						</label>
 					</div>
@@ -207,7 +207,7 @@
 		<div class="panel-heading">Configurações da conta</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
 						<label>Cadastro:</label><br>
 						<button type="button" class="btn btn-danger" ng-disabled="usr.config.disabled" ng-click="usr.delete()">

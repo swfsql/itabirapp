@@ -10,6 +10,10 @@ import (
 	"github.com/microcosm-cc/bluemonday"
     "github.com/russross/blackfriday"
     "html/template"
+
+	"mime/multipart"
+	"io"
+	"os"
 )
 
 
@@ -146,6 +150,20 @@ func (this *PostController) PostEdit() {
 
 	fmt.Println("editado com sucesso")
 
+	postId := post.Id
+
+	// salva imagem de acordo com o ID
+	sess := this.StartSession()
+	file, hasFile := sess.Get("postImage").(multipart.File)
+	if hasFile {
+	    defer file.Close()
+	    defer sess.Delete("postImage")
+	    out, _ := os.Create("static/images/post/" + strconv.Itoa(postId) + ".jpg")
+	    defer out.Close()
+	    io.Copy(out, file)
+	}
+
+
 	status.Status = st_ok
 	this.Data["json"] = status
 	this.ServeJSON()
@@ -228,13 +246,26 @@ func (this *PostController) PostNew() {
 
 	//this.Redirect("/anuncio/" + strconv.Itoa(int(postId)), 302)
 
+	postId_s := strconv.Itoa(int(postId))
+
+	// salva imagem de acordo com o ID
+	file, hasFile := sess.Get("postImage").(multipart.File)
+	if hasFile {
+	    defer file.Close()
+	    defer sess.Delete("postImage")
+	    out, _ := os.Create("static/images/post/" + postId_s + ".jpg")
+	    defer out.Close()
+	    io.Copy(out, file)
+	}
+
+
 	status := struct{ 
 		Status string 
 		PostId string 
 	}{"", ""}
 
 	status.Status = st_ok
-	status.PostId = strconv.Itoa(int(postId))
+	status.PostId = postId_s
 
 	this.Data["json"] = status
 	this.ServeJSON()
@@ -242,6 +273,17 @@ func (this *PostController) PostNew() {
 
 func (this *PostController) GetNew() {
 	fmt.Println("hueee hue br")
+
+	sess := this.StartSession()
+	//defer sess.SessionRelease()
+
+	fmt.Println("macacoide")
+	_, loggedIn := sess.Get("user").(models.User)
+	if !loggedIn{
+		defer this.DestroySession()
+		this.Redirect("/usuario/criar", 302)
+		return 
+	}
 
 
 	this.TplName = "post/new.html"
@@ -268,5 +310,25 @@ func (this *PostController) GetSearch() {
 	this.Data["HeadStyles"] = []string{"post/list.css"}
     this.Data["HeadScripts"] = []string{"post/list.js"}
 	this.Render()
+
+}
+
+func (this *PostController) PostPostImage() {
+
+    file, _, err := this.GetFile("datafile") 
+
+    if file != nil {
+		sess := this.StartSession()
+		sess.Set("postImage", file)
+		//sess.Set("userImageHeader", header)
+    } else {
+    	fmt.Println(err)
+
+    }
+
+	status := struct{ Status string }{""}
+	status.Status = st_ok
+	this.Data["json"] = status
+	this.ServeJSON()
 
 }

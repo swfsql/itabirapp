@@ -32,6 +32,6 @@ func init() {
 	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 
 	beego.SetStaticPath("/img", "images")
-	//beego.Router("/imagem/usuario/adicionar", &controllers.DocumentController{}, "post:PostUserImage")
+	beego.Router("/imagem/anuncio/adicionar", &controllers.PostController{}, "post:PostPostImage")
 	beego.Router("/imagem/usuario/adicionar", &controllers.UserController{}, "post:PostUserImage")
 }

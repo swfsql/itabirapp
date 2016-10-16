@@ -104,6 +104,12 @@ var app = angular.module('itabirapp');
         */
     });
   
+$(function() {
+ $("#imageUpload").change(function (){
+  $("#imageSend").removeAttr('disabled')
+ });
+});
+
 function imageUpload() {
   alert("xamooou")
   var data = new FormData();

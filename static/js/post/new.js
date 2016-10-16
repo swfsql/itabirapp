@@ -42,3 +42,29 @@ var simplemde = new SimpleMDE({
         delay: 6000, // each minute
     },*/ 
 });
+
+$(function() {
+ $("#imageUpload").change(function (){
+  $("#imageSend").removeAttr('disabled')
+ });
+});
+
+function imageUpload() {
+  var data = new FormData();
+  $.each($('#imageUpload')[0].files, function(i, file) {
+      data.append('datafile', file);
+  });
+
+  $.ajax({
+      url: '/imagem/anuncio/adicionar',
+      data: data,
+      cache: false,
+      contentType: false, //'multipart/form-data',
+      processData: false,
+      type: 'POST',
+      success: function(data){
+          alert(data);
+      }
+  });
+
+}

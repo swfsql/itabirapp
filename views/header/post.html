@@ -1,0 +1,12 @@
+<li>
+	<a 
+		[[if .IsLoggedIn]]
+			href="/busca/[[.User.NameIdTag]]" 
+		[[end]]
+		class="btn btn-default"><i class="fa fa-list"></i> Meus anúncios
+	</a>
+</li>
+<li role="separator" class="divider"></li>
+<li>
+	<a href="/anuncio/criar" class="btn btn-default"><i class="fa fa-file-text-o"></i> Novo anúncio</a>
+</li>
