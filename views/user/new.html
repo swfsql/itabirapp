@@ -65,14 +65,12 @@
 					</div>
 					<div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
 						<label>Imagem:</label>
-						<form action= "/imagem/usuario/adicionar" enctype="multipart/form-data" method="post">
-							<label class="btn btn-default btn-file">
-							    Procurar <input type="file" name="datafile" size="40" style="display: none;">
-							</label>
-							<label class="btn btn-success btn-file">
-							    Enviar <input type="submit" value="Send" style="display: none;">	
-							</label>
-						</form>
+						<label class="btn btn-default btn-file">
+						    Procurar <input id="imageUpload" type="file" name="datafile" size="40" style="display: none;">
+						</label>
+						<label class="btn btn-success btn-file">
+						    Enviar <input type="submit" value="Send" onClick=imageUpload() style="display: none;">	
+						</label>
 					</div>
 				</div>
 			</div>

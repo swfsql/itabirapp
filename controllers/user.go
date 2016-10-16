@@ -183,6 +183,18 @@ func (this *UserController) PostEditInstitution() {
 
 	fmt.Println("editado com sucesso")
 
+	// salva imagem de acordo com o ID
+	sess := this.StartSession()
+	file, hasFile := sess.Get("userImage").(multipart.File)
+	if hasFile {
+	    defer file.Close()
+	    defer sess.Delete("userImage")
+	    out, _ := os.Create("static/images/user/" + strconv.Itoa(target.Id) + ".jpg")
+	    defer out.Close()
+	    io.Copy(out, file)
+	}
+
+
 	status.Status = st_ok
 	this.Data["json"] = status
 	this.ServeJSON()
@@ -412,13 +424,24 @@ func (this *UserController) PostNew() {
 }
 
 func (this *UserController) PostUserImage() {
+	fmt.Println(">>> entrou na PostUserImage")
 
-    file, _, _ := this.GetFile("datafile") 
+    file, header, err := this.GetFile("datafile") 
 
     if file != nil {
+	 	fmt.Println(">>> ARQUIVO CARREGADO COM SUCESSO, seu nome é:")
+	 	fmt.Println(header.Filename)
 		sess := this.StartSession()
 		sess.Set("userImage", file)
 		//sess.Set("userImageHeader", header)
+    } else {
+    	fmt.Println(err)
+
     }
+
+	status := struct{ Status string }{""}
+	status.Status = st_ok
+	this.Data["json"] = status
+	this.ServeJSON()
 
 }

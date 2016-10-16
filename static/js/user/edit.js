@@ -103,3 +103,26 @@ var app = angular.module('itabirapp');
       $http.post('/login', {Email: d.Email, Password: d.Password}).
         */
     });
+  
+function imageUpload() {
+  alert("xamooou")
+  var data = new FormData();
+  $.each($('#imageUpload')[0].files, function(i, file) {
+      data.append('datafile', file);
+  });
+  alert("passou")
+
+  $.ajax({
+      url: '/imagem/usuario/adicionar',
+      data: data,
+      cache: false,
+      contentType: false, //'multipart/form-data',
+      processData: false,
+      type: 'POST',
+      success: function(data){
+        alert("aehooooooooo")
+          alert(data);
+      }
+  });
+
+}
