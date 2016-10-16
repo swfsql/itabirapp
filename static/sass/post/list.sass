@@ -1,5 +1,9 @@
 $max-height: 46px
 
+$brk-lg: 1200px
+$brk-md: 992px
+$brk-sm: 768px
+
 .post-list
 	.description
 		height: $max-height
@@ -10,3 +14,13 @@ $max-height: 46px
 	.tags
 		margin-left: 15px
 		padding-right: 0px
+	.post-img
+		overflow: hidden
+		@media screen and (min-width: $brk-lg)
+			height: 110px 
+		@media screen and (min-width: $brk-md) and (max-width: $brk-lg)
+			height: 142px
+		@media screen and (min-width: $brk-sm) and (max-width: $brk-md)
+			height: 105px
+		@media screen and (max-width: $brk-sm)
+			height: 105px

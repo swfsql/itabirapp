@@ -8,6 +8,7 @@ import (
 	"github.com/swfsql/itabirapp/models"
 	"strconv"
 	"bytes"
+
 )
 
 // ERRS
@@ -382,14 +383,51 @@ func (this *UserController) PostNew() {
 	user.Addr_City = dado.Addr_City  
 
 	fmt.Println("criado com sucesso")
-	user.New()
+	userId, _ := user.New()
 
 	fmt.Println("criado com sucesso")
 	status := struct{ Status string }{""}
 
 	fmt.Println("criado com sucesso")
 
+	// salva de acordo com o ID
+
+
 	status.Status = st_ok
 	this.Data["json"] = status
 	this.ServeJSON()
+}
+
+func (this *UserController) PostUserImage() {
+
+    file, header, errr := this.GetFile("datafile") 
+    header.Open()
+    defer header.Close()
+
+    fmt.Println(errr)
+    fmt.Println(this.Ctx.Input.RequestBody)
+    fmt.Println("entrou na func PostUserImage")
+    // where <<this>> is the controller and <<file>> the id of your form field
+
+    if file != nil {
+
+
+		//sess := this.StartSession()
+		//sess.Set("image", file)
+		//sess.Set("imageHeader", header)
+
+
+
+
+        /*
+        // get the filename
+        fileName := header.Filename
+        fmt.Println("aruivo: ", fileName)
+        // save to server
+        err := this.SaveToFile("datafile", "static/images/user/1.jpg")
+        fmfilet.Println("erro do save ", err)
+        */
+    }
+
+		this.Redirect("/", 302)
 }

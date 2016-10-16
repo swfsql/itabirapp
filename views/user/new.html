@@ -48,6 +48,7 @@
 				            <textarea type="text" class="form-control" rows="5"  ng-model="usr.institution.Description"  ></textarea>
 						</div>
 					</div>
+
 					<div class="col-lg-4 col-md-5 col-sm-6 col-xs-12">
 						<label>Anunciante:</label>
 						<div class="input-group">
@@ -61,6 +62,17 @@
 							    [[end]]
 							</select>
 						</div>
+					</div>
+					<div class="col-lg-8 col-md-7 col-sm-6 col-xs-12">
+						<form action= "/imagem/usuario/adicionar" enctype="multipart/form-data" method="post">
+							<p>
+								Please specify a file, or a set of files:<br>
+								<input type="file" name="datafile" size="40" >
+							</p>
+							<div>
+								<input type="submit" value="Send">	
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

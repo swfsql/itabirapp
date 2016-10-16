@@ -16,7 +16,6 @@ type Post struct {
 	Title string  //
 	Subtitle string  //
 	Text string  //
-	Thumbnail []byte `orm:"-"` // (imagem)
 	Tags []*Tag `orm:"rel(m2m)"`
 
 }

@@ -29,7 +29,6 @@ type User struct {
 	Institution_type *Institution_type `orm:"rel(fk);null"` // [1=republica, 2=professor, ...]
 	Institution_Tag string `orm:"null"` // [republica, professor, ...] (informação duplicada)
 	Institution_Description string `orm:"null"` // (somos a UP e tals)
-	Institution_Thumbnail []byte `orm:"-"` // (imagem)
 	Addr_Street string `orm:"null"` // Girassol
 	Addr_Number string `orm:"null"` // 123
 	Addr_Complement string `orm:"null"` // 103

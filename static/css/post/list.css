@@ -1,14 +1,33 @@
-/* line 4, ../../sass/post/list.sass */
+/* line 8, ../../sass/post/list.sass */
 .post-list .description {
   height: 46px;
   overflow: hidden;
   text-overflow: ellipsis; }
-/* line 8, ../../sass/post/list.sass */
+/* line 12, ../../sass/post/list.sass */
 .post-list .user {
   margin-left: -15px; }
-/* line 10, ../../sass/post/list.sass */
+/* line 14, ../../sass/post/list.sass */
 .post-list .tags {
   margin-left: 15px;
   padding-right: 0px; }
+/* line 17, ../../sass/post/list.sass */
+.post-list .post-img {
+  overflow: hidden; }
+  @media screen and (min-width: 1200px) {
+    /* line 17, ../../sass/post/list.sass */
+    .post-list .post-img {
+      height: 110px; } }
+  @media screen and (min-width: 992px) and (max-width: 1200px) {
+    /* line 17, ../../sass/post/list.sass */
+    .post-list .post-img {
+      height: 142px; } }
+  @media screen and (min-width: 768px) and (max-width: 992px) {
+    /* line 17, ../../sass/post/list.sass */
+    .post-list .post-img {
+      height: 105px; } }
+  @media screen and (max-width: 768px) {
+    /* line 17, ../../sass/post/list.sass */
+    .post-list .post-img {
+      height: 105px; } }
 
 /*# sourceMappingURL=list.css.map */
