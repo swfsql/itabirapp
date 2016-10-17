@@ -14,7 +14,7 @@ type IndexController struct {
 func (this *IndexController) Get() {
 	this.TplName = "index.html"
 	this.Data["HeadTitle"] = "itabirApp"
-	this.Data["HeadStyles"] = []string{}
+	this.Data["HeadStyles"] = []string{"index.css"}
     this.Data["HeadScripts"] = []string{}
 	this.Render()
 }

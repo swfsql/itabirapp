@@ -32,13 +32,24 @@ html {
   min-height: 100%; }
 
 body {
-  font-family: "Roboto", Arial;
-  margin-bottom: 160px; }
+  font-family: "Source Sans Pro", Calibri, Candara, Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 160px;
+  background-color: #2D373B; }
 
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 160px; }
+
+.form-control {
+  background-color: #485563;
+  color: #ABABAB; }
+
+.form-control[disabled] {
+  background-color: #505A6A;
+  color: #ABABAB; }
 
 /*# sourceMappingURL=template.css.map */
