@@ -29,6 +29,7 @@ type User struct {
 	Institution_type *Institution_type `orm:"rel(fk);null"` // [1=republica, 2=professor, ...]
 	Institution_Tag string `orm:"null"` // [republica, professor, ...] (informação duplicada)
 	Institution_Description string `orm:"null"` // (somos a UP e tals)
+	//
 	Addr_Street string `orm:"null"` // Girassol
 	Addr_Number string `orm:"null"` // 123
 	Addr_Complement string `orm:"null"` // 103
@@ -41,6 +42,16 @@ func GetUserByEmail(email string) (user User, err error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("user")
 	err = qs.Filter("Email", email).RelatedSel().One(&user)
+	if err == orm.ErrNoRows {
+		err = ErrNoRows
+	}
+	return
+}
+
+func GetUserByNameIdTag(nameIdTag string) (user User, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("user")
+	err = qs.Filter("NameIdTag", nameIdTag).One(&user)
 	if err == orm.ErrNoRows {
 		err = ErrNoRows
 	}

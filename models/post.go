@@ -6,7 +6,7 @@ import (
 	//"reflect"
 	 "github.com/astaxie/beego/orm"
 
-	 "strings"
+	 _ "strings"
 )
 
 
@@ -128,11 +128,7 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 }
 
 
-func GetPostsByTags(tags2 string) (num int64, posts []Post, err error) {
-
-	tags := strings.Split(tags2, ",")
-
-	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!printcabuluso!!!!!!!!!!!!!!!!!!!!!!!!!!")
+func GetPostsByTags(tags []string) (num int64, posts []Post, err error) {
 
 	var tags3 []string
 	for _, s := range tags{
@@ -142,15 +138,13 @@ func GetPostsByTags(tags2 string) (num int64, posts []Post, err error) {
 	} 
 	_, posts_2, _ := GetPostsByAnyTags(tags3)
 
+
+
 	for _, p := range posts_2 {
-		fmt.Println(".....................")
-		fmt.Println(p.Title)
 		var tags2 []string
 		for _, t := range p.Tags {
 			tags2 = append(tags2, t.Name)
 		}
-		fmt.Println("^^^^^^^^^^^^^^^^^^^^")
-		fmt.Println(tags2)
 
 		if isPostValidByTags(tags2, tags) == true {
 			posts = append(posts, *p)
@@ -161,41 +155,18 @@ func GetPostsByTags(tags2 string) (num int64, posts []Post, err error) {
 
 func GetPostsByAnyTags(tags []string) (num int64, posts []*Post, err error) {
 	o := orm.NewOrm()
-//	o.QueryTable("post").Filter("Tag__Name", tag).Distinct().RelatedSel().All(&posts)
 
-
-	//"n0_1"
-	//"instTag0"
-
-
-	//cond := orm.NewCondition()
-	//cond1 := cond.And("Tags__Tag__Name", "instTag0")
-	//cond2 := cond.And("Tags__Tag__Name", "n0_1")
-	//cond3 := cond1.AndCond(cond2)
-	//o.QueryTable("post").Filter("Tags__Tag__Name", "n0_1").All(&posts)
 	params := make([]interface{},0)
 	for _, t := range tags {
 		params = append(params, t)
 	}
 	var posts_q []Post
-	o.QueryTable("post").Filter("Tags__Tag__Name__in", params...).RelatedSel().Distinct().All(&posts_q)
-	
+	o.QueryTable("post").Filter("Tags__Tag__Name__in", params...).RelatedSel().Distinct().OrderBy("-id").All(&posts_q)
 
-	for i,p := range posts_q {
+	for i,_ := range posts_q {
 		posts = append(posts, &posts_q[i])
-		fmt.Println(i, ":", p.Id)
-		fmt.Println(i, ":", p.Title)
 		o.LoadRelated(&posts_q[i], "Tags")
-		fmt.Println("+++++++")
-		for _, t := range p.Tags {
-			fmt.Println(">", t.Name)
-		}
-
-		//fmt.Println(i, ":", p.User.Name)
 	}
-
-
-
 
 	if err == orm.ErrNoRows {
 		err = ErrNoRows

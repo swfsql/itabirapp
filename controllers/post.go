@@ -2,7 +2,8 @@ package controllers
 
 import (
 	"fmt"
-	 "strconv"
+	"strconv"
+	"strings"
 
 	"encoding/json"
 	"github.com/swfsql/itabirapp/models"
@@ -296,8 +297,50 @@ func (this *PostController) GetNew() {
 func (this *PostController) GetSearch() {
 	fmt.Println("hueee hue br")
 	tags2 := this.Ctx.Input.Param(":search")
+	tags := strings.Split(tags2, ",")
 
-	_, posts, _ := models.GetPostsByTags(tags2)
+	this.Data["TargetExists"] = false
+	if len(tags) == 1 {
+		target, err_target := models.GetUserByNameIdTag(tags[0])
+		if err_target == nil {
+			this.Data["TargetExists"] = true
+			target.Password = ""
+			this.Data["Target"] = target
+			// addr
+			addr := target.Addr_Street + ", "
+			if (target.Addr_Number != "") {
+				addr += target.Addr_Number + ", "
+			}
+			if (target.Addr_Complement != "") {
+				addr += "ap. " + target.Addr_Complement + ", "
+			}
+			if (target.Addr_Neighborhood != "") {
+				addr += target.Addr_Neighborhood + ", "
+			}
+			if (target.Addr_City != "") {
+				addr += target.Addr_City + ", "
+			}
+			addr += "Minas Gerais, Brasil"
+			this.Data["Address"] = addr
+		}
+	} else {
+		// "a,b,c,d" => "a,b,c,d,*,*,*"
+		count_names := 0
+		count_operands := 0
+		for _, s := range tags {
+			if s != "*" && s != "+" {
+				count_names++
+			} else {
+				count_operands++
+			}
+		}
+		count_diff := count_names - count_operands 
+		for i := 0; i < count_diff - 1; i++ {
+			tags = append(tags, "*")
+		}
+	}
+
+	_, posts, _ := models.GetPostsByTags(tags)
 	fmt.Println("~~~~~~~~~~~~~~~~~~")
 	for _, p := range posts {
 		fmt.Println(p.Title)

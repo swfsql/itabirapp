@@ -1,5 +1,51 @@
 <div class="container post-list">
 	<div class="row">
+		[[if .TargetExists]]
+			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 text-right post-img">
+				<a href="/busca/[[.Target.NameIdTag]]"><img src="/static/images/user/[[.Target.Id]].jpg" class="img-responsive"></a>
+			</div>
+			<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9">
+				<a href="/busca/[[.Target.NameIdTag]]"><h3>[[.Target.Name]] <small>([[.Target.Institution_Tag]])</small> </h3></a>
+			</div>
+			<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9 description">
+				[[.Target.Institution_Description]] - 
+				Sed gravida pharetra metus, vel tempus erat. Sed molestie hendrerit sapien eget sagittis. Maecenas bibendum tristique finibus. Praesent quis enim a libero ornare fermentum eu vel velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida pharetra metus, vel tempus erat. Sed molestie hendrerit sapien eget sagittis. Maecenas bibendum tristique finibus. Praesent quis enim a libero ornare fermentum eu vel velit.
+			</div>
+			<div class="col-lg-10 col-md-9 col-sm-9 col-xs-12">	
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 user">
+					<a href="mailto:[[.Target.Email]]?Subject=Do ItabirApp"><i class="fa fa-envelope-o"></i> [[.Target.Email]]</a> 
+				</div>
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-right">
+					<a href="http://maps.google.com/?q=[[.Address]]"><i class="fa fa-map"></i> mapa</a> 
+					[[if ne .Target.Addr_Street ""]]
+						<i class="fa fa-road"></i> [[.Target.Addr_Street]]
+					[[end]]
+					[[if ne .Target.Addr_Number ""]]
+						<span class="fa-stack fa-stack-lh-1 text-center fa-fw-1-5">
+						  <i class="fa fa-square-o fa-stack-1-5x"></i>
+						  <small><strong class="fa-number">nº</strong></small>
+						</span>
+						 [[.Target.Addr_Number]]
+					[[end]]
+					[[if ne .Target.Addr_Complement ""]]
+						<span class="fa-stack fa-stack-lh-1 text-center fa-fw-1-5">
+						  <i class="fa fa-square-o fa-stack-1-5x"></i>
+						  <small><strong class="fa-number ">ap</strong></small>
+						</span>
+						 [[.Target.Addr_Complement]]
+					[[end]]
+					[[if ne .Target.Addr_Neighborhood ""]]
+						<i class="fa fa-home"></i> [[.Target.Addr_Neighborhood]]
+					[[end]]
+					[[if ne .Target.Addr_City ""]]
+						<i class="fa fa-map-signs"></i> [[.Target.Addr_City]]
+					[[end]]
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		        <hr>
+			</div>
+		[[end]]
 		[[range $i, $p := .Posts]]
 			[[if gt $i 0]]
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
