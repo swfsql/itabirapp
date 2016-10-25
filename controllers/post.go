@@ -291,11 +291,11 @@ func (this *PostController) GetNew() {
 func (this *PostController) GetSearch() {
 	fmt.Println("hueee hue br")
 	tags2 := this.Ctx.Input.Param(":search")
-	tags := strings.Split(tags2, ",")
+	tags_str := strings.Split(tags2, ",")
 
 	this.Data["TargetExists"] = false
-	if len(tags) == 1 {
-		target, err_target := models.GetUserByNameIdTag(tags[0])
+	if len(tags_str) == 1 {
+		target, err_target := models.GetUserByNameIdTag(tags_str[0])
 		if err_target == nil {
 			this.Data["TargetExists"] = true
 			target.Password = ""
@@ -321,7 +321,7 @@ func (this *PostController) GetSearch() {
 		// "a,b,c,d" => "a,b,c,d,*,*,*"
 		count_names := 0
 		count_operands := 0
-		for _, s := range tags {
+		for _, s := range tags_str {
 			if s != "*" && s != "+" {
 				count_names++
 			} else {
@@ -330,17 +330,35 @@ func (this *PostController) GetSearch() {
 		}
 		count_diff := count_names - count_operands
 		for i := 0; i < count_diff-1; i++ {
-			tags = append(tags, "*")
+			tags_str = append(tags_str, "*")
 		}
 	}
 
-	_, posts, _ := models.GetPostsByTags(tags)
+	_, posts, tags, _ := models.GetPostsByTags(tags_str)
+
+	// only consider the firsts tags
+	if len(tags) > 4 {
+		tags = tags[:4]
+	}
+
 	fmt.Println("~~~~~~~~~~~~~~~~~~")
 	for _, p := range posts {
 		fmt.Println(p.Title)
 	}
 
+	type tag_url struct {
+		Name string
+		Url  string
+	}
+	var tags_url []tag_url
+	for _, t := range tags {
+		t_u := tag_url{Name: t.Name, Url: this.Ctx.Input.URL() + "," + t.Name + ",*"}
+		tags_url = append(tags_url, t_u)
+	}
+
 	this.Data["Posts"] = posts
+
+	this.Data["Tags_URL"] = tags_url
 
 	this.TplName = "post/list.html"
 	this.Data["HeadTitle"] = "Lista de anúncios"

@@ -123,15 +123,21 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 	return
 }
 
-func GetPostsByTags(tags []string) (num int64, posts []Post, err error) {
+func GetPostsByTags(tags_str []string) (num int64, posts []Post, tags []Tag, err error) {
 
 	var tags3 []string
-	for _, s := range tags {
+	for _, s := range tags_str {
 		if s != "*" && s != "+" {
 			tags3 = append(tags3, s)
 		}
 	}
 	_, posts_2, _ := GetPostsByAnyTags(tags3)
+	type tags_count struct {
+		Tag   *Tag
+		Count uint
+	}
+
+	var tags_c []tags_count
 
 	for _, p := range posts_2 {
 		var tags2 []string
@@ -139,9 +145,53 @@ func GetPostsByTags(tags []string) (num int64, posts []Post, err error) {
 			tags2 = append(tags2, t.Name)
 		}
 
-		if isPostValidByTags(tags2, tags) == true {
+		if isPostValidByTags(tags2, tags_str) == true {
+			fmt.Println(":::novo post válido:::", p.Title)
 			posts = append(posts, *p)
+
+			// insere e ordena as tags deste post validado
+			for i, t := range p.Tags {
+				// skip some dafult tags
+				if i < 2 {
+					continue
+				}
+				fmt.Println("::nova tag válida::", t.Name)
+				k := 0
+				for j, tc := range tags_c {
+					fmt.Println("j:", j)
+					k = j
+					if t.Name == tc.Tag.Name {
+						fmt.Println("primeiro if")
+						tags_c[j].Count++
+						break
+					} else if j == len(tags_c)-1 {
+						fmt.Println("segundo if")
+						k++
+						break
+					}
+				}
+				if k+1 > len(tags_c) {
+					tags_c = append(tags_c, tags_count{Count: 1, Tag: t})
+				}
+				// ordena de k pra trás
+				for j := k; j > 0; j-- {
+					temp := tags_c[j-1]
+					if temp.Count < tags_c[j].Count {
+						tags_c[j-1] = tags_c[j]
+						tags_c[j] = temp
+					}
+				}
+				fmt.Println(":tags:")
+				for _, t2 := range tags_c {
+					fmt.Println(t2.Tag.Name, t2.Count)
+				}
+				fmt.Println("::::::")
+			}
+
 		}
+	}
+	for _, t := range tags_c {
+		tags = append(tags, *t.Tag)
 	}
 	return
 }

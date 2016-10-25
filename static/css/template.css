@@ -50,4 +50,25 @@ body {
   width: 100%;
   height: 160px; }
 
+.row > .category {
+  padding: 2px; }
+
+.category {
+  height: 360px;
+  display: table;
+  overflow: hidden;
+  padding: 0;
+  text-align: center; }
+  .category h1 {
+    font-weight: 300;
+    font-size: 85px;
+    display: table-cell;
+    vertical-align: middle; }
+
+.category:before {
+  content: " ";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%; }
+
 /*# sourceMappingURL=template.css.map */
