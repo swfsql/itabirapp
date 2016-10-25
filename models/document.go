@@ -7,12 +7,9 @@ import (
 	_ "github.com/astaxie/beego/orm"
 )
 
-
 type Document struct {
-	Id int // 
-	User *User `orm:"rel(fk)"`
+	Id   int    //
+	User *User  `orm:"rel(fk)"`
 	Name string //
-	File []byte `orm:"-"`// (pdf, img, etc)
+	File []byte `orm:"-"` // (pdf, img, etc)
 }
-
-

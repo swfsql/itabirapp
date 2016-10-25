@@ -9,14 +9,13 @@ import (
 	"github.com/swfsql/itabirapp/models"
 
 	"github.com/microcosm-cc/bluemonday"
-    "github.com/russross/blackfriday"
-    "html/template"
+	"github.com/russross/blackfriday"
+	"html/template"
 
-	"mime/multipart"
 	"io"
+	"mime/multipart"
 	"os"
 )
-
 
 type PostController struct {
 	BaseController
@@ -31,9 +30,8 @@ func (this *PostController) GetPost() {
 
 	if err_post == models.ErrNoRows {
 		this.Redirect("/", 302)
-		return 
+		return
 	}
-
 
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
@@ -65,7 +63,7 @@ func (this *PostController) GetPost() {
 	this.TplName = "post/post.html"
 	this.Data["HeadTitle"] = "Visualizar Anúncio"
 	this.Data["HeadStyles"] = []string{}
-    this.Data["HeadScripts"] = []string{}
+	this.Data["HeadScripts"] = []string{}
 	this.Render()
 
 }
@@ -105,7 +103,7 @@ func (this *PostController) GetEdit() {
 	if post, allow = editPostAllowed(this); !allow {
 		return
 	}
- 
+
 	this.Data["Post"] = post
 
 	fmt.Println("")
@@ -114,7 +112,7 @@ func (this *PostController) GetEdit() {
 	this.TplName = "post/edit.html"
 	this.Data["HeadTitle"] = "Configurações do post"
 	this.Data["HeadStyles"] = []string{"simplemde.min.css"}
-    this.Data["HeadScripts"] = []string{"simplemde.min.js", "post/edit.js"}
+	this.Data["HeadScripts"] = []string{"simplemde.min.js", "post/edit.js"}
 	this.Render()
 }
 
@@ -126,9 +124,9 @@ func (this *PostController) PostEdit() {
 	}
 
 	dado := struct {
-	  	Title string
-	  	Subtitle string
-	  	Text string
+		Title    string
+		Subtitle string
+		Text     string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -146,7 +144,6 @@ func (this *PostController) PostEdit() {
 	post.Subtitle = dado.Subtitle
 	post.Text = dado.Text
 
-
 	post.Update()
 
 	fmt.Println("editado com sucesso")
@@ -157,13 +154,12 @@ func (this *PostController) PostEdit() {
 	sess := this.StartSession()
 	file, hasFile := sess.Get("postImage").(multipart.File)
 	if hasFile {
-	    defer file.Close()
-	    defer sess.Delete("postImage")
-	    out, _ := os.Create("static/images/post/" + strconv.Itoa(postId) + ".jpg")
-	    defer out.Close()
-	    io.Copy(out, file)
+		defer file.Close()
+		defer sess.Delete("postImage")
+		out, _ := os.Create("static/images/post/" + strconv.Itoa(postId) + ".jpg")
+		defer out.Close()
+		io.Copy(out, file)
 	}
-
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -190,10 +186,10 @@ func (this *PostController) GetDelete() {
 
 func (this *PostController) PostNew() {
 	dado := struct {
-		Title string
+		Title    string
 		Subtitle string
-		Text string
-		Tags []string
+		Text     string
+		Tags     []string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -217,14 +213,14 @@ func (this *PostController) PostNew() {
 	if user.User_Type != "poster" && user.IsAuthorized != true {
 		fmt.Println("macaquice")
 		this.Redirect("/", 302)
-		return 
+		return
 	}
 
 	post := models.Post{
-		User: &user,
-		Title: dado.Title,
+		User:     &user,
+		Title:    dado.Title,
 		Subtitle: dado.Subtitle,
-		Text: dado.Text,
+		Text:     dado.Text,
 	}
 
 	postId, err_post := post.New()
@@ -252,17 +248,16 @@ func (this *PostController) PostNew() {
 	// salva imagem de acordo com o ID
 	file, hasFile := sess.Get("postImage").(multipart.File)
 	if hasFile {
-	    defer file.Close()
-	    defer sess.Delete("postImage")
-	    out, _ := os.Create("static/images/post/" + postId_s + ".jpg")
-	    defer out.Close()
-	    io.Copy(out, file)
+		defer file.Close()
+		defer sess.Delete("postImage")
+		out, _ := os.Create("static/images/post/" + postId_s + ".jpg")
+		defer out.Close()
+		io.Copy(out, file)
 	}
 
-
-	status := struct{ 
-		Status string 
-		PostId string 
+	status := struct {
+		Status string
+		PostId string
 	}{"", ""}
 
 	status.Status = st_ok
@@ -280,17 +275,16 @@ func (this *PostController) GetNew() {
 
 	fmt.Println("macacoide")
 	_, loggedIn := sess.Get("user").(models.User)
-	if !loggedIn{
+	if !loggedIn {
 		defer this.DestroySession()
 		this.Redirect("/usuario/criar", 302)
-		return 
+		return
 	}
-
 
 	this.TplName = "post/new.html"
 	this.Data["HeadTitle"] = "Criar novo anúncio"
 	this.Data["HeadStyles"] = []string{"simplemde.min.css"}
-    this.Data["HeadScripts"] = []string{"simplemde.min.js", "post/new.js"}
+	this.Data["HeadScripts"] = []string{"simplemde.min.js", "post/new.js"}
 	this.Render()
 }
 
@@ -308,16 +302,16 @@ func (this *PostController) GetSearch() {
 			this.Data["Target"] = target
 			// addr
 			addr := target.Addr_Street + ", "
-			if (target.Addr_Number != "") {
+			if target.Addr_Number != "" {
 				addr += target.Addr_Number + ", "
 			}
-			if (target.Addr_Complement != "") {
+			if target.Addr_Complement != "" {
 				addr += "ap. " + target.Addr_Complement + ", "
 			}
-			if (target.Addr_Neighborhood != "") {
+			if target.Addr_Neighborhood != "" {
 				addr += target.Addr_Neighborhood + ", "
 			}
-			if (target.Addr_City != "") {
+			if target.Addr_City != "" {
 				addr += target.Addr_City + ", "
 			}
 			addr += "Minas Gerais, Brasil"
@@ -334,8 +328,8 @@ func (this *PostController) GetSearch() {
 				count_operands++
 			}
 		}
-		count_diff := count_names - count_operands 
-		for i := 0; i < count_diff - 1; i++ {
+		count_diff := count_names - count_operands
+		for i := 0; i < count_diff-1; i++ {
 			tags = append(tags, "*")
 		}
 	}
@@ -351,23 +345,23 @@ func (this *PostController) GetSearch() {
 	this.TplName = "post/list.html"
 	this.Data["HeadTitle"] = "Lista de anúncios"
 	this.Data["HeadStyles"] = []string{"post/list.css"}
-    this.Data["HeadScripts"] = []string{"post/list.js"}
+	this.Data["HeadScripts"] = []string{"post/list.js"}
 	this.Render()
 
 }
 
 func (this *PostController) PostPostImage() {
 
-    file, _, err := this.GetFile("datafile") 
+	file, _, err := this.GetFile("datafile")
 
-    if file != nil {
+	if file != nil {
 		sess := this.StartSession()
 		sess.Set("postImage", file)
 		//sess.Set("userImageHeader", header)
-    } else {
-    	fmt.Println(err)
+	} else {
+		fmt.Println(err)
 
-    }
+	}
 
 	status := struct{ Status string }{""}
 	status.Status = st_ok

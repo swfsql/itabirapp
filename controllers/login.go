@@ -10,9 +10,9 @@ import (
 
 // ERRS
 var (
-	st_ok                   string = "ok"
-	st_err_usuario_inexiste string = "err_usuario_inexiste"
-	st_err_password_invalida   string = "err_password_invalida"
+	st_ok                    string = "ok"
+	st_err_usuario_inexiste  string = "err_usuario_inexiste"
+	st_err_password_invalida string = "err_password_invalida"
 )
 
 type LoginController struct {
@@ -21,7 +21,7 @@ type LoginController struct {
 
 func (this *LoginController) LoginPost() {
 	dado := struct {
-		Email string
+		Email    string
 		Password string
 	}{}
 
@@ -75,4 +75,3 @@ func (this *LoginController) Logout() {
 	//this.DelSession(sess)
 	this.Redirect("/", 302)
 }
-

@@ -5,14 +5,13 @@ import (
 	"fmt"
 
 	//"github.com/astaxie/beego/orm"
+	"bytes"
 	"github.com/swfsql/itabirapp/models"
 	"strconv"
-	"bytes"
 
-	"mime/multipart"
 	"io"
+	"mime/multipart"
 	"os"
-
 )
 
 // ERRS
@@ -51,7 +50,7 @@ func editAllowed(this *UserController) (models.User, bool) {
 	this.Data["IsAuthorized"] = false
 	if user.Id == targetId {
 		this.Data["IsOwner"] = true
-	} else if (user.User_Type != "moderator" || target.User_Type == "moderator") {
+	} else if user.User_Type != "moderator" || target.User_Type == "moderator" {
 		// not editAllowed
 		this.Redirect("/", 302)
 		return target, false
@@ -69,11 +68,10 @@ func (this *UserController) GetEdit() {
 		return
 	}
 
-
 	this.TplName = "user/edit.html"
 	this.Data["HeadTitle"] = "Configurações da conta"
 	this.Data["HeadStyles"] = []string{}
-    this.Data["HeadScripts"] = []string{"user/edit.js"}
+	this.Data["HeadScripts"] = []string{"user/edit.js"}
 	this.Render()
 }
 
@@ -106,7 +104,7 @@ func (this *UserController) ToggleAuthorization() {
 }
 
 func (this *UserController) PostEditAddress() {
-	target, allow := editAllowed(this) 
+	target, allow := editAllowed(this)
 	if !allow {
 		return
 	}
@@ -117,11 +115,11 @@ func (this *UserController) PostEditAddress() {
 	}
 
 	dado := struct {
-	  	Street string
-	  	Number string
-	  	Complement string
-	  	Neighborhood string
-	  	City string
+		Street       string
+		Number       string
+		Complement   string
+		Neighborhood string
+		City         string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -151,7 +149,7 @@ func (this *UserController) PostEditAddress() {
 }
 
 func (this *UserController) PostEditInstitution() {
-	target, allow := editAllowed(this) 
+	target, allow := editAllowed(this)
 	if !allow {
 		return
 	}
@@ -162,7 +160,7 @@ func (this *UserController) PostEditInstitution() {
 	}
 
 	dado := struct {
-        Description string
+		Description string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -176,8 +174,7 @@ func (this *UserController) PostEditInstitution() {
 
 	status := struct{ Status string }{""}
 
-
-	target.Institution_Description = dado.Description;
+	target.Institution_Description = dado.Description
 
 	target.Update()
 
@@ -187,13 +184,12 @@ func (this *UserController) PostEditInstitution() {
 	sess := this.StartSession()
 	file, hasFile := sess.Get("userImage").(multipart.File)
 	if hasFile {
-	    defer file.Close()
-	    defer sess.Delete("userImage")
-	    out, _ := os.Create("static/images/user/" + strconv.Itoa(target.Id) + ".jpg")
-	    defer out.Close()
-	    io.Copy(out, file)
+		defer file.Close()
+		defer sess.Delete("userImage")
+		out, _ := os.Create("static/images/user/" + strconv.Itoa(target.Id) + ".jpg")
+		defer out.Close()
+		io.Copy(out, file)
 	}
-
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -201,7 +197,7 @@ func (this *UserController) PostEditInstitution() {
 }
 
 func (this *UserController) PostEditUser() {
-	target, allow := editAllowed(this) 
+	target, allow := editAllowed(this)
 	if !allow {
 		return
 	}
@@ -212,12 +208,11 @@ func (this *UserController) PostEditUser() {
 	}
 
 	dado := struct {
-		Name string
-		Email string
-		Password string
+		Name      string
+		Email     string
+		Password  string
 		Password2 string
 	}{}
-
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
@@ -230,7 +225,7 @@ func (this *UserController) PostEditUser() {
 
 	status := struct{ Status string }{""}
 
-	if (dado.Password != dado.Password2) {
+	if dado.Password != dado.Password2 {
 		status.Status = st_err_password_diferente
 		this.Data["json"] = status
 		this.ServeJSON()
@@ -250,7 +245,6 @@ func (this *UserController) PostEditUser() {
 	this.ServeJSON()
 }
 
-
 func (this *UserController) GetList() {
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
@@ -260,10 +254,10 @@ func (this *UserController) GetList() {
 	if !loggedIn {
 		defer this.DestroySession()
 		this.Redirect("/", 302)
-		return 
+		return
 	} else if user.User_Type != "moderator" {
 		this.Redirect("/", 302)
-		return 
+		return
 	}
 
 	users, err_users := models.GetUsers()
@@ -271,9 +265,9 @@ func (this *UserController) GetList() {
 		users = []*models.User{}
 	}
 
-	var moderators []*models.User 
-	var authorized []*models.User 
-	var unauthorized []*models.User 
+	var moderators []*models.User
+	var authorized []*models.User
+	var unauthorized []*models.User
 	fmt.Println("os usuários pêgos:")
 	for _, u := range users {
 		fmt.Println("~")
@@ -290,19 +284,18 @@ func (this *UserController) GetList() {
 		} else {
 			unauthorized = append(unauthorized, u)
 		}
-	} 
+	}
 
-	this.Data["Moderators"] = moderators;
-	this.Data["Authorized"] = authorized;
-	this.Data["Unauthorized"] = unauthorized;
+	this.Data["Moderators"] = moderators
+	this.Data["Authorized"] = authorized
+	this.Data["Unauthorized"] = unauthorized
 
 	this.TplName = "user/list.html"
 	this.Data["HeadTitle"] = "Listagem das contas"
 	this.Data["HeadStyles"] = []string{"datatables.min.css"}
-    this.Data["HeadScripts"] = []string{"user/list.js", "datatables.min.js"}
+	this.Data["HeadScripts"] = []string{"user/list.js", "datatables.min.js"}
 	this.Render()
 }
-
 
 func (this *UserController) GetDelete() {
 	var target models.User
@@ -317,7 +310,7 @@ func (this *UserController) GetDelete() {
 		this.DestroySession()
 		//this.Redirect("/", 302)
 		//return
-	} 
+	}
 
 	status := struct{ Status string }{""}
 
@@ -327,7 +320,6 @@ func (this *UserController) GetDelete() {
 	this.Data["json"] = status
 	this.ServeJSON()
 }
-
 
 func (this *UserController) GetNew() {
 	fmt.Println("hueee hue br")
@@ -342,25 +334,25 @@ func (this *UserController) GetNew() {
 	this.TplName = "user/new.html"
 	this.Data["HeadTitle"] = "Criar nova conta"
 	this.Data["HeadStyles"] = []string{}
-    this.Data["HeadScripts"] = []string{"user/new.js"}
+	this.Data["HeadScripts"] = []string{"user/new.js"}
 	this.Render()
 }
 
 func (this *UserController) PostNew() {
 	dado := struct {
-		Name string 
-		Email string
-		Password string
+		Name      string
+		Email     string
+		Password  string
 		Password2 string // -
-		//	
-		Institution_Description string
-		Institution_Tag string
 		//
-		Addr_Street string
-		Addr_Number  string
-		Addr_Complement  string
-		Addr_Neighborhood  string
-		Addr_City  string
+		Institution_Description string
+		Institution_Tag         string
+		//
+		Addr_Street       string
+		Addr_Number       string
+		Addr_Complement   string
+		Addr_Neighborhood string
+		Addr_City         string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -378,25 +370,25 @@ func (this *UserController) PostNew() {
 
 	fmt.Println("criado com sucesso")
 	inst, _ := models.GetInstitutionByName(dado.Institution_Tag)
-	
+
 	fmt.Println("criado com sucesso")
 	var user models.User
 	user.User_Type = "poster"
 	user.IsAuthorized = false
 	user.Institution_type = &inst
 	//
-	user.Name = dado.Name 
-	user.Email = dado.Email 
-	user.Password = dado.Password 
-	//	
-	user.Institution_Description = dado.Institution_Description 
-	user.Institution_Tag = dado.Institution_Tag 
+	user.Name = dado.Name
+	user.Email = dado.Email
+	user.Password = dado.Password
 	//
-	user.Addr_Street = dado.Addr_Street 
-	user.Addr_Number = dado.Addr_Number  
-	user.Addr_Complement = dado.Addr_Complement  
-	user.Addr_Neighborhood = dado.Addr_Neighborhood  
-	user.Addr_City = dado.Addr_City  
+	user.Institution_Description = dado.Institution_Description
+	user.Institution_Tag = dado.Institution_Tag
+	//
+	user.Addr_Street = dado.Addr_Street
+	user.Addr_Number = dado.Addr_Number
+	user.Addr_Complement = dado.Addr_Complement
+	user.Addr_Neighborhood = dado.Addr_Neighborhood
+	user.Addr_City = dado.Addr_City
 
 	fmt.Println("criado com sucesso")
 	userId, _ := user.New()
@@ -411,11 +403,11 @@ func (this *UserController) PostNew() {
 	sess := this.StartSession()
 	file, hasFile := sess.Get("userImage").(multipart.File)
 	if hasFile {
-	    defer file.Close()
-	    defer sess.Delete("userImage")
-	    out, _ := os.Create("static/images/user/" + strconv.Itoa(int(userId)) + ".jpg")
-	    defer out.Close()
-	    io.Copy(out, file)
+		defer file.Close()
+		defer sess.Delete("userImage")
+		out, _ := os.Create("static/images/user/" + strconv.Itoa(int(userId)) + ".jpg")
+		defer out.Close()
+		io.Copy(out, file)
 	}
 
 	status.Status = st_ok
@@ -426,18 +418,18 @@ func (this *UserController) PostNew() {
 func (this *UserController) PostUserImage() {
 	fmt.Println(">>> entrou na PostUserImage")
 
-    file, header, err := this.GetFile("datafile") 
+	file, header, err := this.GetFile("datafile")
 
-    if file != nil {
-	 	fmt.Println(">>> ARQUIVO CARREGADO COM SUCESSO, seu nome é:")
-	 	fmt.Println(header.Filename)
+	if file != nil {
+		fmt.Println(">>> ARQUIVO CARREGADO COM SUCESSO, seu nome é:")
+		fmt.Println(header.Filename)
 		sess := this.StartSession()
 		sess.Set("userImage", file)
 		//sess.Set("userImageHeader", header)
-    } else {
-    	fmt.Println(err)
+	} else {
+		fmt.Println(err)
 
-    }
+	}
 
 	status := struct{ Status string }{""}
 	status.Status = st_ok

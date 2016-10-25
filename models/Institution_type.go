@@ -7,10 +7,9 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-
 type Institution_type struct {
-	Id int // 
-	Name string  //
+	Id   int    //
+	Name string //
 }
 
 func GetInstitutions() (insts []*Institution_type, err error) {

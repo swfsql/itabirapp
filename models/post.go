@@ -2,22 +2,20 @@ package models
 
 import (
 	_ "errors"
-	 "fmt"
+	"fmt"
 	//"reflect"
-	 "github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 
-	 _ "strings"
+	_ "strings"
 )
 
-
 type Post struct {
-	Id int // 
-	User *User `orm:"rel(fk)"`
-	Title string  //
-	Subtitle string  //
-	Text string `orm:"type(text)"` //
-	Tags []*Tag `orm:"rel(m2m)"`
-
+	Id       int    //
+	User     *User  `orm:"rel(fk)"`
+	Title    string //
+	Subtitle string //
+	Text     string `orm:"type(text)"` //
+	Tags     []*Tag `orm:"rel(m2m)"`
 }
 
 func GetPostById(id int) (post Post, err error) {
@@ -58,19 +56,17 @@ func (this *Post) New() (num int64, err error) {
 	return
 }
 
-
 type stack []string
 
 func (s *stack) Push(v string) {
-    *s = append(*s, v)
+	*s = append(*s, v)
 }
 
 func (s *stack) Pop() string {
-    res:=(*s)[len(*s)-1]
-    *s=(*s)[:len(*s)-1]
-    return res
+	res := (*s)[len(*s)-1]
+	*s = (*s)[:len(*s)-1]
+	return res
 }
-
 
 func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 	result = false
@@ -81,7 +77,7 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 	for _, s := range query_tags {
 		fmt.Println("!")
 
-	fmt.Println(post_tags)
+		fmt.Println(post_tags)
 		fmt.Println(st)
 		if s != "*" && s != "+" {
 			st.Push(s)
@@ -99,20 +95,20 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 						count++
 						break
 					}
-					
+
 				}
 				fmt.Println("=", count)
 
 			}
 			to_push = to_push[:len(to_push)-1]
 			to_push += ")"
-				st.Push(to_push)
+			st.Push(to_push)
 			if (s == "*" && count >= 2) || (s == "+" && count >= 1) {
 				post_tags = append(post_tags, to_push)
-			} 
+			}
 		}
 		fmt.Println(st)
-	} 
+	}
 
 	result = false
 	s_pop := st.Pop()
@@ -127,18 +123,15 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 	return
 }
 
-
 func GetPostsByTags(tags []string) (num int64, posts []Post, err error) {
 
 	var tags3 []string
-	for _, s := range tags{
+	for _, s := range tags {
 		if s != "*" && s != "+" {
 			tags3 = append(tags3, s)
 		}
-	} 
+	}
 	_, posts_2, _ := GetPostsByAnyTags(tags3)
-
-
 
 	for _, p := range posts_2 {
 		var tags2 []string
@@ -156,14 +149,14 @@ func GetPostsByTags(tags []string) (num int64, posts []Post, err error) {
 func GetPostsByAnyTags(tags []string) (num int64, posts []*Post, err error) {
 	o := orm.NewOrm()
 
-	params := make([]interface{},0)
+	params := make([]interface{}, 0)
 	for _, t := range tags {
 		params = append(params, t)
 	}
 	var posts_q []Post
 	o.QueryTable("post").Filter("Tags__Tag__Name__in", params...).RelatedSel().Distinct().OrderBy("-id").All(&posts_q)
 
-	for i,_ := range posts_q {
+	for i, _ := range posts_q {
 		posts = append(posts, &posts_q[i])
 		o.LoadRelated(&posts_q[i], "Tags")
 	}
@@ -173,4 +166,3 @@ func GetPostsByAnyTags(tags []string) (num int64, posts []*Post, err error) {
 	}
 	return
 }
-

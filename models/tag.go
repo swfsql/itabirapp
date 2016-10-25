@@ -7,14 +7,11 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-
 type Tag struct {
-	Id int // 
+	Id    int     //
 	Posts []*Post `orm:"reverse(many)"`
-	Name string  //
+	Name  string  //
 }
-
-
 
 func GetTagByName(name string) (tag Tag, err error) {
 	o := orm.NewOrm()
@@ -25,8 +22,6 @@ func GetTagByName(name string) (tag Tag, err error) {
 	}
 	return
 }
-
-
 
 func AppendTagsForPost(post *Post, strings []string) (num int64, err error) {
 	o := orm.NewOrm()

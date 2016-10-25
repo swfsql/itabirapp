@@ -6,14 +6,14 @@ import (
 )
 
 func init() {
-    beego.Router("/", &controllers.IndexController{})
+	beego.Router("/", &controllers.IndexController{})
 
-    beego.Router("/anuncio/:id", &controllers.PostController{}, "get:GetPost")
-    beego.Router("/anuncio/criar", &controllers.PostController{}, "get:GetNew;post:PostNew")
-    beego.Router("/anuncio/:id/editar", &controllers.PostController{}, "get:GetEdit;post:PostEdit")
-    beego.Router("/anuncio/:id/remover", &controllers.PostController{}, "get:GetDelete")
+	beego.Router("/anuncio/:id", &controllers.PostController{}, "get:GetPost")
+	beego.Router("/anuncio/criar", &controllers.PostController{}, "get:GetNew;post:PostNew")
+	beego.Router("/anuncio/:id/editar", &controllers.PostController{}, "get:GetEdit;post:PostEdit")
+	beego.Router("/anuncio/:id/remover", &controllers.PostController{}, "get:GetDelete")
 
-    beego.Router("/busca/:search", &controllers.PostController{}, "get:GetSearch")
+	beego.Router("/busca/:search", &controllers.PostController{}, "get:GetSearch")
 
 	beego.Router("/usuario/criar", &controllers.UserController{}, "get:GetNew;post:PostNew")
 	beego.Router("/usuario/listar", &controllers.UserController{}, "get:GetList")

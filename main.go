@@ -1,11 +1,10 @@
 package main
 
 import (
-	_ "github.com/swfsql/itabirapp/routers"
 	"github.com/astaxie/beego"
+	_ "github.com/swfsql/itabirapp/routers"
 )
 
 func main() {
 	beego.Run()
 }
-
