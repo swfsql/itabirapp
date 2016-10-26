@@ -334,11 +334,22 @@ func (this *PostController) GetSearch() {
 		}
 	}
 
-	_, posts, tags, _ := models.GetPostsByTags(tags_str)
+	_, posts, tags_all, _ := models.GetPostsByTags(tags_str)
 
-	// only consider the firsts tags
-	if len(tags) > 4 {
-		tags = tags[:4]
+	var tags []models.Tag
+	count := 0
+	for _, ta := range tags_all {
+		for i, ts := range tags_str {
+			if ta.Name == ts {
+				break
+			} else if i == len(tags_str)-1 {
+				tags = append(tags, ta) // only consider brand new tags
+				count++
+			}
+		}
+		if count == 4 { // only consider the first 4
+			break
+		}
 	}
 
 	fmt.Println("~~~~~~~~~~~~~~~~~~")
@@ -352,7 +363,7 @@ func (this *PostController) GetSearch() {
 	}
 	var tags_url []tag_url
 	for _, t := range tags {
-		t_u := tag_url{Name: t.Name, Url: this.Ctx.Input.URL() + "," + t.Name + ",*"}
+		t_u := tag_url{Name: t.Name, Url: this.Ctx.Input.URL()}
 		tags_url = append(tags_url, t_u)
 	}
 

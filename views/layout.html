@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html ng-app="itabirapp">
+<html ng-app="itabirapp" >
 <head>
     <title>[[.HeadTitle]]</title>
-    <meta charset='UTF-8'>
+    <meta charset='UTF-8' name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="/static/css/theme/bootstrap-sandstone.min.css">
     <link rel="stylesheet" href="/static/css/template.css">
@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="/static/css/header.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-    <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/angular.min.js"></script>
-    <script type="text/javascript" src="/static/js/global.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-3.1.1.min.js" defer="defer"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js" defer="defer"></script>
+    <script type="text/javascript" src="/static/js/angular.min.js" defer="defer"></script>
+    <script type="text/javascript" src="/static/js/global.js" defer="defer"></script>
 
     [[range .HeadStyles]]
         <link rel="stylesheet" href="/static/css/[[.]]">
@@ -25,7 +25,7 @@
 
     [[if .IsLoggedIn]]
     [[else]]
-       <script type="text/javascript" src="/static/js/login.js"></script>
+       <script type="text/javascript" src="/static/js/login.js" defer="defer"></script>
     [[end]]
 
 </head>

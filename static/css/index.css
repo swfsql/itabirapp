@@ -43,7 +43,7 @@ body > .container {
   background: #ebebeb; }
 
 .category-parent {
-  height: 360px;
+  max-height: 173px;
   overflow: hidden;
   padding: 0;
   display: inline-block;
