@@ -1,0 +1,53 @@
+@import sizes
+
+.row > .category
+	//border: 1px solid $color-5
+	//padding: 2px 
+	padding-left: 1px
+	padding-right: 1px
+
+.category
+	height: $cat-max-height
+	display: table
+	overflow: hidden
+	padding: 0
+	text-align: center
+	h1
+		font-weight: 300
+		font-size: 50px
+		display:        table-cell
+		vertical-align: middle
+.category-small
+	height: $cat-max-height / 4
+	display: table
+	overflow: hidden
+	padding: 0
+	text-align: center
+	h1
+		font-weight: 300
+		font-size: 25px
+		display:        table-cell
+		vertical-align: middle
+
+.category:before 
+	content: ' '
+	display: inline-block
+	vertical-align: middle
+	height: 100%
+
+.category-parent
+	max-height: $cat-max-height
+	width: 100%
+	overflow: hidden
+	padding: 0
+	display: inline-block
+	vertical-align: middle
+	
+.category-header
+	height: 80px + 80px
+	padding-bottom: 40px
+	h1
+		font-weight: 300
+		font-size: 50px
+	p
+		padding-top: 10px

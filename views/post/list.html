@@ -48,9 +48,14 @@
 		[[end]]
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		[[range $i, $t := .Tags_URL]]
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 category-small">
-				<a href="[[$t.Url]],[[$t.Name]],*">[[$t.Name]]</a>
-			</div>
+			<a href="[[$t.Url]],[[$t.Name]],*" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 category-small text-center">
+				<div class="hovereffect bgc-[[add $i 1]] category-parent">
+					<h1 class="fgc-0">[[$t.Name]]</h1>
+					<div class="overlay fgc-0">
+						<h1></h1>
+					</div>
+				</div>
+			</a>
 		[[end]]
 		</div>
 		[[range $i, $p := .Posts]]
