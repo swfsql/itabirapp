@@ -13,12 +13,34 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-newspaper-o"></i> Anúncios<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        [[template "header/post.html" .]]
-                    </ul>
-                </li>
+                [[if .IsLoggedIn]]
+                    [[if eq .User.User_Type "poster"]]
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-newspaper-o"></i> Anúncios<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/busca/[[.User.NameIdTag]]" class="btn btn-default"><i class="fa fa-list"></i> Meus anúncios</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="/anuncio/criar" class="btn btn-default"><i class="fa fa-file-text-o"></i> Novo anúncio</a>
+                            </li>
+                        </ul>
+                    </li>
+                    [[end]]
+                [[end]]
+                [[if .IsLoggedIn]]
+                    [[if eq .User.User_Type "moderator"]]
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> Usuários<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/usuario/listar" class="btn btn-default"><i class="fa fa-list"></i> Listar usuários</a>
+                            </li>
+                        </ul>
+                    </li>
+                    [[end]]
+                [[end]]
                 <li><a href="/ajuda"><i class="fa fa-question"></i> Help</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Conta<span class="caret"></span></a>

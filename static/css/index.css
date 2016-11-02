@@ -62,8 +62,7 @@ body > .container {
   float: left;
   overflow: hidden;
   position: relative;
-  text-align: center;
-  cursor: default; }
+  text-align: center; }
 
 .hovereffect.bgc-1 {
   background: #D98757; }

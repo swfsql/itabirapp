@@ -50,8 +50,12 @@ body {
   width: 100%;
   height: 160px; }
 
+.navbar {
+  border-radius: 0px; }
+
 .row > .category {
-  padding: 2px; }
+  padding-left: 1px;
+  padding-right: 1px; }
 
 .category {
   height: 173px;
