@@ -185,11 +185,13 @@ func (this *PostController) GetDelete() {
 }
 
 func (this *PostController) PostNew() {
+	fmt.Println("OLÁ!")
 	dado := struct {
-		Title    string
-		Subtitle string
-		Text     string
-		Tags     []string
+		Title       string
+		Subtitle    string
+		Description string
+		Tags        []string
+		Text        string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -217,10 +219,11 @@ func (this *PostController) PostNew() {
 	}
 
 	post := models.Post{
-		User:     &user,
-		Title:    dado.Title,
-		Subtitle: dado.Subtitle,
-		Text:     dado.Text,
+		User:        &user,
+		Title:       dado.Title,
+		Subtitle:    dado.Subtitle,
+		Description: dado.Description,
+		Text:        dado.Text,
 	}
 
 	postId, err_post := post.New()
@@ -232,7 +235,12 @@ func (this *PostController) PostNew() {
 	var tags []string
 	tags = append(tags, user.NameIdTag)
 	tags = append(tags, user.Institution_Tag)
-	for _, t := range dado.Tags {
+	fmt.Println("VAI ADD TAGS: >>>>>>>>>>>> ")
+	for i, t := range dado.Tags {
+		if i > 2 {
+			break
+		}
+		fmt.Println("tags sendo adicionadas: >>>>>>>>>>>> ", t)
 		if t != "" {
 			tags = append(tags, t)
 		}
@@ -268,12 +276,9 @@ func (this *PostController) PostNew() {
 }
 
 func (this *PostController) GetNew() {
-	fmt.Println("hueee hue br")
-
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
 
-	fmt.Println("macacoide")
 	_, loggedIn := sess.Get("user").(models.User)
 	if !loggedIn {
 		defer this.DestroySession()

@@ -6,10 +6,12 @@ var app = angular.module('itabirapp');
 		    var obj, d;
 
 		    d = this.post;
-		    var tags = ["tag_de_teste"];
+		    var tags = d.Tags.split(",")
 
-		    obj = {Title: d.Title, Subtitle: d.Subtitle, Text: $window.simplemde.value(), 
-		    	Tags: tags};
+        alert("vai mandar")
+        alert(tags)
+		    obj = {Title: d.Title, Subtitle: d.Subtitle, Description: d.Description, Tags: tags, Text: $window.simplemde.value()};
+        alert("mandou")
 
 		    $http.post("/anuncio/criar", obj).success(function(st) {
 		        alert("success")

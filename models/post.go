@@ -10,12 +10,13 @@ import (
 )
 
 type Post struct {
-	Id       int    //
-	User     *User  `orm:"rel(fk)"`
-	Title    string //
-	Subtitle string //
-	Text     string `orm:"type(text)"` //
-	Tags     []*Tag `orm:"rel(m2m)"`
+	Id          int    //
+	User        *User  `orm:"rel(fk)"`
+	Title       string //
+	Subtitle    string //
+	Description string //
+	Tags        []*Tag `orm:"rel(m2m)"`
+	Text        string `orm:"type(text)"` //
 }
 
 func GetPostById(id int) (post Post, err error) {
