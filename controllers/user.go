@@ -292,7 +292,7 @@ func (this *UserController) GetList() {
 
 	this.TplName = "user/list.html"
 	this.Data["HeadTitle"] = "Listagem das contas"
-	this.Data["HeadStyles"] = []string{"datatables.min.css"}
+	this.Data["HeadStyles"] = []string{"datatables.min.css", "dataTables.fontAwesome.css"}
 	this.Data["HeadScripts"] = []string{"user/list.js", "datatables.min.js"}
 	this.Render()
 }
