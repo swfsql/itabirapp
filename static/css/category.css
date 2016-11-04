@@ -1,37 +1,44 @@
+/* line 3, ../sass/category.sass */
 .row > .category {
   padding-left: 1px;
   padding-right: 1px; }
 
+/* line 9, ../sass/category.sass */
 .category {
   height: 173px;
   display: table;
   overflow: hidden;
   padding: 0;
   text-align: center; }
+  /* line 15, ../sass/category.sass */
   .category h1 {
     font-weight: 300;
     font-size: 50px;
     display: table-cell;
     vertical-align: middle; }
 
+/* line 20, ../sass/category.sass */
 .category-small {
-  height: 43.25px;
+  height: 21.625px;
   display: table;
   overflow: hidden;
   padding: 0;
   text-align: center; }
+  /* line 26, ../sass/category.sass */
   .category-small h1 {
     font-weight: 300;
-    font-size: 25px;
+    font-size: 15px;
     display: table-cell;
     vertical-align: middle; }
 
+/* line 32, ../sass/category.sass */
 .category:before {
   content: " ";
   display: inline-block;
   vertical-align: middle;
   height: 100%; }
 
+/* line 38, ../sass/category.sass */
 .category-parent {
   max-height: 173px;
   width: 100%;
@@ -40,12 +47,24 @@
   display: inline-block;
   vertical-align: middle; }
 
+/* line 46, ../sass/category.sass */
+.category-parent-small {
+  max-height: 173px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle; }
+
+/* line 53, ../sass/category.sass */
 .category-header {
   height: 160px;
   padding-bottom: 40px; }
+  /* line 56, ../sass/category.sass */
   .category-header h1 {
     font-weight: 300;
     font-size: 50px; }
+  /* line 59, ../sass/category.sass */
   .category-header p {
     padding-top: 10px; }
 

@@ -1,60 +1,79 @@
+/* line 12, ../sass/colors.sass */
 .fgc-0 {
   color: #2D373B; }
 
+/* line 14, ../sass/colors.sass */
 .fgc-1 {
   color: #D98757; }
 
+/* line 16, ../sass/colors.sass */
 .fgc-2 {
   color: #5FB6A4; }
 
+/* line 18, ../sass/colors.sass */
 .fgc-3 {
   color: #E7C961; }
 
+/* line 20, ../sass/colors.sass */
 .fgc-4 {
   color: #D95A5A; }
 
+/* line 22, ../sass/colors.sass */
 .fgc-5 {
   color: #ebebeb; }
 
+/* line 25, ../sass/colors.sass */
 .bgc-0 {
   background-color: #2D373B; }
 
+/* line 27, ../sass/colors.sass */
 .bgc-1 {
   background-color: #D98757; }
 
+/* line 29, ../sass/colors.sass */
 .bgc-2 {
   background-color: #5FB6A4; }
 
+/* line 31, ../sass/colors.sass */
 .bgc-3 {
   background-color: #E7C961; }
 
+/* line 33, ../sass/colors.sass */
 .bgc-4 {
   background-color: #D95A5A; }
 
+/* line 35, ../sass/colors.sass */
 .bgc-5 {
   background-color: #ebebeb; }
 
+/* line 3, ../sass/hover.sass */
 .hovereffect {
   float: left;
   overflow: hidden;
   position: relative;
   text-align: center; }
 
+/* line 10, ../sass/hover.sass */
 .hovereffect.bgc-1 {
   background: #D98757; }
 
+/* line 12, ../sass/hover.sass */
 .hovereffect.bgc-2 {
   background: #5FB6A4; }
 
+/* line 14, ../sass/hover.sass */
 .hovereffect.bgc-3 {
   background: #E7C961; }
 
+/* line 16, ../sass/hover.sass */
 .hovereffect.bgc-4 {
   background: #D95A5A; }
 
+/* line 18, ../sass/hover.sass */
 .hovereffect.bgc-5 {
   background: #ebebeb; }
 
+/* line 22, ../sass/hover.sass */
 .hovereffect .overlay {
   width: 100%;
   position: absolute;
@@ -62,6 +81,7 @@
   top: 0;
   left: 0; }
 
+/* line 29, ../sass/hover.sass */
 .hovereffect img {
   display: block;
   vertical-align: middle;
@@ -75,13 +95,15 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden; }
 
+/* line 43, ../sass/hover.sass */
 .hovereffect:hover img {
   opacity: 0.4;
   filter: alpha(opacity=40);
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
-.hovereffect > *:last-child:after {
+/* line 49, ../sass/hover.sass */
+.hovereffect > *:after {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -94,15 +116,18 @@
   -webkit-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0); }
 
-.hovereffect:hover > *:last-child:after {
+/* line 62, ../sass/hover.sass */
+.hovereffect:hover > *:after {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
+/* line 66, ../sass/hover.sass */
 .hovereffect div {
   opacity: 0;
   transition: opacity 0.35s, transform 0.35s;
   transform: translate3d(100%, 0, 0); }
 
+/* line 70, ../sass/hover.sass */
 .hovereffect:hover div {
   opacity: 1;
   filter: alpha(opacity=100);

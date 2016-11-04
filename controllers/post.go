@@ -75,7 +75,6 @@ func editPostAllowed(this *PostController) (models.Post, bool) {
 	id64, _ := strconv.ParseUint(this.Ctx.Input.Param(":id"), 10, 32)
 	id := int(id64)
 	post, _ := models.GetPostById(id)
-
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
 
@@ -104,6 +103,7 @@ func (this *PostController) GetEdit() {
 		return
 	}
 
+	post.GetTags()
 	this.Data["Post"] = post
 	var tags string = ""
 	if len(post.Tags) <= 2 {
@@ -116,8 +116,9 @@ func (this *PostController) GetEdit() {
 			if i <= 1 {
 				continue
 			}
-			tags += t.Name
+			tags += t.Name + ","
 		}
+		tags = tags[:len(tags)-1]
 		fmt.Println("tags:", tags)
 		this.Data["Tags"] = tags
 	}
@@ -177,6 +178,7 @@ func (this *PostController) PostEdit() {
 	post.Text = dado.Text
 	post.Update()
 
+	post.GetTags()
 	models.RemoveUserTagsForPost(&post)
 	var tags []string
 	for i, t := range dado.Tags {
