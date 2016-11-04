@@ -105,6 +105,35 @@ func (this *PostController) GetEdit() {
 	}
 
 	this.Data["Post"] = post
+	var tags string = ""
+	if len(post.Tags) <= 2 {
+		fmt.Println("nao have tags", len(post.Tags))
+		this.Data["HaveTags"] = false
+	} else {
+		fmt.Println("sim have tags")
+		this.Data["HaveTags"] = true
+		for i, t := range post.Tags {
+			if i <= 1 {
+				continue
+			}
+			tags += t.Name
+		}
+		fmt.Println("tags:", tags)
+		this.Data["Tags"] = tags
+	}
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
+	fmt.Println("--------------")
 
 	fmt.Println("")
 	fmt.Println("vai seu macaco")
@@ -124,9 +153,11 @@ func (this *PostController) PostEdit() {
 	}
 
 	dado := struct {
-		Title    string
-		Subtitle string
-		Text     string
+		Title       string
+		Subtitle    string
+		Description string
+		Tags        []string
+		Text        string
 	}{}
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
@@ -142,9 +173,21 @@ func (this *PostController) PostEdit() {
 
 	post.Title = dado.Title
 	post.Subtitle = dado.Subtitle
+	post.Description = dado.Description
 	post.Text = dado.Text
-
 	post.Update()
+
+	models.RemoveUserTagsForPost(&post)
+	var tags []string
+	for i, t := range dado.Tags {
+		if i > 2 {
+			break
+		}
+		if t != "" {
+			tags = append(tags, t)
+		}
+	}
+	models.AppendTagsForPost(&post, tags)
 
 	fmt.Println("editado com sucesso")
 

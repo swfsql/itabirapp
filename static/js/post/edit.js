@@ -30,7 +30,8 @@ var app = angular.module('itabirapp');
         var reg = /\/anuncio\/([0-9]+)\/editar/i;
         var postId = reg.exec($window.location.toString())[1];
         d = this.post;
-        obj = {Title: d.Title, Subtitle: d.Subtitle, Text: $window.simplemde.value()};
+        var tags = d.Tags.split(",")
+        obj = {Title: d.Title, Subtitle: d.Subtitle, Description: d.Description, Tags: tags, Text: $window.simplemde.value()};
 
 
 	    $http.post("/anuncio/" + postId + "/editar", obj).success(function(st) {

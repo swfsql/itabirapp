@@ -42,3 +42,12 @@ func AppendTagsForPost(post *Post, strings []string) (num int64, err error) {
 
 	return
 }
+
+func RemoveUserTagsForPost(post *Post) (num int64, err error) {
+	o := orm.NewOrm()
+	m2m := o.QueryM2M(post, "Tags")
+	var tags []*Tag = post.Tags[2:]
+	num, err = m2m.Remove(tags)
+
+	return
+}
