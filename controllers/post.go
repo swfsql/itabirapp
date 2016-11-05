@@ -176,6 +176,11 @@ func (this *PostController) PostEdit() {
 	post.Subtitle = dado.Subtitle
 	post.Description = dado.Description
 	post.Text = dado.Text
+	sess := this.StartSession()
+	file, hasFile := sess.Get("postImage").(multipart.File)
+	if hasFile {
+		post.HasImage = true
+	}
 	post.Update()
 
 	post.GetTags()
@@ -196,8 +201,6 @@ func (this *PostController) PostEdit() {
 	postId := post.Id
 
 	// salva imagem de acordo com o ID
-	sess := this.StartSession()
-	file, hasFile := sess.Get("postImage").(multipart.File)
 	if hasFile {
 		defer file.Close()
 		defer sess.Delete("postImage")
@@ -270,6 +273,10 @@ func (this *PostController) PostNew() {
 		Description: dado.Description,
 		Text:        dado.Text,
 	}
+	file, hasFile := sess.Get("postImage").(multipart.File)
+	if hasFile {
+		post.HasImage = true
+	}
 
 	postId, err_post := post.New()
 	if err_post != nil {
@@ -299,7 +306,6 @@ func (this *PostController) PostNew() {
 	postId_s := strconv.Itoa(int(postId))
 
 	// salva imagem de acordo com o ID
-	file, hasFile := sess.Get("postImage").(multipart.File)
 	if hasFile {
 		defer file.Close()
 		defer sess.Delete("postImage")

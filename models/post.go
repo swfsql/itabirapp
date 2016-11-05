@@ -17,6 +17,7 @@ type Post struct {
 	Description string //
 	Tags        []*Tag `orm:"rel(m2m)"`
 	Text        string `orm:"type(text)"` //
+	HasImage    bool
 }
 
 func GetPostById(id int) (post Post, err error) {

@@ -3,7 +3,7 @@
 		[[if .TargetExists]]
 		<div class="well">
 			<div class="col-lg-2 col-md-3 col-sm-3 col-xs-6 text-right post-img">
-				<a href="/busca/[[.Target.NameIdTag]]"><img src="/static/images/user/[[.Target.Id]].jpg" class="img-responsive"></a>
+				<a href="/busca/[[.Target.NameIdTag]]"><img src="/static/images/user/[[.Target.Id]].png" class="img-responsive"></a>
 			</div>
 			<div class="col-lg-10 col-md-9 col-sm-9 col-xs-6">
 				<a href="/busca/[[.Target.NameIdTag]]"><h3>[[.Target.Name]] <small>([[.Target.Institution_Tag]])</small> </h3></a>
@@ -64,7 +64,7 @@
 				[[end]]
 			</div>
 				<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3 text-right post-img">
-					<a href="/anuncio/[[$p.Id]]"><img src="/static/images/post/[[$p.Id]].jpg" class="img-responsive"></a>
+					<a href="/anuncio/[[$p.Id]]"><img src="[[if $save.HasImage]]/static/images/post/[[$p.Id]][[else]]/static/images/user/[[$p.User.Id]][[end]].png" class="img-responsive" onError="this.onerror=null;this.src='/static/images/user/err.png';"></a>
 				</div>
 				<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9">
 					<a href="/anuncio/[[$p.Id]]"><h4>[[$p.Title]] <small>[[$p.Subtitle]]</small> </h4></a>
