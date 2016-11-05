@@ -150,6 +150,14 @@ func GetPostsByTags(tags_str []string) (num int64, posts []Post, tags []Tag, err
 		Count uint
 	}
 
+	fmt.Println("")
+	fmt.Println(",,,,,,,,,")
+	for _, p := range posts_2 {
+		fmt.Println(p.Title)
+	}
+	fmt.Println(",,,,,,,,,,")
+	fmt.Println("")
+
 	var tags_c []tags_count
 
 	for _, p := range posts_2 {
@@ -218,6 +226,14 @@ func GetPostsByAnyTags(tags []string) (num int64, posts []*Post, err error) {
 	}
 	var posts_q []Post
 	o.QueryTable("post").Filter("Tags__Tag__Name__in", params...).RelatedSel().Distinct().OrderBy("-id").All(&posts_q)
+
+	fmt.Println("")
+	fmt.Println(";;;;;;;;;;;;")
+	for _, p := range posts_q {
+		fmt.Println(p.Title)
+	}
+	fmt.Println(";;;;;;;;;;;;")
+	fmt.Println("")
 
 	for i, _ := range posts_q {
 		posts = append(posts, &posts_q[i])

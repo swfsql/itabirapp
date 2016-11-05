@@ -23,10 +23,10 @@ type User struct {
 	Email          string `orm:"unique"` //
 	Password       string //
 	//
-	IsAuthorized            bool              `orm:"null"`         // pode postar ou nao
-	Institution_type        *Institution_type `orm:"rel(fk);null"` // [1=republica, 2=professor, ...]
-	Institution_Tag         string            `orm:"null"`         // [republica, professor, ...] (informação duplicada)
-	Institution_Description string            `orm:"null"`         // (somos a UP e tals)
+	IsAuthorized            bool              `orm:"null"`            // pode postar ou nao
+	Institution_type        *Institution_type `orm:"rel(fk);null"`    // [1=republica, 2=professor, ...]
+	Institution_Tag         string            `orm:"null"`            // [republica, professor, ...] (informação duplicada)
+	Institution_Description string            `orm:"type(text);null"` // (somos a UP e tals)
 	//
 	Addr_Street       string `orm:"null"` // Girassol
 	Addr_Number       string `orm:"null"` // 123

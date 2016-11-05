@@ -386,6 +386,14 @@ func (this *PostController) GetSearch() {
 
 	_, posts, tags_all, _ := models.GetPostsByTags(tags_str)
 
+	fmt.Println("")
+	fmt.Println(".................")
+	for _, p := range posts {
+		fmt.Println(p.Title)
+	}
+	fmt.Println(".................")
+	fmt.Println("")
+
 	var tags []models.Tag
 	count := 0
 	for _, ta := range tags_all {
