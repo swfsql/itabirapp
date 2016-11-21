@@ -6,20 +6,20 @@ var app = angular.module('itabirapp');
       var postId = reg.exec($window.location.toString())[1];
       $http.get("/anuncio/" + postId + "/remover")
         .success(function(st) {
-        alert("success")
+        //alert("success")
         var res = st.Status;
         $scope.working = false;
         switch (res) {
           case "ok":
-            alert('ok')
+            //alert('ok')
             $window.location.href = '/';
           break;
           case "err_usuario_inexiste":
-            alert("err_usuario_inexiste");
+            //alert("err_usuario_inexiste");
 
           break;
           case "err_senha_invalida":
-            alert("err_senha_invalida");
+            //alert("err_senha_invalida");
           break;
         }
       });
@@ -35,20 +35,20 @@ var app = angular.module('itabirapp');
 
 
 	    $http.post("/anuncio/" + postId + "/editar", obj).success(function(st) {
-	        alert("success")
+	        //alert("success")
 	        var res = st.Status;
 	        $scope.working = false;
 	        switch (res) {
 	          case "ok":
-	            alert('ok aki')
+	            //alert('ok aki')
               $window.location.href = '/anuncio/' + postId;
 	          break;
 	          case "err_usuario_inexiste":
-	            alert("err_usuario_inexiste");
+	            //alert("err_usuario_inexiste");
 
 	          break;
 	          case "err_senha_invalida":
-	            alert("err_senha_invalida");
+	            //alert("err_senha_invalida");
 	          break;
 	        }
 	    });
@@ -97,7 +97,7 @@ function imageUpload() {
       processData: false,
       type: 'POST',
       success: function(data){
-          alert(data);
+          //alert(data);
       }
   });
 

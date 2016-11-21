@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
+	_ "fmt"
 
 	//"github.com/astaxie/beego/orm"
 	"bytes"
@@ -58,7 +58,6 @@ func editAllowed(this *UserController) (models.User, bool) {
 		this.Data["IsAuthorized"] = true
 	}
 
-	target.Password = ""
 	this.Data["Target"] = target
 	return target, true
 }
@@ -96,7 +95,7 @@ func (this *UserController) ToggleAuthorization() {
 
 	status := struct{ Status string }{""}
 
-	fmt.Println("editado com sucesso")
+	////fmt.Println("editado com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -124,12 +123,12 @@ func (this *UserController) PostEditAddress() {
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
-		fmt.Println(err)
+		//fmt.Println(err)
 		this.Ctx.Output.SetStatus(400)
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
 	}
-	fmt.Println(dado)
+	//fmt.Println(dado)
 
 	status := struct{ Status string }{""}
 
@@ -141,7 +140,7 @@ func (this *UserController) PostEditAddress() {
 
 	target.Update()
 
-	fmt.Println("editado com sucesso")
+	//fmt.Println("editado com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -165,12 +164,12 @@ func (this *UserController) PostEditInstitution() {
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
-		fmt.Println(err)
+		//fmt.Println(err)
 		this.Ctx.Output.SetStatus(400)
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
 	}
-	fmt.Println(dado)
+	//fmt.Println(dado)
 
 	status := struct{ Status string }{""}
 
@@ -178,7 +177,7 @@ func (this *UserController) PostEditInstitution() {
 
 	target.Update()
 
-	fmt.Println("editado com sucesso")
+	//fmt.Println("editado com sucesso")
 
 	// salva imagem de acordo com o ID
 	sess := this.StartSession()
@@ -186,7 +185,7 @@ func (this *UserController) PostEditInstitution() {
 	if hasFile {
 		defer file.Close()
 		defer sess.Delete("userImage")
-		out, _ := os.Create("static/images/user/" + strconv.Itoa(target.Id) + ".jpg")
+		out, _ := os.Create("static/images/user/" + strconv.Itoa(target.Id) + ".png")
 		defer out.Close()
 		io.Copy(out, file)
 	}
@@ -216,12 +215,12 @@ func (this *UserController) PostEditUser() {
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
-		fmt.Println(err)
+		//fmt.Println(err)
 		this.Ctx.Output.SetStatus(400)
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
 	}
-	fmt.Println(dado)
+	//fmt.Println(dado)
 
 	status := struct{ Status string }{""}
 
@@ -238,7 +237,7 @@ func (this *UserController) PostEditUser() {
 
 	target.Update()
 
-	fmt.Println("editado com sucesso")
+	//fmt.Println("editado com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -268,9 +267,9 @@ func (this *UserController) GetList() {
 	var moderators []*models.User
 	var authorized []*models.User
 	var unauthorized []*models.User
-	fmt.Println("os usuários pêgos:")
+	//fmt.Println("os usuários pêgos:")
 	for _, u := range users {
-		fmt.Println("~")
+		//fmt.Println("~")
 		// limit the description to 15 chars
 		runes := bytes.Runes([]byte(u.Institution_Description))
 		if len(runes) > 15 {
@@ -306,7 +305,7 @@ func (this *UserController) GetDelete() {
 
 	target.Delete()
 	if this.Data["IsOwner"] == true {
-		fmt.Println("SE AUTO-REMOVEU!")
+		//fmt.Println("SE AUTO-REMOVEU!")
 		this.DestroySession()
 		//this.Redirect("/", 302)
 		//return
@@ -314,7 +313,7 @@ func (this *UserController) GetDelete() {
 
 	status := struct{ Status string }{""}
 
-	fmt.Println("removido com sucesso")
+	//fmt.Println("removido com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -322,7 +321,7 @@ func (this *UserController) GetDelete() {
 }
 
 func (this *UserController) GetNew() {
-	fmt.Println("hueee hue br")
+	//fmt.Println("hueee hue br")
 
 	insts, err_insts := models.GetInstitutions()
 	if err_insts == models.ErrNoRows {
@@ -357,21 +356,21 @@ func (this *UserController) PostNew() {
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
-		fmt.Println(err)
+		//fmt.Println(err)
 		this.Ctx.Output.SetStatus(400)
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
 	}
-	fmt.Println(dado)
+	//fmt.Println(dado)
 
 	if dado.Password != dado.Password2 {
 		return
 	}
 
-	fmt.Println("criado com sucesso")
+	//fmt.Println("criado com sucesso")
 	inst, _ := models.GetInstitutionByName(dado.Institution_Tag)
 
-	fmt.Println("criado com sucesso")
+	//fmt.Println("criado com sucesso")
 	var user models.User
 	user.User_Type = "poster"
 	user.IsAuthorized = false
@@ -390,14 +389,14 @@ func (this *UserController) PostNew() {
 	user.Addr_Neighborhood = dado.Addr_Neighborhood
 	user.Addr_City = dado.Addr_City
 
-	fmt.Println("criado com sucesso")
+	//fmt.Println("criado com sucesso")
 	userId, _ := user.New()
-	fmt.Println(userId)
+	//fmt.Println(userId)
 
-	fmt.Println("criado com sucesso")
+	//fmt.Println("criado com sucesso")
 	status := struct{ Status string }{""}
 
-	fmt.Println("criado com sucesso")
+	//fmt.Println("criado com sucesso")
 
 	// salva imagem de acordo com o ID
 	sess := this.StartSession()
@@ -405,7 +404,7 @@ func (this *UserController) PostNew() {
 	if hasFile {
 		defer file.Close()
 		defer sess.Delete("userImage")
-		out, _ := os.Create("static/images/user/" + strconv.Itoa(int(userId)) + ".jpg")
+		out, _ := os.Create("static/images/user/" + strconv.Itoa(int(userId)) + ".png")
 		defer out.Close()
 		io.Copy(out, file)
 	}
@@ -416,18 +415,18 @@ func (this *UserController) PostNew() {
 }
 
 func (this *UserController) PostUserImage() {
-	fmt.Println(">>> entrou na PostUserImage")
+	//fmt.Println(">>> entrou na PostUserImage")
 
-	file, header, err := this.GetFile("datafile")
+	file, _, _ := this.GetFile("datafile")
 
 	if file != nil {
-		fmt.Println(">>> ARQUIVO CARREGADO COM SUCESSO, seu nome é:")
-		fmt.Println(header.Filename)
+		//fmt.Println(">>> ARQUIVO CARREGADO COM SUCESSO, seu nome é:")
+		//fmt.Println(header.Filename)
 		sess := this.StartSession()
 		sess.Set("userImage", file)
 		//sess.Set("userImageHeader", header)
 	} else {
-		fmt.Println(err)
+		//fmt.Println(err)
 
 	}
 

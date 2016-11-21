@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"fmt"
+	_ "fmt"
 	"strconv"
 	"strings"
 
@@ -22,7 +22,7 @@ type PostController struct {
 }
 
 func (this *PostController) GetPost() {
-	fmt.Println("--------------")
+	//fmt.Println("--------------")
 
 	id64, _ := strconv.ParseUint(this.Ctx.Input.Param(":id"), 10, 32)
 	id := int(id64)
@@ -36,13 +36,13 @@ func (this *PostController) GetPost() {
 	sess := this.StartSession()
 	//defer sess.SessionRelease()
 
-	fmt.Println("macacoide")
+	//fmt.Println("macacoide")
 	user, loggedIn := sess.Get("user").(models.User)
 	this.Data["IsOwner"] = false
 	if loggedIn && post.User.Id == user.Id {
 		this.Data["IsOwner"] = true
 	}
-	fmt.Println("macacoide")
+	//fmt.Println("macacoide")
 	mrk_title := "#### " + post.Title + ": "
 	mrk_subtitle := " *" + post.Subtitle + "*"
 	mrk_text := "---\n\n" + post.Text
@@ -50,7 +50,7 @@ func (this *PostController) GetPost() {
 	//mrk_NameIdTag := "" + post.User.NameIdTag
 	//mrk_Institution_Tag := "" + post.User.Institution_Tag
 
-	fmt.Println("macacoide")
+	//fmt.Println("macacoide")
 	mrk := mrk_title + mrk_subtitle + "\n\n" + mrk_text
 
 	unsafe := blackfriday.MarkdownCommon([]byte(mrk))
@@ -59,7 +59,7 @@ func (this *PostController) GetPost() {
 	this.Data["PostHTML"] = template.HTML(html)
 	this.Data["Post"] = post
 
-	fmt.Println("macacoide")
+	//fmt.Println("macacoide")
 	this.TplName = "post/post.html"
 	this.Data["HeadTitle"] = "Visualizar Anúncio"
 	this.Data["HeadStyles"] = []string{}
@@ -69,9 +69,9 @@ func (this *PostController) GetPost() {
 }
 
 func editPostAllowed(this *PostController) (models.Post, bool) {
-	fmt.Println("")
-	fmt.Println("edit allowed?")
-	fmt.Println("")
+	//fmt.Println("")
+	//fmt.Println("edit allowed?")
+	//fmt.Println("")
 	id64, _ := strconv.ParseUint(this.Ctx.Input.Param(":id"), 10, 32)
 	id := int(id64)
 	post, _ := models.GetPostById(id)
@@ -81,14 +81,14 @@ func editPostAllowed(this *PostController) (models.Post, bool) {
 	user, loggedIn := sess.Get("user").(models.User)
 	// not logged in
 	if !loggedIn {
-		fmt.Println("HUAHUAHAHA")
+		//fmt.Println("HUAHUAHAHA")
 		defer this.DestroySession()
 		this.Redirect("/", 302)
 		return post, false
 	}
 
 	if post.User.Id != user.Id {
-		fmt.Println("macaquice")
+		//fmt.Println("macaquice")
 		this.Redirect("/", 302)
 		return post, false
 	}
@@ -107,10 +107,10 @@ func (this *PostController) GetEdit() {
 	this.Data["Post"] = post
 	var tags string = ""
 	if len(post.Tags) <= 2 {
-		fmt.Println("nao have tags", len(post.Tags))
+		//fmt.Println("nao have tags", len(post.Tags))
 		this.Data["HaveTags"] = false
 	} else {
-		fmt.Println("sim have tags")
+		//fmt.Println("sim have tags")
 		this.Data["HaveTags"] = true
 		for i, t := range post.Tags {
 			if i <= 1 {
@@ -119,26 +119,14 @@ func (this *PostController) GetEdit() {
 			tags += t.Name + ","
 		}
 		tags = tags[:len(tags)-1]
-		fmt.Println("tags:", tags)
+		//fmt.Println("tags:", tags)
 		this.Data["Tags"] = tags
 	}
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
-	fmt.Println("--------------")
+	//fmt.Println("--------------")
 
-	fmt.Println("")
-	fmt.Println("vai seu macaco")
-	fmt.Println("")
+	//fmt.Println("")
+	//fmt.Println("vai seu macaco")
+	//fmt.Println("")
 	this.TplName = "post/edit.html"
 	this.Data["HeadTitle"] = "Configurações do post"
 	this.Data["HeadStyles"] = []string{"simplemde.min.css"}
@@ -163,12 +151,12 @@ func (this *PostController) PostEdit() {
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
-		fmt.Println(err)
+		//fmt.Println(err)
 		this.Ctx.Output.SetStatus(400)
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
 	}
-	fmt.Println(dado)
+	//fmt.Println(dado)
 
 	status := struct{ Status string }{""}
 
@@ -196,7 +184,7 @@ func (this *PostController) PostEdit() {
 	}
 	models.AppendTagsForPost(&post, tags)
 
-	fmt.Println("editado com sucesso")
+	//fmt.Println("editado com sucesso")
 
 	postId := post.Id
 
@@ -225,7 +213,7 @@ func (this *PostController) GetDelete() {
 
 	status := struct{ Status string }{""}
 
-	fmt.Println("removido com sucesso")
+	//fmt.Println("removido com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status
@@ -233,7 +221,7 @@ func (this *PostController) GetDelete() {
 }
 
 func (this *PostController) PostNew() {
-	fmt.Println("OLÁ!")
+	//fmt.Println("OLÁ!")
 	dado := struct {
 		Title       string
 		Subtitle    string
@@ -244,12 +232,12 @@ func (this *PostController) PostNew() {
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
-		fmt.Println(err)
+		//fmt.Println(err)
 		this.Ctx.Output.SetStatus(400)
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
 	}
-	fmt.Println(dado)
+	//fmt.Println(dado)
 
 	sess := this.StartSession()
 	user, loggedIn := sess.Get("user").(models.User)
@@ -261,7 +249,7 @@ func (this *PostController) PostNew() {
 	}
 
 	if user.User_Type != "poster" && user.IsAuthorized != true {
-		fmt.Println("macaquice")
+		//fmt.Println("macaquice")
 		this.Redirect("/", 302)
 		return
 	}
@@ -280,26 +268,26 @@ func (this *PostController) PostNew() {
 
 	postId, err_post := post.New()
 	if err_post != nil {
-		fmt.Println("macaquice")
+		//fmt.Println("macaquice")
 		this.Redirect("/", 302)
 	}
 
 	var tags []string
 	tags = append(tags, user.NameIdTag)
 	tags = append(tags, user.Institution_Tag)
-	fmt.Println("VAI ADD TAGS: >>>>>>>>>>>> ")
+	//fmt.Println("VAI ADD TAGS: >>>>>>>>>>>> ")
 	for i, t := range dado.Tags {
 		if i > 2 {
 			break
 		}
-		fmt.Println("tags sendo adicionadas: >>>>>>>>>>>> ", t)
+		//fmt.Println("tags sendo adicionadas: >>>>>>>>>>>> ", t)
 		if t != "" {
 			tags = append(tags, t)
 		}
 	}
 	models.AppendTagsForPost(&post, tags)
 
-	fmt.Println("criado com sucesso")
+	//fmt.Println("criado com sucesso")
 
 	//this.Redirect("/anuncio/" + strconv.Itoa(int(postId)), 302)
 
@@ -345,7 +333,7 @@ func (this *PostController) GetNew() {
 }
 
 func (this *PostController) GetSearch() {
-	fmt.Println("hueee hue br")
+	//fmt.Println("hueee hue br")
 	tags2 := this.Ctx.Input.Param(":search")
 	tags_str := strings.Split(tags2, ",")
 
@@ -392,13 +380,13 @@ func (this *PostController) GetSearch() {
 
 	_, posts, tags_all, _ := models.GetPostsByTags(tags_str)
 
-	fmt.Println("")
-	fmt.Println(".................")
-	for _, p := range posts {
-		fmt.Println(p.Title)
-	}
-	fmt.Println(".................")
-	fmt.Println("")
+	//fmt.Println("")
+	////fmt.Println(".................")
+	// for _, p := range posts {
+	// 	//fmt.Println(p.Title)
+	// }
+	//fmt.Println(".................")
+	//fmt.Println("")
 
 	var tags []models.Tag
 	count := 0
@@ -416,10 +404,10 @@ func (this *PostController) GetSearch() {
 		}
 	}
 
-	fmt.Println("~~~~~~~~~~~~~~~~~~")
-	for _, p := range posts {
-		fmt.Println(p.Title)
-	}
+	//fmt.Println("~~~~~~~~~~~~~~~~~~")
+	// for _, p := range posts {
+	// 	//fmt.Println(p.Title)
+	// }
 
 	type tag_url struct {
 		Name string
@@ -445,14 +433,14 @@ func (this *PostController) GetSearch() {
 
 func (this *PostController) PostPostImage() {
 
-	file, _, err := this.GetFile("datafile")
+	file, _, _ := this.GetFile("datafile")
 
 	if file != nil {
 		sess := this.StartSession()
 		sess.Set("postImage", file)
 		//sess.Set("userImageHeader", header)
 	} else {
-		fmt.Println(err)
+		//fmt.Println(err)
 
 	}
 

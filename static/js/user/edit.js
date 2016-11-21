@@ -11,20 +11,20 @@ var app = angular.module('itabirapp');
       var userId = reg.exec($window.location.toString())[1];
       $http.get("/usuario/" + userId + "/remover")
         .success(function(st) {
-        alert("success")
+        //alert("success")
         var res = st.Status;
         $scope.working = false;
         switch (res) {
           case "ok":
-            alert('ok')
+            //alert('ok')
             $window.location.href = '/';
           break;
           case "err_usuario_inexiste":
-            alert("err_usuario_inexiste");
+            //alert("err_usuario_inexiste");
 
           break;
           case "err_senha_invalida":
-            alert("err_senha_invalida");
+            //alert("err_senha_invalida");
           break;
         }
       });
@@ -35,19 +35,19 @@ var app = angular.module('itabirapp');
       var userId = reg.exec($window.location.toString())[1];
       $http.get("/usuario/" + userId + "/editar/instituicao/autorizacao")
         .success(function(st) {
-        alert("success")
+        //alert("success")
         var res = st.Status;
         $scope.working = false;
         switch (res) {
           case "ok":
-            alert('ok')
+            //alert('ok')
           break;
           case "err_usuario_inexiste":
-            alert("err_usuario_inexiste");
+            //alert("err_usuario_inexiste");
 
           break;
           case "err_senha_invalida":
-            alert("err_senha_invalida");
+            //alert("err_senha_invalida");
           break;
         }
       });
@@ -67,7 +67,7 @@ var app = angular.module('itabirapp');
         break;
         case "institution":
           d = this.institution;
-          alert("inst")
+          //alert("inst")
           this.institution.disabled = true;
           obj = {Description: d.Description};
           url = "/usuario/" + userId + "/editar/instituicao";
@@ -81,19 +81,19 @@ var app = angular.module('itabirapp');
         break;
       }
       $http.post(url, obj).success(function(st) {
-        alert("success")
+        //alert("success")
         var res = st.Status;
         $scope.working = false;
         switch (res) {
           case "ok":
-            alert('ok')
+            //alert('ok')
           break;
           case "err_usuario_inexiste":
-            alert("err_usuario_inexiste");
+            //alert("err_usuario_inexiste");
 
           break;
           case "err_senha_invalida":
-            alert("err_senha_invalida");
+            //alert("err_senha_invalida");
           break;
         }
       });
@@ -111,12 +111,12 @@ $(function() {
 });
 
 function imageUpload() {
-  alert("xamooou")
+  //alert("xamooou")
   var data = new FormData();
   $.each($('#imageUpload')[0].files, function(i, file) {
       data.append('datafile', file);
   });
-  alert("passou")
+  //alert("passou")
 
   $.ajax({
       url: '/imagem/usuario/adicionar',
@@ -126,8 +126,8 @@ function imageUpload() {
       processData: false,
       type: 'POST',
       success: function(data){
-        alert("aehooooooooo")
-          alert(data);
+        //alert("aehooooooooo")
+          //alert(data);
       }
   });
 

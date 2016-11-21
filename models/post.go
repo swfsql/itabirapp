@@ -2,7 +2,7 @@ package models
 
 import (
 	_ "errors"
-	"fmt"
+	_ "fmt"
 	//"reflect"
 	"github.com/astaxie/beego/orm"
 
@@ -25,8 +25,8 @@ func GetPostById(id int) (post Post, err error) {
 	qs := o.QueryTable("post")
 	err = qs.Filter("Id", id).RelatedSel().One(&post)
 	if len(post.Tags) <= 2 {
-		fmt.Println("nao have tags na função getpostbyid", len(post.Tags))
-		fmt.Println("titulo", post.Title)
+		//////fmt.Println("nao have tags na função getpostbyid", len(post.Tags))
+		//fmt.Println("titulo", post.Title)
 	}
 	if err == orm.ErrNoRows {
 		err = ErrNoRows
@@ -85,14 +85,14 @@ func (s *stack) Pop() string {
 func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 	result = false
 	var st stack
-	fmt.Println("!!!!!!!!!!!!!!!!!")
-	fmt.Println(post_tags)
-	fmt.Println(query_tags)
+	//fmt.Println("!!!!!!!!!!!!!!!!!")
+	//fmt.Println(post_tags)
+	//fmt.Println(query_tags)
 	for _, s := range query_tags {
-		fmt.Println("!")
+		//fmt.Println("!")
 
-		fmt.Println(post_tags)
-		fmt.Println(st)
+		//fmt.Println(post_tags)
+		//fmt.Println(st)
 		if s != "*" && s != "+" {
 			st.Push(s)
 		} else {
@@ -100,18 +100,18 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 			to_push := "("
 			for j := 0; j < 2; j++ {
 				s_pop := st.Pop()
-				fmt.Println(">", s_pop)
+				//fmt.Println(">", s_pop)
 				to_push += s_pop + s
-				fmt.Println("<", to_push)
+				//fmt.Println("<", to_push)
 				for _, s1 := range post_tags {
-					fmt.Println(":", s1)
+					//fmt.Println(":", s1)
 					if s1 == s_pop {
 						count++
 						break
 					}
 
 				}
-				fmt.Println("=", count)
+				//fmt.Println("=", count)
 
 			}
 			to_push = to_push[:len(to_push)-1]
@@ -121,13 +121,13 @@ func isPostValidByTags(post_tags []string, query_tags []string) (result bool) {
 				post_tags = append(post_tags, to_push)
 			}
 		}
-		fmt.Println(st)
+		//fmt.Println(st)
 	}
 
 	result = false
 	s_pop := st.Pop()
 	for _, s1 := range post_tags {
-		fmt.Println(">>>>>>>", s1)
+		//fmt.Println(">>>>>>>", s1)
 		if s1 == s_pop {
 			result = true
 			break
@@ -151,13 +151,13 @@ func GetPostsByTags(tags_str []string) (num int64, posts []Post, tags []Tag, err
 		Count uint
 	}
 
-	fmt.Println("")
-	fmt.Println(",,,,,,,,,")
-	for _, p := range posts_2 {
-		fmt.Println(p.Title)
-	}
-	fmt.Println(",,,,,,,,,,")
-	fmt.Println("")
+	//fmt.Println("")
+	//fmt.Println(",,,,,,,,,")
+	// for _, p := range posts_2 {
+	// 	//fmt.Println(p.Title)
+	// }
+	//fmt.Println(",,,,,,,,,,")
+	////////fmt.Println("")
 
 	var tags_c []tags_count
 
@@ -168,7 +168,7 @@ func GetPostsByTags(tags_str []string) (num int64, posts []Post, tags []Tag, err
 		}
 
 		if isPostValidByTags(tags2, tags_str) == true {
-			fmt.Println(":::novo post válido:::", p.Title)
+			//fmt.Println(":::novo post válido:::", p.Title)
 			posts = append(posts, *p)
 
 			// insere e ordena as tags deste post validado
@@ -177,17 +177,17 @@ func GetPostsByTags(tags_str []string) (num int64, posts []Post, tags []Tag, err
 				if i < 2 {
 					continue
 				}
-				fmt.Println("::nova tag válida::", t.Name)
+				//fmt.Println("::nova tag válida::", t.Name)
 				k := 0
 				for j, tc := range tags_c {
-					fmt.Println("j:", j)
+					//fmt.Println("j:", j)
 					k = j
 					if t.Name == tc.Tag.Name {
-						fmt.Println("primeiro if")
+						//fmt.Println("primeiro if")
 						tags_c[j].Count++
 						break
 					} else if j == len(tags_c)-1 {
-						fmt.Println("segundo if")
+						//fmt.Println("segundo if")
 						k++
 						break
 					}
@@ -203,11 +203,11 @@ func GetPostsByTags(tags_str []string) (num int64, posts []Post, tags []Tag, err
 						tags_c[j] = temp
 					}
 				}
-				fmt.Println(":tags:")
-				for _, t2 := range tags_c {
-					fmt.Println(t2.Tag.Name, t2.Count)
-				}
-				fmt.Println("::::::")
+				//fmt.Println(":tags:")
+				// for _, t2 := range tags_c {
+				// 	//fmt.Println(t2.Tag.Name, t2.Count)
+				// }
+				//fmt.Println("::::::")
 			}
 
 		}
@@ -228,13 +228,13 @@ func GetPostsByAnyTags(tags []string) (num int64, posts []*Post, err error) {
 	var posts_q []Post
 	o.QueryTable("post").Filter("Tags__Tag__Name__in", params...).RelatedSel().Distinct().OrderBy("-id").All(&posts_q)
 
-	fmt.Println("")
-	fmt.Println(";;;;;;;;;;;;")
-	for _, p := range posts_q {
-		fmt.Println(p.Title)
-	}
-	fmt.Println(";;;;;;;;;;;;")
-	fmt.Println("")
+	//fmt.Println("")
+	//fmt.Println(";;;;;;;;;;;;")
+	// for _, p := range posts_q {
+	// 	//fmt.Println(p.Title)
+	// }
+	//fmt.Println(";;;;;;;;;;;;")
+	//fmt.Println("")
 
 	for i, _ := range posts_q {
 		posts = append(posts, &posts_q[i])

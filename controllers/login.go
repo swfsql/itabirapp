@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
+	_ "fmt"
 
 	//"github.com/astaxie/beego/orm"
 	"github.com/swfsql/itabirapp/models"
@@ -27,7 +27,7 @@ func (this *LoginController) LoginPost() {
 
 	err := json.Unmarshal(this.Ctx.Input.RequestBody, &dado)
 	if err != nil {
-		fmt.Println(err)
+		//fmt.Println(err)
 		this.Ctx.Output.SetStatus(400)
 		this.Ctx.Output.Body([]byte("JSON invalido"))
 		return
@@ -53,7 +53,7 @@ func (this *LoginController) LoginPost() {
 	}
 
 	if dado.Password != user.Password {
-		fmt.Printf("%s nao bate com %s!\n", dado.Password, user.Password)
+		//fmt.Printf("%s nao bate com %s!\n", dado.Password, user.Password)
 		status.Status = st_err_password_invalida
 		this.Data["json"] = status
 		this.ServeJSON()
@@ -61,7 +61,7 @@ func (this *LoginController) LoginPost() {
 	}
 	sess := this.StartSession()
 	sess.Set("user", user)
-	fmt.Println("logado com sucesso")
+	//fmt.Println("logado com sucesso")
 
 	status.Status = st_ok
 	this.Data["json"] = status

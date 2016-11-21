@@ -51,3 +51,5 @@ func RemoveUserTagsForPost(post *Post) (num int64, err error) {
 
 	return
 }
+
+

@@ -4,7 +4,7 @@ import (
 	_ "errors"
 	"github.com/astaxie/beego/orm"
 	//"reflect"
-	"fmt"
+	_ "fmt"
 	"golang.org/x/text/transform"
 	"golang.org/x/text/unicode/norm"
 	"regexp"
@@ -86,10 +86,10 @@ func (this *User) genNameTag() {
 	nameTag2 := strings.ToLower(nameTag)              // E2 -> e2
 	this.NameTag = reg.ReplaceAllString(nameTag2, "") // e2 -> e
 	j, _ := CountNameTag(this.NameTag)
-	fmt.Println("Name tag: {}", this.NameTag)
-	fmt.Println("Contador J: {}", j)
+	//fmt.Println("Name tag: {}", this.NameTag)
+	//fmt.Println("Contador J: {}", j)
 	js := strconv.FormatInt(j, 10)
-	fmt.Println("Contador JS: {}", js)
+	//fmt.Println("Contador JS: {}", js)
 	this.NameIdTag = this.NameTag + "_" + js
 }
 func (this User) Update() (num int64, err error) {
@@ -124,7 +124,7 @@ func CountNameTag(nametag string) (quantity int64, err error) {
 func (this *User) New() (num int64, err error) {
 	o := orm.NewOrm()
 	this.genNameTag()
-	fmt.Println("tests do nametag", this.NameTag)
+	//fmt.Println("tests do nametag", this.NameTag)
 	num, err = o.Insert(this)
 
 	if err == orm.ErrNoRows {

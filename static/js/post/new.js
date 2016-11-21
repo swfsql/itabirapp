@@ -2,24 +2,24 @@ var app = angular.module('itabirapp');
     app.controller('PostNewCtrl', function($scope, $http, $window) {
 
 	    this.newPost = function (){
-		    alert("olocomeu")
+		    //alert("olocomeu")
 		    var obj, d;
 
 		    d = this.post;
 		    var tags = d.Tags.split(",")
 
-        alert("vai mandar")
-        alert(tags)
+        //alert("vai mandar")
+        //alert(tags)
 		    obj = {Title: d.Title, Subtitle: d.Subtitle, Description: d.Description, Tags: tags, Text: $window.simplemde.value()};
-        alert("mandou")
+        //alert("mandou")
 
 		    $http.post("/anuncio/criar", obj).success(function(st) {
-		        alert("success")
+		        //alert("success")
 		        var res = st.Status;
 		        $scope.working = false;
 		        switch (res) {
 		          case "ok":
-		            alert('ok ah vai mano')
+		            //alert('ok ah vai mano')
 		            $window.location.href = '/anuncio/' + st.PostId;
 		          break;
 		        }
@@ -65,7 +65,7 @@ function imageUpload() {
       processData: false,
       type: 'POST',
       success: function(data){
-          alert(data);
+          //alert(data);
       }
   });
 

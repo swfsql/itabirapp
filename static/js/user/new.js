@@ -5,7 +5,7 @@ var app = angular.module('itabirapp');
 	    this.address = {disabled: true};
 
 	    this.newUser = function (){
-		    alert("olocomeu")
+		    //alert("olocomeu")
 		    var obj, d;
 
 		    d = this.target;
@@ -20,12 +20,12 @@ var app = angular.module('itabirapp');
 		    };
 
 		    $http.post("/usuario/criar", obj).success(function(st) {
-		        alert("success")
+		        //alert("success")
 		        var res = st.Status;
 		        $scope.working = false;
 		        switch (res) {
 		          case "ok":
-		            alert('ok')
+		            //alert('ok')
 		            $window.location.href = '/';
 		          break;
 		        }
@@ -43,12 +43,12 @@ $(function() {
 });
 
 function imageUpload() {
-	alert("xamooou")
+	//alert("xamooou")
 	var data = new FormData();
 	$.each($('#imageUpload')[0].files, function(i, file) {
 	    data.append('datafile', file);
 	});
-	alert("passou")
+	//alert("passou")
 
 	$.ajax({
 	    url: '/imagem/usuario/adicionar',
@@ -58,8 +58,8 @@ function imageUpload() {
 	    processData: false,
 	    type: 'POST',
 	    success: function(data){
-	    	alert("aehooooooooo")
-	        alert(data);
+	    	//alert("aehooooooooo")
+	        //alert(data);
 	    }
 	});
 
